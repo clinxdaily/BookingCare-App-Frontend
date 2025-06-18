@@ -1,7 +1,7 @@
 import React from "react";
 import ReactDOM from "react-dom";
 import "react-toastify/dist/ReactToastify.css";
-import "./styles/styles.scss";
+import "./index.scss";
 
 import App from "./containers/App";
 import * as serviceWorker from "./serviceWorker";
@@ -17,7 +17,7 @@ const renderApp = () => {
         <App persistor={persistor} />
       </IntlProviderWrapper>
     </Provider>,
-    document.getElementById("root"),
+    document.getElementById("root")
   );
 };
 

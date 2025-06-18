@@ -1,0 +1,212 @@
+.section-specialty {
+  background: #ffffff;
+  padding: 50px 0;
+
+  .specialty-content {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+    position: relative;
+
+    // Header section
+    .section-header {
+      margin-bottom: 50px;
+      text-align: center;
+
+      .section-title {
+        position: relative;
+        display: inline-block;
+        margin: 0 0 20px 0;
+
+        h2 {
+          font-size: 28px;
+          font-weight: 700;
+          color: #333;
+          margin: 0;
+          padding: 0 40px;
+          text-transform: uppercase;
+          letter-spacing: 1px;
+          position: relative;
+
+          // Đường gạch ngang hai bên
+          &::before,
+          &::after {
+            content: "";
+            position: absolute;
+            top: 50%;
+            width: 80px;
+            height: 1px;
+            background: #655e5e;
+          }
+
+          &::before {
+            left: -100px;
+          }
+
+          &::after {
+            right: -100px;
+          }
+        }
+      }
+
+      .section-description {
+        max-width: 600px;
+        margin: 0 auto;
+        color: #666;
+        font-size: 16px;
+        line-height: 1.6;
+      }
+
+      .view-more {
+        color: #007bff;
+        text-decoration: none;
+        font-size: 18px;
+        font-weight: 500;
+        margin-top: 20px;
+        display: inline-block;
+
+        &:hover {
+          text-decoration: underline;
+        }
+      }
+    }
+
+    // Slider customization
+    .slick-slider {
+      .slick-list {
+        padding: 0 10px;
+        overflow: hidden;
+      }
+
+      .slick-track {
+        display: flex;
+        align-items: stretch;
+      }
+
+      .slick-slide {
+        padding: 0 10px;
+
+        > div {
+          height: 100%;
+        }
+      }
+
+      // Navigation arrows
+      .slick-arrow {
+        position: absolute;
+        top: 50%;
+        transform: translateY(-50%);
+        z-index: 10;
+        width: 40px;
+        height: 40px;
+        background: rgba(255, 255, 255, 0.9);
+        border: 1px solid #ddd;
+        border-radius: 50%;
+        display: flex !important;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+        transition: all 0.3s ease;
+
+        &:before {
+          font-size: 16px;
+          color: #666;
+        }
+
+        &:hover {
+          background: white;
+          box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        &.slick-prev {
+          left: -20px;
+        }
+
+        &.slick-next {
+          right: -20px;
+        }
+      }
+    }
+
+    // Specialty card styles
+    .img-customize {
+      background: white;
+      border-radius: 8px;
+      overflow: hidden;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+      transition: all 0.3s ease;
+      cursor: pointer;
+      height: 200px;
+      display: flex;
+      flex-direction: column;
+
+      &:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 4px 16px rgba(0, 0, 0, 0.15);
+      }
+
+      .specialty-image {
+        width: 100%;
+        height: 140px;
+        background-size: cover;
+        background-position: center;
+        background-repeat: no-repeat;
+        position: relative;
+
+        // Default background colors for demonstration
+        &.specialty-1 {
+          background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        }
+        &.specialty-2 {
+          background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+        }
+        &.specialty-3 {
+          background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+        }
+        &.specialty-4 {
+          background: linear-gradient(135deg, #43e97b 0%, #38f9d7 100%);
+        }
+        &.specialty-5 {
+          background: linear-gradient(135deg, #fa709a 0%, #fee140 100%);
+        }
+        &.specialty-6 {
+          background: linear-gradient(135deg, #a8edea 0%, #fed6e3 100%);
+        }
+
+        // Overlay for better text readability
+        &::after {
+          content: "";
+          position: absolute;
+          top: 0;
+          left: 0;
+          right: 0;
+          bottom: 0;
+          background: rgba(0, 0, 0, 0.3);
+        }
+
+        img {
+          width: 100%;
+          height: 100%;
+          object-fit: contain;
+        }
+      }
+
+      .specialty-info {
+        padding: 15px;
+        flex: 1;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        h3 {
+          margin: 0;
+          font-size: 16px;
+          font-weight: 600;
+          color: #333;
+          text-align: center;
+          line-height: 1.3;
+        }
+      }
+    }
+  }
+}

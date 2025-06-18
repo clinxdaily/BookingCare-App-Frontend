@@ -17,6 +17,7 @@ const messages = LanguageUtils.getFlattenedMessages();
 class IntlProviderWrapper extends Component {
   render() {
     const { children, language } = this.props;
+
     return (
       <IntlProvider
         locale={language}

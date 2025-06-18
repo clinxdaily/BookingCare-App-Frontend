@@ -4,92 +4,418 @@
   display: flex;
   margin: 0;
   padding: 0;
+
   &.list-unstyled,
   .list-unstyled {
     list-style-type: none;
   }
+
   .menu-group {
+    position: relative;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+
+    &:first-child .menu-group-name {
+      border-left: 1px solid rgba($border, 0.3);
+      border-top-left-radius: 6px;
+      border-bottom-left-radius: 6px;
+    }
+
+    &:last-child .menu-group-name {
+      border-top-right-radius: 6px;
+      border-bottom-right-radius: 6px;
+    }
+
     &:hover {
       cursor: pointer;
-      background-color: darken($colormain, 5);
+      background: linear-gradient(
+        135deg,
+        darken($colormain, 3%) 0%,
+        darken($colormain, 8%) 100%
+      );
+      transform: translateY(-1px);
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+      z-index: 10;
     }
+
+    &:active {
+      transform: translateY(0px) scale(0.98);
+    }
+
     .menu-group-name {
-      line-height: 40px;
-      padding: 0 15px;
-      border-right: 1px solid $border;
-      &:first-child {
-        border-left: 1px solid $border;
+      line-height: 60px; // Match với header height
+      padding: 0 20px;
+      border-right: 1px solid rgba($border, 0.3);
+      font-weight: 500;
+      font-size: 14px;
+      letter-spacing: 0.3px;
+      text-transform: uppercase;
+      position: relative;
+      transition: all 0.3s ease;
+
+      // Subtle gradient overlay
+      &::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: linear-gradient(
+          180deg,
+          rgba(255, 255, 255, 0.1) 0%,
+          rgba(255, 255, 255, 0.05) 50%,
+          rgba(255, 255, 255, 0) 100%
+        );
+        pointer-events: none;
+        opacity: 0;
+        transition: opacity 0.3s ease;
+      }
+
+      &:hover::before {
+        opacity: 1;
       }
     }
+
     .menu-list {
       display: none;
-      background-color: $bg-menu-color;
-      box-shadow: 2px 2px 4px 0 $box-shadow-color;
-      -webkit-box-shadow: 2px 2px 4px 0 $box-shadow-color;
+      background: rgba($bg-menu-color, 0.98);
+      backdrop-filter: blur(12px);
+      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.15);
+      border-radius: 12px;
       color: $text-in-light;
       position: absolute;
-      padding: 0;
+      top: 100%;
+      left: 0;
+      padding: 8px 0;
+      margin-top: 4px;
+      min-width: 220px;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      animation: slideDown 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      z-index: 1000;
+
+      // Tạo "safe zone" để chuột có thể di chuyển dễ dàng
+      &::after {
+        content: "";
+        position: absolute;
+        top: -8px;
+        left: 0;
+        right: 0;
+        height: 8px;
+        background: transparent;
+      }
+
+      // Arrow pointing up
+      &::before {
+        content: "";
+        position: absolute;
+        top: -6px;
+        left: 20px;
+        width: 12px;
+        height: 12px;
+        background: rgba($bg-menu-color, 0.98);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        border-bottom: none;
+        border-right: none;
+        transform: rotate(45deg);
+        border-radius: 2px 0 0 0;
+      }
+
       .menu {
-        width: 205px;
-        padding: 0 15px;
-        height: 35px;
-        line-height: 35px;
-        text-transform: none;
+        width: 100%;
+        padding: 0;
+        height: auto;
+        position: relative;
+        border-radius: 8px;
+        margin: 2px 8px;
+        width: calc(100% - 16px);
+        transition: all 0.2s ease;
+
         .menu-link {
           text-decoration: none;
           color: $text-in-light;
+          display: block;
+          padding: 12px 16px;
+          font-size: 13px;
+          font-weight: 500;
+          letter-spacing: 0.2px;
+          border-radius: 8px;
+          transition: all 0.2s ease;
         }
+
         .sub-menu-list {
           display: none;
-          background-color: $bg-menu-color;
-          box-shadow: 2px 2px 4px 0 $box-shadow-color;
-          -webkit-box-shadow: 2px 2px 4px 0 $box-shadow-color;
+          background: rgba($bg-menu-color, 0.98);
+          backdrop-filter: blur(12px);
+          box-shadow: 0 8px 32px rgba(0, 0, 0, 0.15);
+          border-radius: 12px;
           position: absolute;
           top: 0;
-          left: 205px;
-          padding: 0;
+          left: calc(100% + 8px);
+          padding: 8px 0;
+          z-index: 1001;
+          min-width: 200px;
+          border: 1px solid rgba(255, 255, 255, 0.1);
+          animation: slideRight 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+
+          // Safe zone cho submenu
+          &::after {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: -8px;
+            width: 8px;
+            height: 100%;
+            background: transparent;
+          }
+
+          // Arrow pointing left
+          &::before {
+            content: "";
+            position: absolute;
+            top: 12px;
+            left: -6px;
+            width: 12px;
+            height: 12px;
+            background: rgba($bg-menu-color, 0.98);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-top: none;
+            border-right: none;
+            transform: rotate(45deg);
+            border-radius: 0 0 0 2px;
+          }
+
           .sub-menu {
-            padding: 0 15px;
-            height: 35px;
-            line-height: 35px;
-            white-space: nowrap;
+            padding: 0;
+            height: auto;
+            margin: 2px 8px;
+            border-radius: 8px;
+            transition: all 0.2s ease;
+
             &:hover {
-              background-color: darken($bg-menu-color, 5);
+              background: linear-gradient(
+                135deg,
+                darken($bg-menu-color, 3%) 0%,
+                darken($bg-menu-color, 8%) 100%
+              );
             }
+
+            &:active {
+              transform: scale(0.98);
+            }
+
             .sub-menu-link {
               text-decoration: none;
               color: $text-in-light;
+              display: block;
+              padding: 10px 16px;
+              font-size: 13px;
+              border-radius: 8px;
+              transition: all 0.2s ease;
+              position: relative;
+
+              &:hover {
+                color: lighten($text-in-light, 10%);
+              }
             }
+
             a {
               display: block;
             }
-            &.active a {
-              font-weight: 500;
-              color: $colormain;
+
+            &.active {
+              background: linear-gradient(
+                135deg,
+                rgba($colormain, 0.15) 0%,
+                rgba($colormain, 0.25) 100%
+              );
+
+              a {
+                font-weight: 600;
+                color: $colormain;
+
+                &::before {
+                  content: "";
+                  position: absolute;
+                  left: 8px;
+                  top: 50%;
+                  transform: translateY(-50%);
+                  width: 3px;
+                  height: 16px;
+                  background: $colormain;
+                  border-radius: 2px;
+                }
+              }
             }
           }
         }
-        &.active span {
-          font-weight: 500;
-          color: $colormain;
-        }
-        &:hover {
-          background-color: darken($bg-menu-color, 3);
-          .sub-menu-list {
-            display: block;
+
+        &.active {
+          background: linear-gradient(
+            135deg,
+            rgba($colormain, 0.15) 0%,
+            rgba($colormain, 0.25) 100%
+          );
+
+          span {
+            font-weight: 600;
+            color: $colormain;
+            position: relative;
+
+            &::before {
+              content: "";
+              position: absolute;
+              left: -8px;
+              top: 50%;
+              transform: translateY(-50%);
+              width: 3px;
+              height: 16px;
+              background: $colormain;
+              border-radius: 2px;
+            }
           }
         }
+
+        &:hover {
+          background: linear-gradient(
+            135deg,
+            darken($bg-menu-color, 2%) 0%,
+            darken($bg-menu-color, 6%) 100%
+          );
+          transform: translateX(2px);
+
+          .menu-link {
+            color: lighten($text-in-light, 10%);
+          }
+
+          .sub-menu-list {
+            display: block;
+            animation-delay: 0s;
+          }
+        }
+
+        // Delay cho submenu khi hover out
+        &:not(:hover) {
+          .sub-menu-list {
+            animation: slideLeft 0.2s ease-in-out 0.2s forwards;
+          }
+        }
+
+        &:active {
+          transform: translateX(2px) scale(0.98);
+        }
+
         .icon-right {
-          display: block;
+          display: flex;
+          align-items: center;
+          justify-content: center;
           position: absolute;
-          top: 0;
-          right: 10px;
+          top: 50%;
+          right: 12px;
+          transform: translateY(-50%);
+          width: 20px;
+          height: 20px;
+          font-size: 12px;
+          transition: all 0.2s ease;
+          opacity: 0.7;
+
+          &::before {
+            content: "▶";
+            transform: rotate(0deg);
+            transition: transform 0.2s ease;
+          }
+        }
+
+        &:hover .icon-right {
+          opacity: 1;
+
+          &::before {
+            transform: rotate(90deg);
+          }
         }
       }
     }
-    &:hover {
+
+    &:hover,
+    &:focus-within {
       .menu-list {
         display: block;
+        animation-delay: 0s;
+      }
+    }
+
+    // Delay khi hover out để tránh biến mất đột ngột
+    &:not(:hover):not(:focus-within) {
+      .menu-list {
+        animation: slideUp 0.2s ease-in-out 0.3s forwards;
+      }
+    }
+  }
+}
+
+// Animations
+@keyframes slideDown {
+  from {
+    opacity: 0;
+    transform: translateY(-8px);
+    visibility: hidden;
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+    visibility: visible;
+  }
+}
+
+@keyframes slideRight {
+  from {
+    opacity: 0;
+    transform: translateX(-8px);
+    visibility: hidden;
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+    visibility: visible;
+  }
+}
+
+@keyframes slideUp {
+  from {
+    opacity: 1;
+    transform: translateY(0);
+    visibility: visible;
+  }
+  to {
+    opacity: 0;
+    transform: translateY(-8px);
+    visibility: hidden;
+  }
+}
+
+@keyframes slideLeft {
+  from {
+    opacity: 1;
+    transform: translateX(0);
+    visibility: visible;
+  }
+  to {
+    opacity: 0;
+    transform: translateX(-8px);
+    visibility: hidden;
+  }
+}
+
+// Focus states for accessibility
+.navigator-menu {
+  .menu-group {
+    .menu-list {
+      .menu {
+        .menu-link:focus,
+        .sub-menu-list .sub-menu .sub-menu-link:focus {
+          outline: 2px solid $colormain;
+          outline-offset: 2px;
+          background: rgba($colormain, 0.1);
+        }
       }
     }
   }

@@ -1,0 +1,90 @@
+.section-media-coverage {
+  padding: 40px 20px;
+  text-align: center;
+  background-color: #f9fafc;
+
+  .section-header {
+    margin-bottom: 50px;
+    text-align: center;
+
+    .section-title {
+      position: relative;
+      display: inline-block;
+      margin: 0 0 20px 0;
+
+      h2 {
+        font-size: 28px;
+        font-weight: 700;
+        color: #333;
+        margin: 0;
+        padding: 0 30px;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        position: relative;
+
+        // Đường gạch ngang hai bên
+        &::before,
+        &::after {
+          content: "";
+          position: absolute;
+          top: 50%;
+          width: 60px;
+          height: 1px;
+          background: #655e5e;
+        }
+
+        &::before {
+          left: -80px;
+        }
+
+        &::after {
+          right: -80px;
+        }
+      }
+    }
+
+    .section-description {
+      max-width: 600px;
+      margin: 0 auto;
+      color: #666;
+      font-size: 16px;
+      line-height: 1.6;
+    }
+  }
+
+  .description {
+    font-size: 16px;
+    color: #777;
+    margin-bottom: 30px;
+  }
+
+  .logo-list {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 25px;
+    margin-bottom: 40px;
+
+    img {
+      height: 40px;
+      object-fit: contain;
+    }
+  }
+
+  .video-wrapper {
+    max-width: 800px;
+    margin: 0 auto;
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+
+    iframe {
+      width: 100%;
+      height: 400px;
+
+      @media (max-width: 768px) {
+        height: 250px;
+      }
+    }
+  }
+}

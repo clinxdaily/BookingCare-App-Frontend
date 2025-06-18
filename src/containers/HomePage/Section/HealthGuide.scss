@@ -1,0 +1,316 @@
+.section-health-guide {
+  background: #b4d6f8;
+  padding: 60px 0;
+
+  .health-guide-content {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+    position: relative;
+
+    // Header section
+    .section-header {
+      margin-bottom: 50px;
+      text-align: center;
+
+      .section-title {
+        position: relative;
+        display: inline-block;
+        margin: 0 0 20px 0;
+
+        h2 {
+          font-size: 28px;
+          font-weight: 700;
+          color: #333;
+          margin: 0;
+          padding: 0 40px;
+          text-transform: uppercase;
+          letter-spacing: 1px;
+          position: relative;
+
+          // Đường gạch ngang hai bên
+          &::before,
+          &::after {
+            content: "";
+            position: absolute;
+            top: 50%;
+            width: 80px;
+            height: 1px;
+            background: #655e5e;
+          }
+
+          &::before {
+            left: -100px;
+          }
+
+          &::after {
+            right: -100px;
+          }
+        }
+      }
+
+      .section-description {
+        max-width: 600px;
+        margin: 0 auto;
+        color: #666;
+        font-size: 16px;
+        line-height: 1.6;
+      }
+
+      .view-more {
+        color: #007bff;
+        text-decoration: none;
+        font-size: 18px;
+        font-weight: 500;
+        margin-top: 20px;
+        display: inline-block;
+
+        &:hover {
+          text-decoration: underline;
+        }
+      }
+    }
+
+    // Slider customization
+    .slick-slider {
+      .slick-list {
+        padding: 0 10px;
+        overflow: hidden;
+      }
+
+      .slick-track {
+        display: flex;
+        align-items: stretch;
+      }
+
+      .slick-slide {
+        padding: 0 10px;
+
+        > div {
+          height: 100%;
+        }
+      }
+
+      // Navigation arrows
+      .slick-arrow {
+        position: absolute;
+        top: 50%;
+        transform: translateY(-50%);
+        z-index: 10;
+        width: 40px;
+        height: 40px;
+        background: rgba(255, 255, 255, 0.9);
+        border: 1px solid #ddd;
+        border-radius: 50%;
+        display: flex !important;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+        transition: all 0.3s ease;
+
+        &:before {
+          font-size: 16px;
+          color: #666;
+        }
+
+        &:hover {
+          background: white;
+          box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        &.slick-prev {
+          left: -20px;
+        }
+
+        &.slick-next {
+          right: -20px;
+        }
+      }
+    }
+
+    // Health Guide card styles
+    .guide-customize {
+      .guide-card {
+        background: white;
+        border-radius: 12px;
+        overflow: hidden;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        transition: all 0.3s ease;
+        cursor: pointer;
+        height: 420px;
+        display: flex;
+        flex-direction: column;
+
+        &:hover {
+          transform: translateY(-8px);
+          box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+        }
+
+        .guide-image {
+          width: 100%;
+          height: 200px;
+          position: relative;
+          overflow: hidden;
+
+          img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.3s ease;
+          }
+
+          &:hover img {
+            transform: scale(1.05);
+          }
+
+          // Category tag
+          .category-tag {
+            position: absolute;
+            top: 12px;
+            left: 12px;
+            background: rgba(0, 123, 255, 0.9);
+            color: white;
+            padding: 4px 12px;
+            border-radius: 15px;
+            font-size: 12px;
+            font-weight: 500;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+          }
+
+          // Default gradient backgrounds if no image
+          &.guide-1 {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+          }
+          &.guide-2 {
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+          }
+          &.guide-3 {
+            background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+          }
+          &.guide-4 {
+            background: linear-gradient(135deg, #43e97b 0%, #38f9d7 100%);
+          }
+          &.guide-5 {
+            background: linear-gradient(135deg, #fa709a 0%, #fee140 100%);
+          }
+          &.guide-6 {
+            background: linear-gradient(135deg, #a8edea 0%, #fed6e3 100%);
+          }
+        }
+
+        .guide-info {
+          padding: 20px;
+          flex: 1;
+          display: flex;
+          flex-direction: column;
+
+          .guide-title {
+            margin: 0 0 12px 0;
+            font-size: 16px;
+            font-weight: 600;
+            color: #333;
+            line-height: 1.4;
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            min-height: 44px;
+          }
+
+          .guide-excerpt {
+            margin: 0 0 auto 0;
+            font-size: 14px;
+            color: #666;
+            line-height: 1.5;
+            display: -webkit-box;
+            -webkit-line-clamp: 3;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            flex: 1;
+          }
+
+          .guide-meta {
+            margin-top: 15px;
+            padding-top: 15px;
+            border-top: 1px solid #eee;
+            font-size: 12px;
+            color: #888;
+
+            .guide-date {
+              font-weight: 500;
+            }
+
+            .guide-author {
+              font-style: italic;
+            }
+          }
+        }
+      }
+    }
+  }
+
+  // Responsive adjustments
+  @media (max-width: 768px) {
+    padding: 40px 0;
+
+    .health-guide-content {
+      .section-header {
+        .section-title h2 {
+          font-size: 24px;
+          padding: 0 20px;
+
+          &::before,
+          &::after {
+            width: 40px;
+          }
+
+          &::before {
+            left: -50px;
+          }
+
+          &::after {
+            right: -50px;
+          }
+        }
+      }
+
+      .guide-customize .guide-card {
+        height: 380px;
+
+        .guide-info {
+          padding: 16px;
+
+          .guide-title {
+            font-size: 15px;
+          }
+
+          .guide-excerpt {
+            font-size: 13px;
+          }
+        }
+      }
+    }
+  }
+
+  @media (max-width: 480px) {
+    .health-guide-content {
+      .section-header {
+        .section-title h2 {
+          font-size: 20px;
+
+          &::before,
+          &::after {
+            display: none;
+          }
+        }
+      }
+
+      .guide-customize .guide-card {
+        height: 360px;
+      }
+    }
+  }
+}

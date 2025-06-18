@@ -1,0 +1,39 @@
+.modal-user-container .modal-content {
+  border-radius: 12px;
+  box-shadow: 0 12px 25px rgba(0, 0, 0, 0.15);
+  border: none;
+}
+
+.modal-user-container .modal-header {
+  background: linear-gradient(135deg, #4e54c8, #8f94fb);
+  color: white;
+  border-bottom: none;
+  font-weight: bold;
+  font-size: 1.25rem;
+}
+
+.modal-user-container .modal-body {
+  padding: 24px;
+}
+
+.modal-user-container .modal-footer {
+  border-top: none;
+}
+
+.input-container {
+  margin-bottom: 15px;
+}
+
+.input-container input {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  transition: all 0.3s;
+}
+
+.input-container input:focus {
+  border-color: #4e54c8;
+  outline: none;
+  box-shadow: 0 0 4px rgba(78, 84, 200, 0.5);
+}

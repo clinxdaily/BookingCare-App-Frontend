@@ -22,14 +22,15 @@ class Login extends Component {
       username: event.target.value,
     });
   };
+  
   handelOnChangePassword = (event) => {
     this.setState({
       password: event.target.value,
     });
   };
+  
   handleLogin = async () => {
     this.setState({
-      //clear ma loi
       errMessage: "",
     });
     try {
@@ -46,51 +47,60 @@ class Login extends Component {
     } catch (error) {
       if (error.response && error.response.data) {
         this.setState({
-          //clear ma loi
           errMessage: error.response.data.message,
         });
       }
       console.log("error: ", error.message);
     }
   };
+  
   handleShowHidePassword = () => {
     this.setState({
       isShowPassword: !this.state.isShowPassword,
     });
   };
+  
   render() {
     return (
       <div className="login-background">
         <div className="login-container">
-          <div className="login-content row">
-            <div className="col-12 text-login">Login</div>
-            <div className="col-12 form-group login-input">
-              <label>Username: </label>
-              <input
-                type="text"
-                className="form-control"
-                placeholder="Enter your username"
-                value={this.state.username}
-                onChange={(event) => {
-                  this.handelOnChangeUsername(event);
-                }}
-              ></input>
+          <div className="login-content">
+            <div className="login-header">
+              <h2>Welcome Back</h2>
+              <p>Sign in to your account</p>
             </div>
-            <div className="col-12 form-group login-input ">
-              <label>Password: </label>
-              <div className="custom-input-password">
+            
+            <div className="form-group">
+              <label>Username</label>
+              <div className="input-container">
+                <i className="fas fa-user"></i>
+                <input
+                  type="text"
+                  placeholder="Enter your username"
+                  value={this.state.username}
+                  onChange={(event) => {
+                    this.handelOnChangeUsername(event);
+                  }}
+                />
+              </div>
+            </div>
+            
+            <div className="form-group">
+              <label>Password</label>
+              <div className="input-container password-container">
+                <i className="fas fa-lock"></i>
                 <input
                   type={this.state.isShowPassword ? "text" : "password"}
-                  className="form-control"
                   placeholder="Enter your password"
                   onChange={(event) => {
                     this.handelOnChangePassword(event);
                   }}
-                ></input>
+                />
                 <span
                   onClick={() => {
                     this.handleShowHidePassword();
                   }}
+                  className="toggle-password"
                 >
                   <i
                     className={
@@ -102,28 +112,39 @@ class Login extends Component {
                 </span>
               </div>
             </div>
-            <div className="col-12 " style={{ color: "red" }}>
-              {this.state.errMessage}
+            
+            {this.state.errMessage && (
+              <div className="error-message">{this.state.errMessage}</div>
+            )}
+            
+            <button
+              className="btn-login"
+              onClick={() => {
+                this.handleLogin();
+              }}
+            >
+              <i className="fas fa-sign-in-alt"></i>
+              <span>Sign In</span>
+            </button>
+            
+            <div className="login-options">
+              <span className="forgot-password">Forgot your password?</span>
+              <span className="create-account">Create account</span>
             </div>
-            <div className="col-12">
-              <button
-                className="btn-login"
-                onClick={() => {
-                  this.handleLogin();
-                }}
-              >
-                Login
-              </button>
+            
+            <div className="divider">
+              <span>Or continue with</span>
             </div>
-            <div className="col-12">
-              <span className="forgot-password">Forgot your password ?</span>
-            </div>
-            <div className="col-12 text-center mt-3">
-              <span className="text-orther-login">Or login with:</span>
-            </div>
-            <div className="col-12 social-login">
-              <i className="fab fa-google-plus-g google"></i>
-              <i className="fab fa-facebook-f facebook"></i>
+            
+            <div className="social-login">
+              <div className="social-btn google">
+                <i className="fab fa-google"></i>
+                <span>Google</span>
+              </div>
+              <div className="social-btn facebook">
+                <i className="fab fa-facebook-f"></i>
+                <span>Facebook</span>
+              </div>
             </div>
           </div>
         </div>
@@ -141,7 +162,6 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => {
   return {
     navigate: (path) => dispatch(push(path)),
-    //userLoginFail: () => dispatch(actions.adminLoginFail()),
     userLoginSuccess: (userInfo) =>
       dispatch(actions.userLoginSuccess(userInfo)),
   };

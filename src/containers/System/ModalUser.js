@@ -3,7 +3,9 @@ import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from "reactstrap";
 import React, { Component } from "react";
 import { FormattedMessage } from "react-intl";
 import { connect } from "react-redux";
-import {emitter} from "../../utils/emitter";
+import { emitter } from "../../utils/emitter";
+import "bootstrap/dist/css/bootstrap.min.css";
+import "./ModalUser.scss";
 class ModalUser extends Component {
   constructor(props) {
     super(props);
@@ -38,7 +40,7 @@ class ModalUser extends Component {
 
   handleOnChangeInput = (event, id) => {
     let copyState = { ...this.state };
-    copyState[id]= event.target.value;
+    copyState[id] = event.target.value;
     this.setState({
       ...copyState,
     });
@@ -54,15 +56,14 @@ class ModalUser extends Component {
       }
     }
     return isValid;
-  }
-  handleAddNewUser = () =>{
-    let isValid= this.checkValidInput();
-    if(isValid===true){
-        this.props.createNewUser(this.state);
+  };
+  handleAddNewUser = () => {
+    let isValid = this.checkValidInput();
+    if (isValid === true) {
+      this.props.createNewUser(this.state);
     }
-  }
+  };
   render() {
-    
     return (
       <Modal
         isOpen={this.props.isOpen}

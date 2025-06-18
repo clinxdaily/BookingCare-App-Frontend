@@ -200,7 +200,7 @@ class Navigator extends Component {
                           this.isMenuHasSubMenuActive(
                             location,
                             menu.subMenus,
-                            menu.link,
+                            menu.link
                           );
                         const isSubMenuOpen =
                           this.state.expandedMenu[
@@ -250,5 +250,5 @@ const mapDispatchToProps = (dispatch) => {
 };
 
 export default withRouterInnerRef(
-  connect(mapStateToProps, mapDispatchToProps)(Navigator),
+  connect(mapStateToProps, mapDispatchToProps)(Navigator)
 );
