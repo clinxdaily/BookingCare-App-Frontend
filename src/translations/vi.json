@@ -41,6 +41,7 @@
   },
   "manage-user": {
     "add": "Thêm mới người dùng",
+    "edit": "Lưu thay đổi",
     "email": "Email",
     "password": "Mật khẩu",
     "first-name": "Tên",
