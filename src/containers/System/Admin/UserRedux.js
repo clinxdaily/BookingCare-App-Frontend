@@ -4,7 +4,7 @@ import { connect } from "react-redux";
 import Lightbox from "react-image-lightbox";
 import "react-image-lightbox/style.css";
 import "./UserRedux.scss";
-import { LANGUAGES, CRUD_Actions } from "../../../utils";
+import { LANGUAGES, CRUD_Actions, CommonUtils } from "../../../utils";
 import * as actions from "../../../store/actions";
 import TableManageUser from "./TableManageUser";
 
@@ -76,11 +76,13 @@ class UserRedux extends Component {
     }
   }
 
-  handleOnchangeImg = (e) => {
+  handleOnchangeImg = async (e) => {
     const file = e.target.files[0];
     if (file) {
+      let base64 = await CommonUtils.getBase64(file);
+      console.log("check base64: ", base64);
       const objectUrl = URL.createObjectURL(file);
-      this.setState({ previewImgURL: objectUrl, image: file });
+      this.setState({ previewImgURL: objectUrl, image: base64 });
     }
   };
 
@@ -120,6 +122,7 @@ class UserRedux extends Component {
         gender: this.state.gender,
         positionId: this.state.position,
         roleId: this.state.role,
+        image: this.state.image,
       });
     }
     if (actions === CRUD_Actions.EDIT) {
@@ -134,12 +137,15 @@ class UserRedux extends Component {
         gender: this.state.gender,
         positionId: this.state.position,
         roleId: this.state.role,
-        // image: "",
+        image: this.state.image,
       });
     }
   };
   handleEditUserFromParent = (user) => {
-    console.log("check child edit user from parents", user);
+    let imageBase64 = "";
+    if (user.image) {
+      imageBase64 = new Buffer(user.image, "base64").toString("binary");
+    }
     this.setState({
       email: user.email,
       password: "hashed_password",
@@ -151,12 +157,31 @@ class UserRedux extends Component {
       position: user.positionId,
       role: user.roleId,
       image: "",
-      previewImgURL: "",
+      previewImgURL: imageBase64,
       actions: CRUD_Actions.EDIT,
       userEditId: user.id,
+      isShowForm: true, // Mở form khi chỉnh sửa
     });
   };
-
+  resetFormState = () => {
+    this.setState({
+      email: "",
+      password: "",
+      firstName: "",
+      lastName: "",
+      address: "",
+      phonenumber: "",
+      gender: "",
+      position: "",
+      role: "",
+      image: "",
+      previewImgURL: "",
+      actions: "",
+      userEditId: "",
+      errorMessage: "",
+      isShowForm: false, // Đảm bảo modal bị đóng
+    });
+  };
   render() {
     const {
       genderArr,
@@ -192,15 +217,26 @@ class UserRedux extends Component {
         <div className="text-center mb-3">
           <button
             className="btn btn-primary"
-            onClick={() => this.setState({ isShowForm: !isShowForm })}
+            onClick={() => {
+              if (!isShowForm) {
+                this.resetFormState(); // Reset dữ liệu khi mở modal
+              }
+              this.setState({ isShowForm: !isShowForm }); // Thay đổi trạng thái hiển thị modal
+            }}
+            // onClick={() => this.setState({ isShowForm: !isShowForm })}
           >
-            <i className={isShowForm ? "fas fa-times" : "fas fa-plus"}></i>{" "}
-            {isShowForm ? "Đóng form" : " Add new users"}
+            <i className="fas fa-plus"></i>Add new users
           </button>
         </div>
 
         {isShowForm && (
           <form className="user-form" onSubmit={(e) => e.preventDefault()}>
+            <button
+              className="close-btn"
+              onClick={() => this.setState({ isShowForm: false })}
+            >
+              &times;
+            </button>
             <div className="form-row">
               <div className="form-field">
                 <label>
@@ -332,7 +368,9 @@ class UserRedux extends Component {
                   {previewImgURL ? (
                     <div
                       className="preview-img clickable"
-                      style={{ backgroundImage: `url(${previewImgURL})` }}
+                      style={{
+                        backgroundImage: `url(${this.state.previewImgURL})`,
+                      }}
                       onClick={() => this.setState({ isOpen: true })}
                     />
                   ) : (
