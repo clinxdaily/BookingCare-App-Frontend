@@ -1,3 +1,9 @@
+$primary: #3498db;
+$secondary: #2ecc71;
+$danger: #e74c3c;
+$warning: #f39c12;
+$radius: 8px;
+$shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
 .user-redux-container {
   padding: 30px;
   background-color: #f5f7fa;
@@ -5,10 +11,43 @@
   color: #333;
 
   .title {
-    text-align: center;
-    margin-bottom: 25px;
     font-size: 24px;
     font-weight: 600;
+    text-align: center;
+    margin-bottom: 20px;
+    color: #333;
+    position: relative;
+
+    &:after {
+      content: "";
+      width: 80px;
+      height: 3px;
+      background: $primary;
+      position: absolute;
+      bottom: -10px;
+      left: 50%;
+      transform: translateX(-50%);
+      border-radius: 2px;
+    }
+  }
+  .btn-primary {
+    background: $primary;
+    border: none;
+    padding: 8px 15px;
+    border-radius: $radius;
+    box-shadow: $shadow;
+    transition: all 0.3s;
+    color: white;
+    text-align: center;
+
+    &:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+    }
+
+    i {
+      margin-right: 5px;
+    }
   }
 
   .loading-gender {
@@ -42,6 +81,7 @@
     padding: 30px;
     border-radius: 10px;
     box-shadow: 0 6px 18px rgba(0, 0, 0, 0.1);
+    margin-bottom: 12px;
 
     .form-row {
       display: flex;

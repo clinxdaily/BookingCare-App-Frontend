@@ -6,21 +6,18 @@ import "react-image-lightbox/style.css";
 import "./UserRedux.scss";
 import { LANGUAGES } from "../../../utils";
 import * as actions from "../../../store/actions";
+import TableManageUser from "./TableManageUser";
 
 class UserRedux extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      // option data
       genderArr: [],
       positionArr: [],
       roleArr: [],
-
-      // image preview / light‑box
       previewImgURL: "",
       isOpen: false,
-
-      // form fields
+      isShowForm: false, // <-- Thêm biến điều khiển hiển thị form
       email: "",
       password: "",
       firstName: "",
@@ -31,13 +28,10 @@ class UserRedux extends Component {
       position: "",
       role: "",
       image: "",
-
-      // validate
       errorMessage: "",
     };
   }
 
-  /* ---------------- FETCH ALL CODES ---------------- */
   componentDidMount() {
     this.props.getGenderStart();
     this.props.fetchPositionStart();
@@ -57,9 +51,23 @@ class UserRedux extends Component {
       const roleArr = this.props.roleRedux;
       this.setState({ roleArr, role: roleArr[0]?.keyMap || "" });
     }
+    if (prevProps.user !== this.props.user) {
+      this.setState({
+        email: "",
+        password: "",
+        firstName: "",
+        lastName: "",
+        address: "",
+        phonenumber: "",
+        gender: "",
+        position: "",
+        role: "",
+        image: "",
+        previewImgURL: "",
+      });
+    }
   }
 
-  /* ---------------- IMAGE HANDLER ---------------- */
   handleOnchangeImg = (e) => {
     const file = e.target.files[0];
     if (file) {
@@ -68,41 +76,28 @@ class UserRedux extends Component {
     }
   };
 
-  openLightbox = () =>
-    this.state.previewImgURL && this.setState({ isOpen: true });
-  closeLightbox = () => this.setState({ isOpen: false });
-
-  /* ---------------- GENERIC INPUT ---------------- */
   onChangeInput = (e, id) =>
     this.setState({ [id]: e.target.value, errorMessage: "" });
 
-  /* ---------------- VALIDATE ---------------- */
   validate = () => {
     const { email, password, firstName, lastName, address, phonenumber } =
       this.state;
-
-    // email regex basic check "x@y.z"
     if (!email.trim()) return "Email không được để trống.";
     if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) return "Email không hợp lệ.";
-
     if (!password.trim()) return "Mật khẩu không được để trống.";
     if (!firstName.trim()) return "Họ không được để trống.";
     if (!lastName.trim()) return "Tên không được để trống.";
     if (!address.trim()) return "Địa chỉ không được để trống.";
-
     if (!phonenumber.trim()) return "Số điện thoại không được để trống.";
     if (!/^\d{9,12}$/.test(phonenumber))
       return "Số điện thoại phải là số 9–12 ký tự.";
-
-    return ""; // no error
+    return "";
   };
 
-  /* ---------------- SAVE ---------------- */
   handleSaveUser = () => {
     let err = this.validate();
     if (err) {
-      this.setState({ errorMessage: err }); // hiển thị lỗi dưới form
-      console.log("Lỗi validate:", err); // log ra lỗi
+      this.setState({ errorMessage: err });
       return;
     }
     this.props.createNewUser({
@@ -116,11 +111,8 @@ class UserRedux extends Component {
       positionId: this.state.position,
       roleId: this.state.role,
     });
-
-    console.log("Saving user...", this.state);
   };
 
-  /* ---------------- RENDER ---------------- */
   render() {
     const {
       genderArr,
@@ -128,6 +120,7 @@ class UserRedux extends Component {
       roleArr,
       previewImgURL,
       isOpen,
+      isShowForm,
       email,
       password,
       firstName,
@@ -139,7 +132,6 @@ class UserRedux extends Component {
       role,
       errorMessage,
     } = this.state;
-
     const { language, isLoadingGender } = this.props;
 
     return (
@@ -147,188 +139,176 @@ class UserRedux extends Component {
         {isOpen && (
           <Lightbox
             mainSrc={previewImgURL}
-            onCloseRequest={this.closeLightbox}
+            onCloseRequest={() => this.setState({ isOpen: false })}
           />
         )}
 
-        <h2 className="title">Manage Users with Redux</h2>
+        <div className="title text-center">Manage Users Redux</div>
 
-        {isLoadingGender && (
-          <div className="loading-gender">
-            <div className="loading">Loading data...</div>
-          </div>
-        )}
+        <div className="text-center mb-3">
+          <button
+            className="btn btn-primary"
+            onClick={() => this.setState({ isShowForm: !isShowForm })}
+          >
+            <i className={isShowForm ? "fas fa-times" : "fas fa-plus"}></i>{" "}
+            {isShowForm ? "Đóng form" : " Add new users"}
+          </button>
+        </div>
 
-        <form className="user-form" onSubmit={(e) => e.preventDefault()}>
-          {/* email & password */}
-          <div className="form-row">
-            <div className="form-field">
-              <label>
-                <FormattedMessage id="manage-user.email" />
-              </label>
-              <input
-                type="email"
-                value={email}
-                placeholder="Email"
-                onChange={(e) => this.onChangeInput(e, "email")}
-              />
-            </div>
-            <div className="form-field">
-              <label>
-                <FormattedMessage id="manage-user.password" />
-              </label>
-              <input
-                type="password"
-                value={password}
-                placeholder="Password"
-                onChange={(e) => this.onChangeInput(e, "password")}
-              />
-            </div>
-          </div>
-
-          {/* first & last name */}
-          <div className="form-row">
-            <div className="form-field">
-              <label>
-                <FormattedMessage id="manage-user.first-name" />
-              </label>
-              <input
-                type="text"
-                value={firstName}
-                placeholder="First name"
-                onChange={(e) => this.onChangeInput(e, "firstName")}
-              />
-            </div>
-            <div className="form-field">
-              <label>
-                <FormattedMessage id="manage-user.last-name" />
-              </label>
-              <input
-                type="text"
-                value={lastName}
-                placeholder="Last name"
-                onChange={(e) => this.onChangeInput(e, "lastName")}
-              />
-            </div>
-          </div>
-
-          {/* address */}
-          <div className="form-row">
-            <div className="form-field full-width">
-              <label>
-                <FormattedMessage id="manage-user.address" />
-              </label>
-              <input
-                type="text"
-                value={address}
-                placeholder="1234 St"
-                onChange={(e) => this.onChangeInput(e, "address")}
-              />
-            </div>
-          </div>
-
-          {/* phone & selects */}
-          <div className="form-row">
-            <div className="form-field">
-              <label>
-                <FormattedMessage id="manage-user.phone-number" />
-              </label>
-              <input
-                type="text"
-                value={phonenumber}
-                placeholder="0123456789"
-                onChange={(e) => this.onChangeInput(e, "phonenumber")}
-              />
-            </div>
-
-            <div className="form-field">
-              <label>
-                <FormattedMessage id="manage-user.gender" />
-              </label>
-              <select
-                value={gender}
-                onChange={(e) => this.onChangeInput(e, "gender")}
-              >
-                {genderArr.map((g) => (
-                  <option key={g.keyMap} value={g.keyMap}>
-                    {language === LANGUAGES.VI ? g.valueVi : g.valueEn}
-                  </option>
-                ))}
-              </select>
-            </div>
-
-            <div className="form-field">
-              <label>
-                <FormattedMessage id="manage-user.position" />
-              </label>
-              <select
-                value={position}
-                onChange={(e) => this.onChangeInput(e, "position")}
-              >
-                {positionArr.map((p) => (
-                  <option key={p.keyMap} value={p.keyMap}>
-                    {language === LANGUAGES.VI ? p.valueVi : p.valueEn}
-                  </option>
-                ))}
-              </select>
-            </div>
-
-            <div className="form-field">
-              <label>
-                <FormattedMessage id="manage-user.roleid" />
-              </label>
-              <select
-                value={role}
-                onChange={(e) => this.onChangeInput(e, "role")}
-              >
-                {roleArr.map((r) => (
-                  <option key={r.keyMap} value={r.keyMap}>
-                    {language === LANGUAGES.VI ? r.valueVi : r.valueEn}
-                  </option>
-                ))}
-              </select>
-            </div>
-
-            <div className="form-field">
-              <label>
-                <FormattedMessage id="manage-user.image" />
-              </label>
-              <div className="preview-img-container">
-                <input
-                  id="previewImg"
-                  type="file"
-                  accept="image/*"
-                  onChange={this.handleOnchangeImg}
-                />
-                <label htmlFor="previewImg" className="custom-file-upload">
-                  Tải ảnh lên
+        {isShowForm && (
+          <form className="user-form" onSubmit={(e) => e.preventDefault()}>
+            <div className="form-row">
+              <div className="form-field">
+                <label>
+                  <FormattedMessage id="manage-user.email" />
                 </label>
-                {previewImgURL ? (
-                  <div
-                    className="preview-img clickable"
-                    style={{ backgroundImage: `url(${previewImgURL})` }}
-                    onClick={this.openLightbox}
-                  />
-                ) : (
-                  <div className="preview-img placeholder">
-                    <span>No image</span>
-                  </div>
-                )}
+                <input
+                  type="email"
+                  value={email}
+                  onChange={(e) => this.onChangeInput(e, "email")}
+                />
+              </div>
+              <div className="form-field">
+                <label>
+                  <FormattedMessage id="manage-user.password" />
+                </label>
+                <input
+                  type="password"
+                  value={password}
+                  onChange={(e) => this.onChangeInput(e, "password")}
+                />
               </div>
             </div>
-          </div>
+            <div className="form-row">
+              <div className="form-field">
+                <label>
+                  <FormattedMessage id="manage-user.first-name" />
+                </label>
+                <input
+                  type="text"
+                  value={firstName}
+                  onChange={(e) => this.onChangeInput(e, "firstName")}
+                />
+              </div>
+              <div className="form-field">
+                <label>
+                  <FormattedMessage id="manage-user.last-name" />
+                </label>
+                <input
+                  type="text"
+                  value={lastName}
+                  onChange={(e) => this.onChangeInput(e, "lastName")}
+                />
+              </div>
+            </div>
+            <div className="form-row">
+              <div className="form-field full-width">
+                <label>
+                  <FormattedMessage id="manage-user.address" />
+                </label>
+                <input
+                  type="text"
+                  value={address}
+                  onChange={(e) => this.onChangeInput(e, "address")}
+                />
+              </div>
+            </div>
+            <div className="form-row">
+              <div className="form-field">
+                <label>
+                  <FormattedMessage id="manage-user.phone-number" />
+                </label>
+                <input
+                  type="text"
+                  value={phonenumber}
+                  onChange={(e) => this.onChangeInput(e, "phonenumber")}
+                />
+              </div>
+              <div className="form-field">
+                <label>
+                  <FormattedMessage id="manage-user.gender" />
+                </label>
+                <select
+                  value={gender}
+                  onChange={(e) => this.onChangeInput(e, "gender")}
+                >
+                  {genderArr.map((g) => (
+                    <option key={g.keyMap} value={g.keyMap}>
+                      {language === LANGUAGES.VI ? g.valueVi : g.valueEn}
+                    </option>
+                  ))}
+                </select>
+              </div>
+              <div className="form-field">
+                <label>
+                  <FormattedMessage id="manage-user.position" />
+                </label>
+                <select
+                  value={position}
+                  onChange={(e) => this.onChangeInput(e, "position")}
+                >
+                  {positionArr.map((p) => (
+                    <option key={p.keyMap} value={p.keyMap}>
+                      {language === LANGUAGES.VI ? p.valueVi : p.valueEn}
+                    </option>
+                  ))}
+                </select>
+              </div>
+              <div className="form-field">
+                <label>
+                  <FormattedMessage id="manage-user.roleid" />
+                </label>
+                <select
+                  value={role}
+                  onChange={(e) => this.onChangeInput(e, "role")}
+                >
+                  {roleArr.map((r) => (
+                    <option key={r.keyMap} value={r.keyMap}>
+                      {language === LANGUAGES.VI ? r.valueVi : r.valueEn}
+                    </option>
+                  ))}
+                </select>
+              </div>
+              <div className="form-field">
+                <label>
+                  <FormattedMessage id="manage-user.image" />
+                </label>
+                <div className="preview-img-container">
+                  <input
+                    id="previewImg"
+                    type="file"
+                    accept="image/*"
+                    onChange={this.handleOnchangeImg}
+                  />
+                  <label htmlFor="previewImg" className="custom-file-upload">
+                    Tải ảnh lên
+                  </label>
+                  {previewImgURL ? (
+                    <div
+                      className="preview-img clickable"
+                      style={{ backgroundImage: `url(${previewImgURL})` }}
+                      onClick={() => this.setState({ isOpen: true })}
+                    />
+                  ) : (
+                    <div className="preview-img placeholder">
+                      <span>No image</span>
+                    </div>
+                  )}
+                </div>
+              </div>
+            </div>
+            {errorMessage && <div className="form-error">{errorMessage}</div>}
+            <button
+              type="button"
+              className="btn-submit"
+              onClick={this.handleSaveUser}
+            >
+              <FormattedMessage id="manage-user.save" />
+            </button>
+          </form>
+        )}
 
-          {/* error message on save */}
-          {errorMessage && <div className="form-error">{errorMessage}</div>}
-
-          <button
-            type="button"
-            className="btn-submit"
-            onClick={this.handleSaveUser}
-          >
-            <FormattedMessage id="manage-user.save" />
-          </button>
-        </form>
+        <TableManageUser />
       </div>
     );
   }
@@ -340,6 +320,7 @@ const mapStateToProps = (state) => ({
   positionRedux: state.admin.positions,
   roleRedux: state.admin.roles,
   isLoadingGender: state.admin.isLoadingGender,
+  user: state.admin.users,
 });
 
 const mapDispatchToProps = (dispatch) => ({

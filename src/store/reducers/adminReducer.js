@@ -5,6 +5,7 @@ const initialState = {
   genders: [],
   roles: [],
   positions: [],
+  users: [],
 };
 
 const adminReducer = (state = initialState, action) => {
@@ -60,6 +61,15 @@ const adminReducer = (state = initialState, action) => {
       return {
         ...state,
         roles: [],
+      };
+    // -------- USER --------
+    case actionTypes.FETCH_ALL_USERS_SUCCESS:
+      state.users = action.users; // nhận dữ liệu từ API
+      return { ...state };
+    case actionTypes.FETCH_ALL_USERS_FAILED:
+      state.users = [];
+      return {
+        ...state,
       };
 
     // -------- DEFAULT --------
