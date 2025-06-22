@@ -163,25 +163,7 @@ class UserRedux extends Component {
       isShowForm: true, // Mở form khi chỉnh sửa
     });
   };
-  resetFormState = () => {
-    this.setState({
-      email: "",
-      password: "",
-      firstName: "",
-      lastName: "",
-      address: "",
-      phonenumber: "",
-      gender: "",
-      position: "",
-      role: "",
-      image: "",
-      previewImgURL: "",
-      actions: "",
-      userEditId: "",
-      errorMessage: "",
-      isShowForm: false, // Đảm bảo modal bị đóng
-    });
-  };
+
   render() {
     const {
       genderArr,
@@ -217,13 +199,7 @@ class UserRedux extends Component {
         <div className="text-center mb-3">
           <button
             className="btn btn-primary"
-            onClick={() => {
-              if (!isShowForm) {
-                this.resetFormState(); // Reset dữ liệu khi mở modal
-              }
-              this.setState({ isShowForm: !isShowForm }); // Thay đổi trạng thái hiển thị modal
-            }}
-            // onClick={() => this.setState({ isShowForm: !isShowForm })}
+            onClick={() => this.setState({ isShowForm: !isShowForm })}
           >
             <i className="fas fa-plus"></i>Add new users
           </button>
