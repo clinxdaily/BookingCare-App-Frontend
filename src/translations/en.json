@@ -53,5 +53,11 @@
     "roleid": "Role",
     "image": "Image",
     "save": "Save"
+  },
+  "homepage": {
+    "doctor-highlight": "Outstanding Doctors",
+    "doctor-highlight-description": "Experienced and highly qualified doctors trusted by patients.",
+    "more-info": "More info",
+    "consult": "Consult now"
   }
 }

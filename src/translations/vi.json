@@ -53,5 +53,11 @@
     "roleid": "Vai trò",
     "image": "Hình ảnh",
     "save": "Lưu"
+  },
+  "homepage": {
+    "doctor-highlight": "Bác sĩ nổi bật",
+    "doctor-highlight-description": "Đội ngũ bác sĩ giàu kinh nghiệm và chuyên môn cao được bệnh nhân tin tưởng.",
+    "more-info": "Xem thêm ",
+    "consult": "Tư vấn ngay"
   }
 }

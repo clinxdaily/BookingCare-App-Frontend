@@ -103,23 +103,14 @@ class DoctorHighlight extends Component {
           <div className="section-header">
             <div className="section-title">
               <h2>
-                <FormattedMessage
-                  id="homepage.doctor-highlight"
-                  defaultMessage="Bác sĩ nổi bật"
-                />
+                <FormattedMessage id="homepage.doctor-highlight" />
               </h2>
             </div>
             <div className="section-description">
-              <FormattedMessage
-                id="homepage.doctor-highlight-description"
-                defaultMessage="Đội ngũ bác sĩ giàu kinh nghiệm và chuyên môn cao được bệnh nhân tin tưởng."
-              />
+              <FormattedMessage id="homepage.doctor-highlight-description" />
             </div>
             <a href="/doctors" className="view-more">
-              <FormattedMessage
-                id="homepage.more-info"
-                defaultMessage="Xem thêm"
-              />
+              <FormattedMessage id="homepage.more-info" />
             </a>
           </div>
 
@@ -133,8 +124,8 @@ class DoctorHighlight extends Component {
                     "binary"
                   );
                 }
-                let nameVi = `${item.positionData?.valueVi}, ${item.firstName} ${item.lastName} `;
-                let nameEn = `${item.positionData?.valueEn}, ${item.lastName} ${item.firstName}`;
+                let nameVi = `${item.positionData?.valueVi}.  ${item.lastName} ${item.firstName}`;
+                let nameEn = `${item.positionData?.valueEn}.  ${item.firstName} ${item.lastName}`;
 
                 return (
                   <div key={index} className="doctor-customize">
@@ -145,10 +136,12 @@ class DoctorHighlight extends Component {
                       <img src={imageBase64} alt="doctor" />
                     </div>
                     <div className="doctor-info">
-                      <h3>{language === LANGUAGES.vi ? nameVi : nameEn}</h3>
+                      <h3>{language === LANGUAGES.VI ? nameVi : nameEn}</h3>
                       <div className="doctor-specialty"></div>
                       <div className="doctor-rating"></div>
-                      <button className="consult-now-btn">Tư vấn ngay</button>
+                      <button className="consult-now-btn">
+                        <FormattedMessage id="homepage.consult" />
+                      </button>
                     </div>
                     {/* <div className={`doctor-image ${doctor.className}`}>
                         {doctor.image && <img src={doctor.image} alt={doctor.name} />}

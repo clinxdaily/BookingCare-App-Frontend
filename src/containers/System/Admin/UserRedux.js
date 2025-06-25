@@ -156,7 +156,7 @@ class UserRedux extends Component {
       gender: user.gender,
       position: user.positionId,
       role: user.roleId,
-      image: "",
+      image: imageBase64,
       previewImgURL: imageBase64,
       actions: CRUD_Actions.EDIT,
       userEditId: user.id,
