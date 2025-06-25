@@ -5,16 +5,31 @@ import "./DoctorHighlight.scss";
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
-// Import doctor images
-import imgDoctor1 from "../../../assets/DoctorHighlight/lengochonghanh.webp";
-import imgDoctor2 from "../../../assets/DoctorHighlight/tranthioanh.webp";
-import imgDoctor3 from "../../../assets/DoctorHighlight/nguyenphucthien.webp";
-import imgDoctor4 from "../../../assets/DoctorHighlight/lehoangainhi.webp";
-import imgDoctor5 from "../../../assets/DoctorHighlight/hoangthianhthu.webp";
-import imgDoctor6 from "../../../assets/DoctorHighlight/vidinhkhoi.webp";
+import * as actions from "../../../store/actions";
+import { LANGUAGES } from "../../../utils";
 
 class DoctorHighlight extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      arrDoctors: [],
+    };
+  }
+  componentDidUpdate(prevProps, prevState, snapshot) {
+    if (prevProps.topDoctors !== this.props.topDoctors) {
+      this.setState({
+        arrDoctors: this.props.topDoctors.data || [],
+      });
+    }
+  }
+  componentDidMount() {
+    this.props.loadTopDoctors();
+  }
   render() {
+    console.log("DoctorHighlight component rendered", this.props.topDoctors);
+    let arrDoctors = this.state.arrDoctors;
+    let { language } = this.props;
+
     let settings = {
       dots: false,
       infinite: false,
@@ -48,69 +63,6 @@ class DoctorHighlight extends Component {
         },
       ],
     };
-
-    const doctors = [
-      {
-        id: 1,
-        name: "BS CKI. Lê Ngọc Hồng Hạnh",
-        specialty: "Nhi - Thần kinh",
-        rating: 4.8,
-        reviews: 58,
-        image: imgDoctor1,
-        className: "doctor-1",
-        title: "Bác sĩ Chuyên Khoa",
-      },
-      {
-        id: 2,
-        name: "Bác sĩ Trần Thị Oanh",
-        specialty: "Sản khoa",
-        rating: 4.7,
-        reviews: 142,
-        image: imgDoctor2,
-        className: "doctor-2",
-        title: "Bác sĩ Chuyên Khoa",
-      },
-      {
-        id: 3,
-        name: "BS CKI. Nguyễn Phúc Thiện",
-        specialty: "Tim mạch",
-        rating: 4.9,
-        reviews: 89,
-        image: imgDoctor3,
-        className: "doctor-3",
-        title: "Bác sĩ Chuyên Khoa",
-      },
-      {
-        id: 4,
-        name: "Bác sĩ Lê Hoàng Ái Nhi",
-        specialty: "Nhi Khoa",
-        rating: 4.6,
-        reviews: 76,
-        image: imgDoctor4,
-        className: "doctor-4",
-        title: "Bác sĩ Chuyên Khoa",
-      },
-      {
-        id: 5,
-        name: "Bác sĩ Hoàng Thị Anh Thư",
-        specialty: "Tâm lý",
-        rating: 4.8,
-        reviews: 103,
-        image: imgDoctor5,
-        className: "doctor-5",
-        title: "Bác sĩ Chuyên Khoa",
-      },
-      {
-        id: 6,
-        name: "Bác sĩ Vũ Đình Khôi",
-        specialty: "Bệnh truyền nhiễm xã hội",
-        rating: 4.8,
-        reviews: 103,
-        image: imgDoctor6,
-        className: "doctor-5",
-        title: "Bác sĩ Chuyên Khoa",
-      },
-    ];
 
     const renderStars = (rating) => {
       const stars = [];
@@ -172,41 +124,66 @@ class DoctorHighlight extends Component {
           </div>
 
           <Slider {...settings}>
-            {doctors.map((doctor) => (
-              <div key={doctor.id} className="doctor-customize">
-                <div className={`doctor-image ${doctor.className}`}>
-                  {doctor.image && <img src={doctor.image} alt={doctor.name} />}
-                </div>
-                <div className="doctor-info">
-                  <h3>{doctor.name}</h3>
-                  <div className="doctor-specialty">
-                    <i className="fas fa-stethoscope"></i>
-                    <span>{doctor.specialty}</span>
+            {arrDoctors &&
+              arrDoctors.length > 0 &&
+              arrDoctors.map((item, index) => {
+                let imageBase64 = "";
+                if (item.image) {
+                  imageBase64 = new Buffer(item.image, "base64").toString(
+                    "binary"
+                  );
+                }
+                let nameVi = `${item.positionData?.valueVi}, ${item.firstName} ${item.lastName} `;
+                let nameEn = `${item.positionData?.valueEn}, ${item.lastName} ${item.firstName}`;
+
+                return (
+                  <div key={index} className="doctor-customize">
+                    <div
+                      className="doctor-image"
+                      // style={{ backgroundImage: `url(${imageBase64})` }}
+                    >
+                      <img src={imageBase64} alt="doctor" />
+                    </div>
+                    <div className="doctor-info">
+                      <h3>{language === LANGUAGES.vi ? nameVi : nameEn}</h3>
+                      <div className="doctor-specialty"></div>
+                      <div className="doctor-rating"></div>
+                      <button className="consult-now-btn">Tư vấn ngay</button>
+                    </div>
+                    {/* <div className={`doctor-image ${doctor.className}`}>
+                        {doctor.image && <img src={doctor.image} alt={doctor.name} />}
+                      </div>
+                      <div className="doctor-info">
+                        <h3>{doctor.name}</h3>
+                        <div className="doctor-specialty">
+                          <i className="fas fa-stethoscope"></i>
+                          <span>{doctor.specialty}</span>
+                        </div>
+                        <div className="doctor-title">
+                          <i className="fas fa-user-md"></i>
+                          <span>{doctor.title}</span>
+                        </div>
+                        <div className="doctor-rating">
+                          <div className="stars">{renderStars(doctor.rating)}</div>
+                          <span className="rating-info">
+                            {doctor.rating} ({doctor.reviews}{" "}
+                            <FormattedMessage
+                              id="homepage.reviews"
+                              defaultMessage="lượt khám"
+                            />
+                            )
+                          </span>
+                        </div>
+                        <button className="consult-now-btn">
+                          <FormattedMessage
+                            id="homepage.consult-now"
+                            defaultMessage="Tư vấn ngay"
+                          />
+                        </button>
+                      </div> */}
                   </div>
-                  <div className="doctor-title">
-                    <i className="fas fa-user-md"></i>
-                    <span>{doctor.title}</span>
-                  </div>
-                  <div className="doctor-rating">
-                    <div className="stars">{renderStars(doctor.rating)}</div>
-                    <span className="rating-info">
-                      {doctor.rating} ({doctor.reviews}{" "}
-                      <FormattedMessage
-                        id="homepage.reviews"
-                        defaultMessage="lượt khám"
-                      />
-                      )
-                    </span>
-                  </div>
-                  <button className="consult-now-btn">
-                    <FormattedMessage
-                      id="homepage.consult-now"
-                      defaultMessage="Tư vấn ngay"
-                    />
-                  </button>
-                </div>
-              </div>
-            ))}
+                );
+              })}
           </Slider>
         </div>
       </div>
@@ -218,11 +195,14 @@ const mapStateToProps = (state) => {
   return {
     isLoggedIn: state.user.isLoggedIn,
     language: state.app.language,
+    topDoctors: state.admin.topDoctors,
   };
 };
 
 const mapDispatchToProps = (dispatch) => {
-  return {};
+  return {
+    loadTopDoctors: () => dispatch(actions.fetchTopDoctor()),
+  };
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(DoctorHighlight);
