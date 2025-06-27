@@ -7,6 +7,7 @@ import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import * as actions from "../../../store/actions";
 import { LANGUAGES } from "../../../utils";
+import { withRouter } from "react-router";
 
 class DoctorHighlight extends Component {
   constructor(props) {
@@ -15,6 +16,7 @@ class DoctorHighlight extends Component {
       arrDoctors: [],
     };
   }
+
   componentDidUpdate(prevProps, prevState, snapshot) {
     if (prevProps.topDoctors !== this.props.topDoctors) {
       this.setState({
@@ -25,6 +27,10 @@ class DoctorHighlight extends Component {
   componentDidMount() {
     this.props.loadTopDoctors();
   }
+  handleViewDetailDoctor = (doctor) => {
+    console.log("View detail doctor:", doctor);
+    this.props.history.push(`/detail-doctor/${doctor.id}`); // Redirect to the doctor's detail page
+  };
   render() {
     console.log("DoctorHighlight component rendered", this.props.topDoctors);
     let arrDoctors = this.state.arrDoctors;
@@ -128,7 +134,11 @@ class DoctorHighlight extends Component {
                 let nameEn = `${item.positionData?.valueEn}.  ${item.firstName} ${item.lastName}`;
 
                 return (
-                  <div key={index} className="doctor-customize">
+                  <div
+                    key={index}
+                    className="doctor-customize"
+                    onClick={() => this.handleViewDetailDoctor(item)}
+                  >
                     <div
                       className="doctor-image"
                       // style={{ backgroundImage: `url(${imageBase64})` }}
@@ -198,4 +208,6 @@ const mapDispatchToProps = (dispatch) => {
   };
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(DoctorHighlight);
+export default withRouter(
+  connect(mapStateToProps, mapDispatchToProps)(DoctorHighlight)
+);

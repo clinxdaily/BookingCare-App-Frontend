@@ -135,121 +135,122 @@ class HomeHeader extends Component {
             </div>
           </div>
         </div>
+        {this.props.isShowBanner === true && (
+          <div className="home-header-banner">
+            <div className="banner-overlay"></div>
+            <div className="banner-content">
+              <div className="main-title">
+                <div className="title-1">
+                  <FormattedMessage
+                    id="banner.title-1"
+                    defaultMessage="NỀN TẢNG Y TẾ"
+                  />
+                </div>
+                <div className="title-highlight">
+                  <FormattedMessage id="banner.title-highlight" />
+                </div>
+                <div className="title-2">
+                  <FormattedMessage
+                    id="banner.title-2"
+                    defaultMessage="Kết nối bạn với các bác sĩ hàng đầu"
+                  />
+                </div>
+              </div>
 
-        <div className="home-header-banner">
-          <div className="banner-overlay"></div>
-          <div className="banner-content">
-            <div className="main-title">
-              <div className="title-1">
-                <FormattedMessage
-                  id="banner.title-1"
-                  defaultMessage="NỀN TẢNG Y TẾ"
-                />
+              <div className="subtitle-section">
+                <p className="subtitle">
+                  <FormattedMessage
+                    id="banner.subtitle"
+                    defaultMessage="Đặt lịch khám nhanh chóng • Tư vấn trực tuyến • Theo dõi sức khỏe"
+                  />
+                </p>
               </div>
-              <div className="title-highlight">
-                <FormattedMessage id="banner.title-highlight" />
-              </div>
-              <div className="title-2">
-                <FormattedMessage
-                  id="banner.title-2"
-                  defaultMessage="Kết nối bạn với các bác sĩ hàng đầu"
-                />
-              </div>
-            </div>
 
-            <div className="subtitle-section">
-              <p className="subtitle">
-                <FormattedMessage
-                  id="banner.subtitle"
-                  defaultMessage="Đặt lịch khám nhanh chóng • Tư vấn trực tuyến • Theo dõi sức khỏe"
-                />
-              </p>
-            </div>
+              <div className="search-section">
+                <div className="search">
+                  <i className="fas fa-search"></i>
+                  <FormattedMessage
+                    id="banner.search-placeholder"
+                    defaultMessage="Tìm bác sĩ, chuyên khoa, bệnh viện..."
+                  >
+                    {(placeholder) => (
+                      <input type="text" placeholder={placeholder} />
+                    )}
+                  </FormattedMessage>
+                  <button className="search-btn">
+                    <FormattedMessage
+                      id="banner.search"
+                      defaultMessage="Tìm kiếm"
+                    />
+                  </button>
+                </div>
+              </div>
 
-            <div className="search-section">
-              <div className="search">
-                <i className="fas fa-search"></i>
-                <FormattedMessage
-                  id="banner.search-placeholder"
-                  defaultMessage="Tìm bác sĩ, chuyên khoa, bệnh viện..."
-                >
-                  {(placeholder) => (
-                    <input type="text" placeholder={placeholder} />
-                  )}
-                </FormattedMessage>
-                <button className="search-btn">
-                  <FormattedMessage
-                    id="banner.search"
-                    defaultMessage="Tìm kiếm"
-                  />
-                </button>
-              </div>
-            </div>
-
-            <div className="quick-actions">
-              <div className="action-item">
-                <div className="action-icon">
-                  <FaCalendarCheck
-                    size={24} // Kích thước (px)
-                    color="#ffffff" // Màu sắc
-                    className="mr-2"
-                  />
+              <div className="quick-actions">
+                <div className="action-item">
+                  <div className="action-icon">
+                    <FaCalendarCheck
+                      size={24} // Kích thước (px)
+                      color="#ffffff" // Màu sắc
+                      className="mr-2"
+                    />
+                  </div>
+                  <div className="action-text">
+                    <FormattedMessage
+                      id="banner.book-appointment"
+                      defaultMessage="Đặt lịch khám"
+                    />
+                  </div>
                 </div>
-                <div className="action-text">
-                  <FormattedMessage
-                    id="banner.book-appointment"
-                    defaultMessage="Đặt lịch khám"
-                  />
+                <div className="action-item">
+                  <div className="action-icon">
+                    <FaVideo
+                      size={24} // Kích thước (px)
+                      color="#ffffff" // Màu (ví dụ: blue-500)
+                      className="mr-2" // Thêm margin hoặc CSS class
+                    />
+                  </div>
+                  <div className="action-text">
+                    <FormattedMessage
+                      id="banner.online-consultation"
+                      defaultMessage="Tư vấn trực tuyến"
+                    />
+                  </div>
                 </div>
-              </div>
-              <div className="action-item">
-                <div className="action-icon">
-                  <FaVideo
-                    size={24} // Kích thước (px)
-                    color="#ffffff" // Màu (ví dụ: blue-500)
-                    className="mr-2" // Thêm margin hoặc CSS class
-                  />
+                <div className="action-item">
+                  <div className="action-icon">
+                    <FaHeartbeat
+                      size={24} // Kích thước (px)
+                      color="#ffffff" // Màu đỏ (ví dụ: red-600)
+                      className="animate-pulse" // Hiệu ứng nhấp nháy (nếu dùng Tailwind)
+                    />
+                  </div>
+                  <div className="action-text">
+                    <FormattedMessage
+                      id="banner.health-checkup"
+                      defaultMessage="Khám tổng quát"
+                    />
+                  </div>
                 </div>
-                <div className="action-text">
-                  <FormattedMessage
-                    id="banner.online-consultation"
-                    defaultMessage="Tư vấn trực tuyến"
-                  />
-                </div>
-              </div>
-              <div className="action-item">
-                <div className="action-icon">
-                  <FaHeartbeat
-                    size={24} // Kích thước (px)
-                    color="#ffffff" // Màu đỏ (ví dụ: red-600)
-                    className="animate-pulse" // Hiệu ứng nhấp nháy (nếu dùng Tailwind)
-                  />
-                </div>
-                <div className="action-text">
-                  <FormattedMessage
-                    id="banner.health-checkup"
-                    defaultMessage="Khám tổng quát"
-                  />
-                </div>
-              </div>
-              <div className="action-item">
-                <div className="action-icon">
-                  <FaPills
-                    size={24} // Kích thước (px)
-                    color="#ffffff" // Màu tím (ví dụ: purple-500)
-                    className="mr-2" // Thêm khoảng cách bên phải
-                  />
-                </div>
-                <div className="action-text">
-                  <FormattedMessage
-                    id="banner.pharmacy"
-                    defaultMessage="Nhà thuốc"
-                  />
+                <div className="action-item">
+                  <div className="action-icon">
+                    <FaPills
+                      size={24} // Kích thước (px)
+                      color="#ffffff" // Màu tím (ví dụ: purple-500)
+                      className="mr-2" // Thêm khoảng cách bên phải
+                    />
+                  </div>
+                  <div className="action-text">
+                    <FormattedMessage
+                      id="banner.pharmacy"
+                      defaultMessage="Nhà thuốc"
+                    />
+                  </div>
                 </div>
               </div>
             </div>
           </div>
-        </div>
+        )}
       </React.Fragment>
     );
   }

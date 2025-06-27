@@ -5,7 +5,7 @@ import { ConnectedRouter as Router } from "connected-react-router";
 import { history } from "../redux";
 import { ToastContainer, Bounce } from "react-toastify";
 import HomePage from "./HomePage/HomePage.js";
-
+import DetailDoctor from "./Patient/Doctor/DetailDoctor";
 import {
   userIsAuthenticated,
   userIsNotAuthenticated,
@@ -55,6 +55,7 @@ class App extends Component {
                   component={userIsAuthenticated(System)}
                 />
                 <Route path={path.HOMEPAGE} component={HomePage} />
+                <Route path={path.DETAIL_DOCTOR} component={DetailDoctor} />
               </Switch>
             </span>
 
