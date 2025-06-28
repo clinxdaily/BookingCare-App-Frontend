@@ -16,7 +16,7 @@ import { path } from "../utils";
 import Home from "../routes/Home";
 import Login from "./Auth/Login";
 import System from "../routes/System";
-
+import Doctor from "../routes/Doctor.js";
 import { CustomToastCloseButton } from "../components/CustomToast";
 
 class App extends Component {
@@ -53,6 +53,10 @@ class App extends Component {
                 <Route
                   path={path.SYSTEM}
                   component={userIsAuthenticated(System)}
+                />
+                <Route
+                  path={"/doctor/"}
+                  component={userIsAuthenticated(Doctor)}
                 />
                 <Route path={path.HOMEPAGE} component={HomePage} />
                 <Route path={path.DETAIL_DOCTOR} component={DetailDoctor} />

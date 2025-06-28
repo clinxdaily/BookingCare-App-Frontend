@@ -27,9 +27,13 @@ export const adminMenu = [
         //   },
         // ],
       },
+      // {
+      //   name: "menu.admin.manage-admin",
+      //   link: "/system/user-manage",
+      // },
       {
-        name: "menu.admin.manage-admin",
-        link: "/system/user-manage",
+        name: "menu.doctor.manage-schedule",
+        link: "/doctor/manage-schedule",
       },
     ],
   },
@@ -60,6 +64,20 @@ export const adminMenu = [
       {
         name: "menu.admin.manage-handbook",
         link: "/system/manage-handbook",
+      },
+    ],
+  },
+];
+export const doctorMenu = [
+  {
+    name: "menu.admin.manage-user",
+    menus: [
+      // quản lý lich kham
+      {
+        //giúp chia menu thành các nhóm theo phân quyền của người dùng
+
+        name: "menu.doctor.manage-schedule",
+        link: "/doctor/manage-schedule",
       },
     ],
   },
