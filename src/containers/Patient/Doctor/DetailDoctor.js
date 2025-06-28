@@ -4,6 +4,7 @@ import "./DetailDoctor.scss";
 import HomeHeader from "../../HomePage/HomeHeader";
 import { getDetailInFoDoctor } from "../../../services/userService";
 import { LANGUAGES } from "../../../utils";
+
 class DetailDoctor extends Component {
   constructor(props) {
     super(props);
@@ -22,7 +23,6 @@ class DetailDoctor extends Component {
           detailDoctor: res.data,
         });
       }
-      //imageBase64 = new Buffer(user.image, "base64").toString("binary");
     }
   }
   componentDidUpdate(prevProps, prevState, snapshot) {}
