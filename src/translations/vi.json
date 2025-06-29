@@ -64,5 +64,15 @@
     "doctor-highlight-description": "Đội ngũ bác sĩ giàu kinh nghiệm và chuyên môn cao được bệnh nhân tin tưởng.",
     "more-info": "Xem thêm ",
     "consult": "Tư vấn ngay"
+  },
+  "manage-schedule": {
+    "title": "Quản lý lịch khám",
+    "add-schedule": "Thêm lịch khám",
+    "edit-schedule": "Chỉnh sửa lịch khám",
+    "date": "Ngày",
+    "time": "Giờ",
+    "status": "Trạng thái",
+    "actions": "Hành động",
+    "save": "Lưu lịch khám"
   }
 }

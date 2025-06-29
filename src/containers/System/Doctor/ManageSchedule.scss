@@ -1,0 +1,138 @@
+$primary: #3498db;
+$secondary: #2ecc71;
+$danger: #e74c3c;
+$warning: #f39c12;
+$radius: 8px;
+$shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+
+.manage-schedule-container {
+  padding: 20px;
+  max-width: 1200px;
+  margin: 0 auto;
+
+  .manage-schedule-title {
+    font-size: 24px;
+    font-weight: 600;
+    text-align: center;
+    margin-bottom: 20px;
+    color: #333;
+    position: relative;
+
+    &:after {
+      content: "";
+      width: 80px;
+      height: 3px;
+      background: $primary;
+      position: absolute;
+      bottom: -10px;
+      left: 50%;
+      transform: translateX(-50%);
+      border-radius: 2px;
+    }
+  }
+
+  .container {
+    padding: 0 15px;
+  }
+
+  .row {
+    display: flex;
+    flex-wrap: wrap;
+    margin: 0 -15px;
+  }
+
+  .col-6 {
+    flex: 0 0 50%;
+    max-width: 50%;
+    padding: 0 15px;
+
+    @media (max-width: 768px) {
+      flex: 0 0 100%;
+      max-width: 100%;
+    }
+  }
+
+  .col-12 {
+    flex: 0 0 100%;
+    max-width: 100%;
+    padding: 0 15px;
+  }
+
+  .form-group {
+    margin-bottom: 1.5rem;
+
+    label {
+      display: block;
+      margin-bottom: 0.5rem;
+      font-weight: 500;
+      color: #555;
+      font-size: 14px;
+    }
+  }
+
+  .pick-hour-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-top: 20px;
+
+    .btn-schedule {
+      padding: 8px 16px;
+      border: 2px solid $primary;
+      background: white;
+      color: $primary;
+      border-radius: $radius;
+      cursor: pointer;
+      font-size: 14px;
+      font-weight: 500;
+      transition: all 0.3s ease;
+
+      &:hover {
+        background: $primary;
+        color: white;
+        transform: translateY(-2px);
+        box-shadow: $shadow;
+      }
+
+      &:active {
+        transform: translateY(0);
+      }
+
+      &.selected {
+        background: $primary;
+        color: white;
+      }
+    }
+  }
+
+  .btn-primary {
+    background: $primary;
+    border: none;
+    color: white;
+    padding: 12px 30px;
+    border-radius: $radius;
+    font-size: 16px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: $shadow;
+
+    &:hover {
+      background: darken($primary, 10%);
+      transform: translateY(-2px);
+      box-shadow: 0 4px 15px rgba(52, 152, 219, 0.3);
+    }
+
+    &:active {
+      transform: translateY(0);
+    }
+  }
+
+  .text-center {
+    text-align: center;
+  }
+
+  .mt-3 {
+    margin-top: 1rem;
+  }
+}

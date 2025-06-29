@@ -22,13 +22,13 @@ class Login extends Component {
       username: event.target.value,
     });
   };
-  
+
   handelOnChangePassword = (event) => {
     this.setState({
       password: event.target.value,
     });
   };
-  
+
   handleLogin = async () => {
     this.setState({
       errMessage: "",
@@ -53,13 +53,13 @@ class Login extends Component {
       console.log("error: ", error.message);
     }
   };
-  
+
   handleShowHidePassword = () => {
     this.setState({
       isShowPassword: !this.state.isShowPassword,
     });
   };
-  
+
   render() {
     return (
       <div className="login-background">
@@ -69,7 +69,7 @@ class Login extends Component {
               <h2>Welcome Back</h2>
               <p>Sign in to your account</p>
             </div>
-            
+
             <div className="form-group">
               <label>Username</label>
               <div className="input-container">
@@ -84,7 +84,7 @@ class Login extends Component {
                 />
               </div>
             </div>
-            
+
             <div className="form-group">
               <label>Password</label>
               <div className="input-container password-container">
@@ -94,6 +94,11 @@ class Login extends Component {
                   placeholder="Enter your password"
                   onChange={(event) => {
                     this.handelOnChangePassword(event);
+                  }}
+                  onKeyDown={(event) => {
+                    if (event.key === "Enter") {
+                      this.handleLogin();
+                    }
                   }}
                 />
                 <span
@@ -112,11 +117,11 @@ class Login extends Component {
                 </span>
               </div>
             </div>
-            
+
             {this.state.errMessage && (
               <div className="error-message">{this.state.errMessage}</div>
             )}
-            
+
             <button
               className="btn-login"
               onClick={() => {
@@ -126,16 +131,16 @@ class Login extends Component {
               <i className="fas fa-sign-in-alt"></i>
               <span>Sign In</span>
             </button>
-            
+
             <div className="login-options">
               <span className="forgot-password">Forgot your password?</span>
               <span className="create-account">Create account</span>
             </div>
-            
+
             <div className="divider">
               <span>Or continue with</span>
             </div>
-            
+
             <div className="social-login">
               <div className="social-btn google">
                 <i className="fab fa-google"></i>
