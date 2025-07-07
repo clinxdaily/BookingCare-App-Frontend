@@ -8,7 +8,7 @@ import DoctorSchedule from "./DoctorSchedule";
 class DetailDoctor extends Component {
   constructor(props) {
     super(props);
-    this.state = { detailDoctor: {} };
+    this.state = { detailDoctor: {}, currentDoctorId: -1 };
   }
   async componentDidMount() {
     if (
@@ -16,6 +16,9 @@ class DetailDoctor extends Component {
       this.props.match.params &&
       this.props.match.params.id
     ) {
+      this.setState({
+        currentDoctorId: this.props.match.params.id,
+      });
       let res = await getDetailInFoDoctor(this.props.match.params.id);
       console.log("Check res from doctor detail: ", res);
       if (res && res.errCode === 0) {
@@ -63,9 +66,7 @@ class DetailDoctor extends Component {
             <div className="doctor-schedule">
               <div className="content-left">
                 <DoctorSchedule
-                  doctorIdFromParent={
-                    detailDoctor && detailDoctor.id ? detailDoctor.id : -1
-                  }
+                  doctorIdFromParent={this.state.currentDoctorId}
                 />
               </div>
               <div className="content-right"></div>

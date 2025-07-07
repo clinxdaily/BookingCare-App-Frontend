@@ -9,6 +9,7 @@ const initialState = {
   topDoctors: [],
   allDoctors: [],
   allScheduleTime: [],
+  allRequireDoctorInfo: [],
 };
 
 const adminReducer = (state = initialState, action) => {
@@ -94,11 +95,20 @@ const adminReducer = (state = initialState, action) => {
       };
     // -------- TIME --------
     case actionTypes.FETCH_SCHEDULE_HOUR_SUCCESS:
-      console.log("check allScheduleTime: ", action.data);
       state.allScheduleTime = action.data; // nhận dữ liệu từ API
       return { ...state };
     case actionTypes.FETCH_SCHEDULE_HOUR_FAILED:
       state.allScheduleTime = [];
+      return {
+        ...state,
+      };
+    // -------- Doctor Info --------
+    case actionTypes.FETCH_REQUIRE_DOCTOR_INFO_SUCCESS:
+      state.allRequireDoctorInfo = action.data; // nhận dữ liệu từ API
+      console.log("check require data ", action);
+      return { ...state };
+    case actionTypes.FETCH_REQUIRE_DOCTOR_INFO_FAILED:
+      state.allRequireDoctorInfo = [];
       return {
         ...state,
       };

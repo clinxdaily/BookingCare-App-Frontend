@@ -12,25 +12,28 @@ import localization from "moment/locale/vi";
 class DoctorSchedule extends Component {
   constructor(props) {
     super(props);
-    this.state = { allDays: [] };
+    this.state = { allDays: [], allAvailableTime: [] };
   }
   async componentDidMount() {
     let { language } = this.props;
     let allDays = [];
     for (let i = 0; i < 7; i++) {
       let object = {};
-      if (language === LANGUAGES.VI) {
-        let labelVi = moment(new Date())
-          .add(i, "days")
-          .locale("vi")
-          .format("dddd - DD/MM");
+      let date = moment(new Date()).add(i, "days");
 
-        object.label = labelVi.charAt(0).toUpperCase() + labelVi.slice(1);
+      if (language === LANGUAGES.VI) {
+        if (i === 0) {
+          object.label = `Hôm nay - ${date.format("DD/MM")}`;
+        } else {
+          let labelVi = date.locale("vi").format("dddd - DD/MM");
+          object.label = labelVi.charAt(0).toUpperCase() + labelVi.slice(1);
+        }
       } else {
-        object.label = moment(new Date())
-          .add(i, "days")
-          .locale("en")
-          .format("ddd - DD/MM");
+        if (i === 0) {
+          object.label = `Today - ${date.format("DD/MM")}`;
+        } else {
+          object.label = date.locale("en").format("ddd - DD/MM");
+        }
       }
 
       object.value = moment(new Date()).add(i, "days").startOf("day").valueOf();
@@ -42,23 +45,26 @@ class DoctorSchedule extends Component {
       allDays: allDays,
     });
   }
-  componentDidUpdate(prevProps, prevState, snapshot) {
+  async componentDidUpdate(prevProps, prevState, snapshot) {
     if (prevProps.language !== this.props.language) {
       let allDays = [];
       for (let i = 0; i < 7; i++) {
         let object = {};
-        if (this.props.language === LANGUAGES.VI) {
-          let labelVi = moment(new Date())
-            .add(i, "days")
-            .locale("vi")
-            .format("dddd - DD/MM");
+        let date = moment(new Date()).add(i, "days");
 
-          object.label = labelVi.charAt(0).toUpperCase() + labelVi.slice(1);
+        if (this.props.language === LANGUAGES.VI) {
+          if (i === 0) {
+            object.label = `Hôm nay - ${date.format("DD/MM")}`;
+          } else {
+            let labelVi = date.locale("vi").format("dddd - DD/MM");
+            object.label = labelVi.charAt(0).toUpperCase() + labelVi.slice(1);
+          }
         } else {
-          object.label = moment(new Date())
-            .add(i, "days")
-            .locale("en")
-            .format("ddd - DD/MM");
+          if (i === 0) {
+            object.label = `Today - ${date.format("DD/MM")}`;
+          } else {
+            object.label = date.locale("en").format("ddd - DD/MM");
+          }
         }
 
         object.value = moment(new Date())
@@ -73,35 +79,79 @@ class DoctorSchedule extends Component {
         allDays: allDays,
       });
     }
+    if (this.props.doctorIdFromParent !== prevProps.doctorIdFromParent) {
+      let allDays = this.state.allDays;
+      let res = await getScheduleDoctorByDate(
+        this.props.doctorIdFromParent,
+        allDays[0].value
+      );
+      this.setState({
+        allAvailableTime: res.data ? res.data : [],
+      });
+    }
   }
   handleOnChangSelect = async (event) => {
     if (this.props.doctorIdFromParent && this.props.doctorIdFromParent !== -1) {
       let doctorId = this.props.doctorIdFromParent;
       let date = event.target.value;
       let res = await getScheduleDoctorByDate(doctorId, date);
-      console.log("check res ", res);
+
+      if (res && res.errCode === 0) {
+        // allTime = res.data;
+        this.setState({ allAvailableTime: res.data ? res.data : [] });
+      } else {
+      }
     }
   };
   render() {
-    let { allDays } = this.state;
+    let { allDays, allAvailableTime } = this.state;
+    let { language } = this.props;
     {
       return (
         <React.Fragment>
           <div className="doctor-schedule-container">
-            <div className="all-schedule">
-              <select onChange={(event) => this.handleOnChangSelect(event)}>
-                {allDays &&
-                  allDays.length > 0 &&
-                  allDays.map((item, index) => {
-                    return (
-                      <option value={item.value} key={index}>
-                        {item.label}
-                      </option>
-                    );
-                  })}
-              </select>
+            <div className="left-content">
+              <div className="all-schedule">
+                <select onChange={(event) => this.handleOnChangSelect(event)}>
+                  {allDays &&
+                    allDays.length > 0 &&
+                    allDays.map((item, index) => {
+                      return (
+                        <option value={item.value} key={index}>
+                          {item.label}
+                        </option>
+                      );
+                    })}
+                </select>
+              </div>
+              <div className="all-available">
+                <div className="text-calender">
+                  <span>
+                    <i className="fas fa-calendar-alt">
+                      {" "}
+                      Lịch khám - Chọn và đặt miễn phí
+                    </i>
+                  </span>
+                </div>
+                <div className="time-content">
+                  {allAvailableTime && allAvailableTime.length > 0 ? (
+                    allAvailableTime.map((item, index) => {
+                      let timeDisplay =
+                        language === LANGUAGES.VI
+                          ? item.timeTypeData.valueVi
+                          : item.timeTypeData.valueEn;
+                      return <button key={index}>{timeDisplay}</button>;
+                    })
+                  ) : (
+                    <div>
+                      Bác sĩ không có lịch khám trong ngày hôm nay. Vui lòng
+                      chọn ngày khác
+                    </div>
+                  )}
+                </div>
+              </div>
             </div>
-            <div className="all-available"></div>
+            <div className="right-content">qwdqjwkdhqwh</div>
           </div>
         </React.Fragment>
       );
