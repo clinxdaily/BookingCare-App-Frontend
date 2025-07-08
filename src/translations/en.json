@@ -64,5 +64,75 @@
     "doctor-highlight-description": "Experienced and highly qualified doctors trusted by patients.",
     "more-info": "More info",
     "consult": "Consult now"
+  },
+  "manage-schedule": {
+    "title": "Manage Appointment Schedule",
+    "add-schedule": "Add Schedule",
+    "edit-schedule": "Edit Schedule",
+    "date": "Date",
+    "time": "Time",
+    "status": "Status",
+    "actions": "Actions",
+    "save": "Save Schedule",
+    "choose-doctor": "Select Doctor",
+    "choose-date": "Select Date"
+  },
+  "doctor-schedule": {
+    "title": "Appointment Schedule – Select and Book for Free",
+    "notice": "The doctor has no available appointments today. Please select another date."
+  },
+  "doctor-extra": {
+    "address": "Clinic Address",
+    "price": "Price:",
+    "more": " View Details",
+    "payment": "Payment Method: ",
+    "hide": "Hide"
+  },
+  "user-manage": {
+    "title": "Manage Users",
+    "title1": "Manage Users - Redux",
+    "add-new": "Add new users",
+    "email": "Email",
+    "first-name": "First Name",
+    "last-name": "Last Name",
+    "address": "Address",
+    "action": "Action",
+    "edit": "Edit",
+    "delete": "Delete",
+    "image": "Upload Photo",
+    "no-image": "No Image"
+  },
+  "modal-user": {
+    "title": "Create a New User",
+    "title1": "Edit a user",
+    "email": "Email",
+    "password": "Password",
+    "first-name": "First Name",
+    "last-name": "Last Name",
+    "address": "Address",
+    "add": "Add",
+    "add1": "Save changes",
+    "close": "Close",
+    "missing-parameter": "Missing parameter: "
+  },
+  "manage-doctor": {
+    "title": "Manage Doctor",
+    "select-doctor": "Select Doctor",
+    "select-price": "Select Price",
+    "select-payment": "Select Payment Method",
+    "select-province": "Select Province",
+    "clinic-name": "Clinic Name",
+    "clinic-address": "Clinic Address",
+    "note": "Note",
+    "intro": "Introduction",
+    "detail-intro": "Detailed Introduction",
+    "create": "Create Information",
+    "save": "Save Information",
+    "placeholder": {
+      "select-doctor": "Select a doctor...",
+      "select-price": "Select a price...",
+      "select-payment": "Select a payment method...",
+      "select-province": "Select a province..."
+    }
   }
 }

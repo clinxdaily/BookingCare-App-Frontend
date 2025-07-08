@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import "./DoctorSchedule.scss";
 import HomeHeader from "../../HomePage/HomeHeader";
+import { FormattedMessage } from "react-intl";
 import {
   getDetailInFoDoctor,
   getScheduleDoctorByDate,
@@ -129,7 +130,7 @@ class DoctorSchedule extends Component {
                   <span>
                     <i className="fas fa-calendar-alt">
                       {" "}
-                      Lịch khám - Chọn và đặt miễn phí
+                      <FormattedMessage id="doctor-schedule.title" />
                     </i>
                   </span>
                 </div>
@@ -144,14 +145,12 @@ class DoctorSchedule extends Component {
                     })
                   ) : (
                     <div>
-                      Bác sĩ không có lịch khám trong ngày hôm nay. Vui lòng
-                      chọn ngày khác
+                      <FormattedMessage id="doctor-schedule.notice" />
                     </div>
                   )}
                 </div>
               </div>
             </div>
-            <div className="right-content">qwdqjwkdhqwh</div>
           </div>
         </React.Fragment>
       );

@@ -194,14 +194,17 @@ class UserRedux extends Component {
           />
         )}
 
-        <div className="title text-center">Manage Users Redux</div>
+        <div className="title text-center">
+          <FormattedMessage id="user-manage.title1" />
+        </div>
 
         <div className="text-center mb-3">
           <button
             className="btn btn-primary"
             onClick={() => this.setState({ isShowForm: !isShowForm })}
           >
-            <i className="fas fa-plus"></i>Add new users
+            <i className="fas fa-plus"></i>
+            <FormattedMessage id="user-manage.add-new" />
           </button>
         </div>
 
@@ -339,7 +342,7 @@ class UserRedux extends Component {
                     onChange={this.handleOnchangeImg}
                   />
                   <label htmlFor="previewImg" className="custom-file-upload">
-                    Tải ảnh lên
+                    <FormattedMessage id="user-manage.image" />
                   </label>
                   {previewImgURL ? (
                     <div
@@ -351,7 +354,9 @@ class UserRedux extends Component {
                     />
                   ) : (
                     <div className="preview-img placeholder">
-                      <span>No image</span>
+                      <span>
+                        <FormattedMessage id="user-manage.no-image" />
+                      </span>
                     </div>
                   )}
                 </div>

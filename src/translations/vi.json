@@ -73,6 +73,66 @@
     "time": "Giờ",
     "status": "Trạng thái",
     "actions": "Hành động",
-    "save": "Lưu lịch khám"
+    "save": "Lưu lịch khám",
+    "choose-doctor": "Chọn bác sĩ",
+    "choose-date": "Chọn ngày"
+  },
+  "doctor-schedule": {
+    "title": "Lịch khám - Chọn và đặt miễn phí",
+    "notice": "Bác sĩ không có lịch khám trong ngày hôm nay. Vui lòng chọn ngày khác"
+  },
+  "doctor-extra": {
+    "address": "Địa chỉ phòng khám",
+    "price": "Giá khám:",
+    "more": "Xem chi tiết",
+    "payment": "Phương thức thanh toán:",
+    "hide": "Ẩn bảng giá "
+  },
+  "user-manage": {
+    "title": "Quản lý người dùng ",
+    "title1": "Quản lý người dùng nâng cao - Redux",
+    "add-new": "Thêm người dùng",
+    "email": "Email",
+    "first-name": "Tên",
+    "last-name": "Họ",
+    "address": "Địa chỉ",
+    "action": "Hành động",
+    "edit": "Chỉnh sửa",
+    "delete": "Xóa",
+    "image": "Tải ảnh lên",
+    "no-image": "Chưa có ảnh"
+  },
+  "modal-user": {
+    "title": "Tạo người dùng mới",
+    "title1": "Chỉnh sửa người dùng",
+    "email": "Email",
+    "password": "Mật khẩu",
+    "first-name": "Tên",
+    "last-name": "Họ",
+    "address": "Địa chỉ",
+    "add": "Thêm",
+    "add1": "Lưu thay đổi",
+    "close": "Đóng",
+    "missing-parameter": "Thiếu thông tin: "
+  },
+  "manage-doctor": {
+    "title": "Quản lý bác sĩ",
+    "select-doctor": "Chọn bác sĩ",
+    "select-price": "Chọn giá",
+    "select-payment": "Chọn phương thức thanh toán",
+    "select-province": "Chọn tỉnh thành",
+    "clinic-name": "Tên phòng khám",
+    "clinic-address": "Địa chỉ phòng khám",
+    "note": "Ghi chú",
+    "intro": "Thông tin giới thiệu",
+    "detail-intro": "Thông tin giới thiệu chi tiết",
+    "create": "Tạo thông tin",
+    "save": "Lưu thông tin",
+    "placeholder": {
+      "select-doctor": "Chọn bác sĩ...",
+      "select-price": "Chọn giá...",
+      "select-payment": "Chọn phương thức thanh toán...",
+      "select-province": "Chọn tỉnh thành..."
+    }
   }
 }

@@ -79,12 +79,14 @@ class ModalUser extends Component {
           }}
         >
           {" "}
-          Create a new user
+          <FormattedMessage id="modal-user.title" />
         </ModalHeader>
         <ModalBody>
           <div className="modal-user-body">
             <div className="input-container">
-              <label>Email</label>
+              <label>
+                <FormattedMessage id="modal-user.email" />
+              </label>
               <input
                 type="text"
                 onChange={(event) => {
@@ -94,7 +96,9 @@ class ModalUser extends Component {
               ></input>
             </div>
             <div className="input-container">
-              <label>Password</label>
+              <label>
+                <FormattedMessage id="modal-user.password" />
+              </label>
               <input
                 type="password"
                 onChange={(event) => {
@@ -104,7 +108,9 @@ class ModalUser extends Component {
               ></input>
             </div>
             <div className="input-container">
-              <label>First Name</label>
+              <label>
+                <FormattedMessage id="modal-user.first-name" />
+              </label>
               <input
                 type="text"
                 onChange={(event) => {
@@ -114,7 +120,9 @@ class ModalUser extends Component {
               ></input>
             </div>
             <div className="input-container">
-              <label>Last Name</label>
+              <label>
+                <FormattedMessage id="modal-user.last-name" />
+              </label>
               <input
                 type="text"
                 onChange={(event) => {
@@ -124,7 +132,9 @@ class ModalUser extends Component {
               ></input>
             </div>
             <div className="input-container max-width-input">
-              <label>Address</label>
+              <label>
+                <FormattedMessage id="modal-user.address" />
+              </label>
               <input
                 type="text"
                 onChange={(event) => {
@@ -143,7 +153,7 @@ class ModalUser extends Component {
               this.handleAddNewUser();
             }}
           >
-            Add
+            <FormattedMessage id="modal-user.add" />
           </Button>{" "}
           <Button
             color="secondary"
@@ -152,7 +162,7 @@ class ModalUser extends Component {
               this.toggle();
             }}
           >
-            Close
+            <FormattedMessage id="modal-user.close" />
           </Button>
         </ModalFooter>
       </Modal>

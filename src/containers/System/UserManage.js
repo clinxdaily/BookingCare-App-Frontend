@@ -119,24 +119,37 @@ class UserManage extends Component {
           />
         )}
 
-        <div className="title text-center">Manage Users</div>
+        <div className="title text-center">
+          <FormattedMessage id="user-manage.title" />
+        </div>
         <div className="mx-1 text-center">
           <button
             className="btn btn-primary px-3 "
             onClick={() => this.handleAddNewUser()}
           >
-            <i className="fas fa-plus"></i> Add new users
+            <i className="fas fa-plus"></i>{" "}
+            <FormattedMessage id="user-manage.add-new" />
           </button>
         </div>
         <div className="users-table mt-3 mx-1">
           <table id="customers">
             <tbody>
               <tr>
-                <th>Email</th>
-                <th>First Name</th>
-                <th>Last Name</th>
-                <th>Address</th>
-                <th>Action</th>
+                <th>
+                  <FormattedMessage id="user-manage.email" />
+                </th>
+                <th>
+                  <FormattedMessage id="user-manage.first-name" />
+                </th>
+                <th>
+                  <FormattedMessage id="user-manage.last-name" />
+                </th>
+                <th>
+                  <FormattedMessage id="user-manage.address" />
+                </th>
+                <th>
+                  <FormattedMessage id="user-manage.action" />
+                </th>
               </tr>
 
               {arrUsers &&
