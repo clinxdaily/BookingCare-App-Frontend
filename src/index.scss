@@ -3,3 +3,7 @@
 body {
   font-family: "Josefin Sans", sans-serif;
 }
+body.modal-open {
+  padding-right: 0 !important;
+  overflow-y: scroll;
+}

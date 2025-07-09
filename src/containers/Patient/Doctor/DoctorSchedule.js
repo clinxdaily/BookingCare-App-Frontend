@@ -9,11 +9,17 @@ import {
 } from "../../../services/userService";
 import { LANGUAGES } from "../../../utils";
 import moment from "moment";
-import localization from "moment/locale/vi";
+import "moment/locale/vi";
+import BookingModal from "./Modal/BookingModal";
 class DoctorSchedule extends Component {
   constructor(props) {
     super(props);
-    this.state = { allDays: [], allAvailableTime: [] };
+    this.state = {
+      allDays: [],
+      allAvailableTime: [],
+      isOpenModalBooking: false,
+      dataScheduleTimeModal: {},
+    };
   }
   async componentDidMount() {
     let { language } = this.props;
@@ -104,8 +110,24 @@ class DoctorSchedule extends Component {
       }
     }
   };
+  handleClickScheduleTime = (time) => {
+    this.setState({
+      isOpenModalBooking: true,
+      dataScheduleTimeModal: time,
+    });
+  };
+  closeBookingModal = () => {
+    this.setState({
+      isOpenModalBooking: false,
+    });
+  };
   render() {
-    let { allDays, allAvailableTime } = this.state;
+    let {
+      allDays,
+      allAvailableTime,
+      isOpenModalBooking,
+      dataScheduleTimeModal,
+    } = this.state;
     let { language } = this.props;
     {
       return (
@@ -141,7 +163,14 @@ class DoctorSchedule extends Component {
                         language === LANGUAGES.VI
                           ? item.timeTypeData.valueVi
                           : item.timeTypeData.valueEn;
-                      return <button key={index}>{timeDisplay}</button>;
+                      return (
+                        <button
+                          key={index}
+                          onClick={() => this.handleClickScheduleTime(item)}
+                        >
+                          {timeDisplay}
+                        </button>
+                      );
                     })
                   ) : (
                     <div>
@@ -152,6 +181,11 @@ class DoctorSchedule extends Component {
               </div>
             </div>
           </div>
+          <BookingModal
+            isOpenModal={isOpenModalBooking}
+            closeBookingModal={this.closeBookingModal}
+            dataTime={dataScheduleTimeModal}
+          />
         </React.Fragment>
       );
     }

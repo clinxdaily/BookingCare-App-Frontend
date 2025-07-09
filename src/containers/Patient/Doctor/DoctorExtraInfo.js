@@ -39,7 +39,7 @@ class DoctorExtraInfo extends Component {
           <div className="doctor-extra-info-container">
             <div className="content-up">
               <div className="text-address">
-                <i class="fas fa-map-marker-alt"></i>{" "}
+                <i className="fas fa-map-marker-alt"></i>{" "}
                 <FormattedMessage id="doctor-extra.address" />
               </div>
               <div className="name-clinic">
@@ -54,7 +54,7 @@ class DoctorExtraInfo extends Component {
             <hr className="line-between" />
             <div className="content-down">
               <div className="text-price">
-                <i class="fas fa-money-bill-wave-alt"></i>{" "}
+                <i className="fas fa-money-bill-wave-alt"></i>{" "}
                 <FormattedMessage id="doctor-extra.price" />{" "}
                 {extraInfo &&
                   extraInfo.priceTypeData &&
