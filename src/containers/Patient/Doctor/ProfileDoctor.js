@@ -8,6 +8,7 @@ import { classNames } from "react-select/dist/index-ea9e225d.cjs.prod";
 import NumberFormat from "react-number-format";
 import _ from "lodash";
 import moment from "moment";
+import { Link } from "react-router-dom";
 class ProfileDoctor extends Component {
   constructor(props) {
     super(props);
@@ -33,13 +34,13 @@ class ProfileDoctor extends Component {
   };
   async componentDidUpdate(prevProps, prevState, snapshot) {
     if (this.props.doctorId !== prevProps.doctorId) {
-      console.log(
-        "componentDidUpdate - doctorId changed:",
-        this.props.doctorId
-      );
-      this.getInfoDoctor(this.props.doctorId);
+      let data = await this.getInfoDoctor(this.props.doctorId);
+      this.setState({
+        dataProfile: data,
+      });
     }
   }
+
   renderTimeBooking = (dataTime) => {
     let { language } = this.props;
     if (dataTime && !_.isEmpty(dataTime)) {
@@ -67,7 +68,14 @@ class ProfileDoctor extends Component {
   };
   render() {
     let { dataProfile } = this.state;
-    let { language, isShowIntro, dataTime } = this.props;
+    let {
+      language,
+      isShowIntro,
+      dataTime,
+      isShowLinkDetail,
+      isShowPrice,
+      doctorId,
+    } = this.props;
     let nameVi = "";
     let nameEn = "";
     if (dataProfile && dataProfile.positionData) {
@@ -101,35 +109,42 @@ class ProfileDoctor extends Component {
             </div>
           </div>
         </div>
-        <div className="price">
-          Giá khám:{" "}
-          {dataProfile &&
-          dataProfile.Doctor_Info &&
-          language === LANGUAGES.VI ? (
-            <NumberFormat
-              value={dataProfile.Doctor_Info.priceTypeData.valueVi}
-              displayType={"text"}
-              thousandSeparator={true}
-              suffix={" VND"}
-              style={{ textDecoration: "none" }}
-            />
-          ) : (
-            ""
-          )}
-          {dataProfile &&
-          dataProfile.Doctor_Info &&
-          language === LANGUAGES.EN ? (
-            <NumberFormat
-              value={dataProfile.Doctor_Info.priceTypeData.valueEn}
-              displayType={"text"}
-              thousandSeparator={true}
-              suffix={" $"}
-              style={{ textDecoration: "none" }}
-            />
-          ) : (
-            ""
-          )}
-        </div>
+        {isShowLinkDetail === true && (
+          <div className="view-detail-doctor">
+            <Link to={`/detail-doctor/${doctorId}`}>Xem thêm</Link>
+          </div>
+        )}
+        {isShowPrice === true && (
+          <div className="price">
+            Giá khám:{" "}
+            {dataProfile &&
+            dataProfile.Doctor_Info &&
+            language === LANGUAGES.VI ? (
+              <NumberFormat
+                value={dataProfile.Doctor_Info.priceTypeData.valueVi}
+                displayType={"text"}
+                thousandSeparator={true}
+                suffix={" VND"}
+                style={{ textDecoration: "none" }}
+              />
+            ) : (
+              ""
+            )}
+            {dataProfile &&
+            dataProfile.Doctor_Info &&
+            language === LANGUAGES.EN ? (
+              <NumberFormat
+                value={dataProfile.Doctor_Info.priceTypeData.valueEn}
+                displayType={"text"}
+                thousandSeparator={true}
+                suffix={" $"}
+                style={{ textDecoration: "none" }}
+              />
+            ) : (
+              ""
+            )}
+          </div>
+        )}
       </React.Fragment>
     );
   }

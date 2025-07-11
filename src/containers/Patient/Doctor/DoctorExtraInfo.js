@@ -12,7 +12,14 @@ class DoctorExtraInfo extends Component {
     super(props);
     this.state = { isShowDetailInfo: false, extraInfo: {} };
   }
-  async componentDidMount() {}
+  async componentDidMount() {
+    let res = await getExtraInfoDoctorById(this.props.doctorIdFromParent);
+    if (res && res.errCode === 0) {
+      this.setState({
+        extraInfo: res.data,
+      });
+    }
+  }
   async componentDidUpdate(prevProps, prevState, snapshot) {
     if (prevProps.language !== this.props.language) {
     }
@@ -92,11 +99,11 @@ class DoctorExtraInfo extends Component {
                   <div>{extraInfo && extraInfo.note ? extraInfo.note : ""}</div>
                   <div>
                     <FormattedMessage id="doctor-extra.payment" />{" "}
-                    {extraInfo &&
-                    extraInfo.paymentTypeData &&
-                    language === LANGUAGES.VI
-                      ? extraInfo.paymentTypeData.valueVi
-                      : extraInfo.paymentTypeData.valueEn}
+                    {extraInfo && extraInfo.paymentTypeData
+                      ? language === LANGUAGES.VI
+                        ? extraInfo.paymentTypeData.valueVi
+                        : extraInfo.paymentTypeData.valueEn
+                      : ""}
                   </div>
                   <span onClick={() => this.showHideDetailInfo(false)}>
                     <FormattedMessage id="doctor-extra.hide" />

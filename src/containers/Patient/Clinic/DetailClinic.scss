@@ -1,0 +1,54 @@
+.detail-specialty-container {
+  padding: 100px 100px;
+  background-color: #f9f9f9;
+
+  .detail-specialty-description {
+    font-size: 16px;
+    color: #444;
+    background: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+    margin-bottom: 30px;
+    line-height: 1.6;
+    .clinic-name {
+      font-size: 24px;
+      font-weight: bold;
+      color: #2737b0;
+      margin-bottom: 10px;
+    }
+
+    .clinic-address {
+      font-size: 16px;
+      color: #666;
+      margin-bottom: 20px;
+    }
+  }
+  .search-doctor {
+    padding-bottom: 20px;
+  }
+  .each-doctor {
+    background: #fff;
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+    margin-bottom: 30px;
+    padding: 20px;
+
+    .top-profile {
+      margin-bottom: 20px;
+    }
+
+    .bottom-info {
+      display: flex;
+      gap: 20px;
+
+      .left-schedule {
+        flex: 1;
+      }
+
+      .right-extra {
+        flex: 1;
+      }
+    }
+  }
+}

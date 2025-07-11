@@ -131,6 +131,8 @@
     "placeholder": {
       "select-doctor": "Chọn bác sĩ...",
       "select-price": "Chọn giá...",
+      "select-specialty": "Chọn chuyên khoa...",
+      "select-clinic": "Chọn phòng khám...",
       "select-payment": "Chọn phương thức thanh toán...",
       "select-province": "Chọn tỉnh thành..."
     }

@@ -18,7 +18,9 @@ import Login from "./Auth/Login";
 import System from "../routes/System";
 import Doctor from "../routes/Doctor.js";
 import { CustomToastCloseButton } from "../components/CustomToast";
-
+import VerifyEmail from "./Patient/VerifyEmail.js";
+import DetailSpecialty from "./Patient/Specialty/DetailSpecialty.js";
+import DetailClinic from "./Patient/Clinic/DetailClinic.js";
 class App extends Component {
   handlePersistorState = () => {
     const { persistor } = this.props;
@@ -59,7 +61,17 @@ class App extends Component {
                   component={userIsAuthenticated(Doctor)}
                 />
                 <Route path={path.HOMEPAGE} component={HomePage} />
+                DETAIL_SPECIALTY
                 <Route path={path.DETAIL_DOCTOR} component={DetailDoctor} />
+                <Route
+                  path={path.DETAIL_SPECIALTY}
+                  component={DetailSpecialty}
+                />
+                <Route path={path.DETAIL_CLINIC} component={DetailClinic} />
+                <Route
+                  path={path.VERIFY_EMAIL_BOOKING}
+                  component={VerifyEmail}
+                />
               </Switch>
             </span>
 

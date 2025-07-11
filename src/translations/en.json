@@ -131,6 +131,8 @@
     "placeholder": {
       "select-doctor": "Select a doctor...",
       "select-price": "Select a price...",
+      "select-specialty": "Select a specialty...",
+      "select-clinic": "Select a clinic...",
       "select-payment": "Select a payment method...",
       "select-province": "Select a province..."
     }

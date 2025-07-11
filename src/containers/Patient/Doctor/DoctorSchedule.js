@@ -22,81 +22,59 @@ class DoctorSchedule extends Component {
     };
   }
   async componentDidMount() {
-    let { language } = this.props;
+    this.setAllDaysAndFetchSchedule();
+  }
+
+  async componentDidUpdate(prevProps) {
+    if (
+      prevProps.language !== this.props.language ||
+      prevProps.doctorIdFromParent !== this.props.doctorIdFromParent
+    ) {
+      this.setAllDaysAndFetchSchedule();
+    }
+  }
+
+  // Hàm dùng chung để set allDays và gọi lịch ngày đầu tiên
+  setAllDaysAndFetchSchedule = async () => {
+    let { language, doctorIdFromParent } = this.props;
     let allDays = [];
+
     for (let i = 0; i < 7; i++) {
-      let object = {};
       let date = moment(new Date()).add(i, "days");
+      let label = "";
 
       if (language === LANGUAGES.VI) {
-        if (i === 0) {
-          object.label = `Hôm nay - ${date.format("DD/MM")}`;
-        } else {
-          let labelVi = date.locale("vi").format("dddd - DD/MM");
-          object.label = labelVi.charAt(0).toUpperCase() + labelVi.slice(1);
-        }
+        label =
+          i === 0
+            ? `Hôm nay - ${date.format("DD/MM")}`
+            : date.locale("vi").format("dddd - DD/MM");
       } else {
-        if (i === 0) {
-          object.label = `Today - ${date.format("DD/MM")}`;
-        } else {
-          object.label = date.locale("en").format("ddd - DD/MM");
-        }
+        label =
+          i === 0
+            ? `Today - ${date.format("DD/MM")}`
+            : date.locale("en").format("ddd - DD/MM");
       }
 
-      object.value = moment(new Date()).add(i, "days").startOf("day").valueOf();
-
-      allDays.push(object);
-    }
-
-    this.setState({
-      allDays: allDays,
-    });
-  }
-  async componentDidUpdate(prevProps, prevState, snapshot) {
-    if (prevProps.language !== this.props.language) {
-      let allDays = [];
-      for (let i = 0; i < 7; i++) {
-        let object = {};
-        let date = moment(new Date()).add(i, "days");
-
-        if (this.props.language === LANGUAGES.VI) {
-          if (i === 0) {
-            object.label = `Hôm nay - ${date.format("DD/MM")}`;
-          } else {
-            let labelVi = date.locale("vi").format("dddd - DD/MM");
-            object.label = labelVi.charAt(0).toUpperCase() + labelVi.slice(1);
-          }
-        } else {
-          if (i === 0) {
-            object.label = `Today - ${date.format("DD/MM")}`;
-          } else {
-            object.label = date.locale("en").format("ddd - DD/MM");
-          }
-        }
-
-        object.value = moment(new Date())
-          .add(i, "days")
-          .startOf("day")
-          .valueOf();
-
-        allDays.push(object);
-      }
-
-      this.setState({
-        allDays: allDays,
+      allDays.push({
+        label: label.charAt(0).toUpperCase() + label.slice(1),
+        value: date.startOf("day").valueOf(),
       });
     }
-    if (this.props.doctorIdFromParent !== prevProps.doctorIdFromParent) {
-      let allDays = this.state.allDays;
+
+    this.setState({ allDays });
+
+    // Gọi lịch bác sĩ cho ngày đầu tiên
+    if (doctorIdFromParent) {
       let res = await getScheduleDoctorByDate(
-        this.props.doctorIdFromParent,
+        doctorIdFromParent,
         allDays[0].value
       );
       this.setState({
-        allAvailableTime: res.data ? res.data : [],
+        allAvailableTime: res && res.data ? res.data : [],
       });
     }
-  }
+  };
+
   handleOnChangSelect = async (event) => {
     if (this.props.doctorIdFromParent && this.props.doctorIdFromParent !== -1) {
       let doctorId = this.props.doctorIdFromParent;

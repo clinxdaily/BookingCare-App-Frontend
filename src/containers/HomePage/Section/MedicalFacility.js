@@ -5,13 +5,26 @@ import "./MedicalFacility.scss";
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
-import imgNoiSoi from "../../../assets/MedicalFacility/bv_noisoi.webp";
-import imgDaLieu from "../../../assets/MedicalFacility/dalieu.webp";
-import imgYDuoc from "../../../assets/MedicalFacility/yhoc.png";
-import imgMat from "../../../assets/MedicalFacility/bv_mat.webp";
-import imgNhiDong1 from "../../../assets/MedicalFacility/bv_nhidong1.webp";
-
+import { getAllClinic } from "../../../services/userService";
+import { withRouter } from "react-router";
 class MedicalFacility extends Component {
+  constructor(props) {
+    super(props);
+    this.state = { dataClinic: [] };
+  }
+  async componentDidMount() {
+    let res = await getAllClinic();
+    if (res && res.errCode === 0) {
+      this.setState({
+        dataClinic: res.data ? res.data : [],
+      });
+    }
+  }
+  handleViewClinic = (clinic) => {
+    if (this.props.history) {
+      this.props.history.push(`/detail-clinic/${clinic.id}`);
+    }
+  };
   render() {
     let settings = {
       dots: false,
@@ -47,82 +60,39 @@ class MedicalFacility extends Component {
       ],
     };
 
-    const medicalFacilities = [
-      {
-        id: 1,
-        name: "Trung Tâm Nội Soi Tiêu Hóa Doctor Check",
-        location: "Quận 10, TP. Hồ Chí Minh",
-        rating: 4.5,
-        image: imgNoiSoi,
-        className: "facility-1",
-      },
-      {
-        id: 2,
-        name: "Bệnh viện Da Liễu TP. Hồ Chí Minh",
-        location: "Quận 3, TP. Hồ Chí Minh",
-        rating: 4.3,
-        image: imgDaLieu,
-        className: "facility-2",
-      },
-      {
-        id: 3,
-        name: "Bệnh viện Đại học Y Dược TP. Hồ Chí Minh",
-        location: "Hồng Bàng, Quận 5, TP. Hồ Chí Minh",
-        rating: 4.4,
-        image: imgYDuoc,
-        className: "facility-3",
-      },
-      {
-        id: 4,
-        name: "Bệnh viện Mắt",
-        location: "Quận 3, TP. Hồ Chí Minh",
-        rating: 4.2,
-        image: imgMat,
-        className: "facility-4",
-      },
-      {
-        id: 5,
-        name: "Bệnh viện Nhi Đồng 1",
-        location: "Quận 10, TP. Hồ Chí Minh",
-        rating: 4.6,
-        image: imgNhiDong1,
-        className: "facility-5",
-      },
-    ];
+    // const renderStars = (rating) => {
+    //   const stars = [];
+    //   const fullStars = Math.floor(rating);
+    //   const hasHalfStar = rating % 1 !== 0;
 
-    const renderStars = (rating) => {
-      const stars = [];
-      const fullStars = Math.floor(rating);
-      const hasHalfStar = rating % 1 !== 0;
+    //   for (let i = 0; i < fullStars; i++) {
+    //     stars.push(
+    //       <span key={i} className="star full">
+    //         ★
+    //       </span>
+    //     );
+    //   }
 
-      for (let i = 0; i < fullStars; i++) {
-        stars.push(
-          <span key={i} className="star full">
-            ★
-          </span>
-        );
-      }
+    //   if (hasHalfStar) {
+    //     stars.push(
+    //       <span key="half" className="star half">
+    //         ★
+    //       </span>
+    //     );
+    //   }
 
-      if (hasHalfStar) {
-        stars.push(
-          <span key="half" className="star half">
-            ★
-          </span>
-        );
-      }
+    //   const emptyStars = 5 - Math.ceil(rating);
+    //   for (let i = 0; i < emptyStars; i++) {
+    //     stars.push(
+    //       <span key={`empty-${i}`} className="star empty">
+    //         ★
+    //       </span>
+    //     );
+    //   }
 
-      const emptyStars = 5 - Math.ceil(rating);
-      for (let i = 0; i < emptyStars; i++) {
-        stars.push(
-          <span key={`empty-${i}`} className="star empty">
-            ★
-          </span>
-        );
-      }
-
-      return stars;
-    };
-
+    //   return stars;
+    // };
+    let { dataClinic } = this.state;
     return (
       <div className="section-medical-facility">
         <div className="medical-facility-content">
@@ -150,30 +120,38 @@ class MedicalFacility extends Component {
           </div>
 
           <Slider {...settings}>
-            {medicalFacilities.map((item) => (
-              <div key={item.id} className="facility-customize">
-                <div className={`facility-image ${item.className}`}>
-                  {item.image && <img src={item.image} alt={item.name} />}
-                </div>
-                <div className="facility-info">
-                  <h3>{item.name}</h3>
-                  <div className="facility-location">
-                    <i className="fas fa-map-marker-alt"></i>
-                    <span>{item.location}</span>
+            {dataClinic &&
+              dataClinic.length > 0 &&
+              dataClinic.map((item, index) => {
+                return (
+                  <div
+                    className="facility-customize"
+                    key={index}
+                    onClick={() => this.handleViewClinic(item)}
+                  >
+                    <div className={`facility-image ${item.className}`}>
+                      {item.image && <img src={item.image} />}
+                    </div>
+                    <div className="facility-info">
+                      <h3>{item.name}</h3>
+                      <div className="facility-location">
+                        <i className="fas fa-map-marker-alt"></i>
+                        <span>{item.address}</span>
+                      </div>
+                      {/* <div className="facility-rating">
+                        <span className="rating-score">({item.rating})</span>
+                        <div className="stars">{renderStars(item.rating)}</div>
+                      </div> */}
+                      <button className="book-appointment-btn">
+                        <FormattedMessage
+                          id="homepage.book-appointment"
+                          defaultMessage="Đặt khám ngay"
+                        />
+                      </button>
+                    </div>
                   </div>
-                  <div className="facility-rating">
-                    <span className="rating-score">({item.rating})</span>
-                    <div className="stars">{renderStars(item.rating)}</div>
-                  </div>
-                  <button className="book-appointment-btn">
-                    <FormattedMessage
-                      id="homepage.book-appointment"
-                      defaultMessage="Đặt khám ngay"
-                    />
-                  </button>
-                </div>
-              </div>
-            ))}
+                );
+              })}
           </Slider>
         </div>
       </div>
@@ -192,4 +170,6 @@ const mapDispatchToProps = (dispatch) => {
   return {};
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(MedicalFacility);
+export default withRouter(
+  connect(mapStateToProps, mapDispatchToProps)(MedicalFacility)
+);
