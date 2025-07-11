@@ -79,6 +79,12 @@ export const doctorMenu = [
         name: "menu.doctor.manage-schedule",
         link: "/doctor/manage-schedule",
       },
+      {
+        //giúp chia menu thành các nhóm theo phân quyền của người dùng
+
+        name: "menu.doctor.manage-patient",
+        link: "/doctor/manage-patient",
+      },
     ],
   },
 ];

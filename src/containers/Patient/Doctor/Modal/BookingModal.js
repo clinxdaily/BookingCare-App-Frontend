@@ -13,6 +13,7 @@ import { LANGUAGES } from "../../../../utils";
 import { postPatientAppointment } from "../../../../services/userService";
 import { toast } from "react-toastify";
 import moment from "moment";
+
 class BookingModal extends Component {
   constructor(props) {
     super(props);
@@ -87,13 +88,15 @@ class BookingModal extends Component {
     let date = new Date(this.state.birthday).getTime();
     let timeString = this.buildTimeBooking(this.props.dataTime);
     let doctorName = this.builDoctorName(this.props.dataTime);
+
     let res = await postPatientAppointment({
       fullName: this.state.fullName,
       phoneNumber: this.state.phoneNumber,
       email: this.state.email,
       address: this.state.address,
       reason: this.state.reason,
-      date: date,
+      date: this.props.dataTime.date,
+      birthday: date,
       selectedGender: this.state.selectedGender.value,
       doctorId: this.state.doctorId,
       timeType: this.state.timeType,
