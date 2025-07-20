@@ -29,8 +29,8 @@
       "manage-user": "Người dùng",
       "manage-doctor": "Quản lý bác sĩ",
       "manage-admin": "Quản lý quản trị viên",
-      "crud": " CRUD User",
-      "crud-redux": " CRUD Redux",
+      "crud": " Quản lý người dùng",
+      "crud-redux": " Quản lý người dùng - Redux",
       "manage-clinic": "Quản lý phòng khám",
       "clinic": "Phòng khám",
       "specialty": "Chuyên khoa",
@@ -63,7 +63,7 @@
     "doctor-highlight": "Bác sĩ nổi bật",
     "doctor-highlight-description": "Đội ngũ bác sĩ giàu kinh nghiệm và chuyên môn cao được bệnh nhân tin tưởng.",
     "more-info": "Xem thêm ",
-    "consult": "Tư vấn ngay"
+    "consult": "Đặt lịch ngay"
   },
   "manage-schedule": {
     "title": "Quản lý lịch khám",

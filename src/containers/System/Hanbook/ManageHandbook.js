@@ -1,139 +1,146 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import "./ManageClinic.scss";
+import "./ManageHandbook.scss"; // 👉 tạo file SCSS riêng, có thể copy từ ManageSpecialty.scss và đổi class
 import MarkdownIt from "markdown-it";
 import MdEditor from "react-markdown-editor-lite";
 import "react-markdown-editor-lite/lib/index.css";
 import { CommonUtils } from "../../../utils";
 import {
-  createNewClinic,
-  getAllClinic,
-  editClinic,
-  deleteClinic,
-} from "../../../services/userService";
+  createNewHandbook,
+  getAllHandbooks,
+  editHandbook,
+  deleteHandbook,
+} from "../../../services/userService"; // 👉 đảm bảo đã viết các API này
 import { toast } from "react-toastify";
 
 const mdParser = new MarkdownIt({ html: true });
 
-class ManageClinic extends Component {
+class ManageHandbook extends Component {
   constructor(props) {
     super(props);
     this.state = {
       name: "",
-      address: "",
       imgBase64: "",
       descriptionHTML: "",
       descriptionMarkdown: "",
-      action: "CREATE",
+      listHandbooks: [],
+      action: "CREATE", // CREATE | EDIT
       editId: null,
-      listClinics: [],
-      highlight: false,
     };
     this.fileInputRef = React.createRef();
   }
 
   async componentDidMount() {
-    await this.fetchClinics();
+    await this.fetchHandbooks();
   }
 
-  fetchClinics = async () => {
-    let res = await getAllClinic();
+  fetchHandbooks = async () => {
+    const res = await getAllHandbooks();
     if (res && res.errCode === 0) {
-      this.setState({ listClinics: res.data || [] });
+      this.setState({ listHandbooks: res.data || [] });
+    } else {
+      toast.error(res?.errMessage || "Không lấy được danh sách cẩm nang!");
     }
   };
 
   handleEditorChange = ({ html, text }) => {
-    this.setState({ descriptionHTML: html, descriptionMarkdown: text });
+    this.setState({
+      descriptionHTML: html,
+      descriptionMarkdown: text,
+    });
   };
 
   handleOnchangeImg = async (e) => {
-    const file = e.target.files[0];
+    const file = e.target.files?.[0];
     if (file) {
-      let base64 = await CommonUtils.getBase64(file);
+      const base64 = await CommonUtils.getBase64(file);
       this.setState({ imgBase64: base64 });
     }
   };
 
-  handleOnChangeInput = (event, id) => {
-    this.setState({ [id]: event.target.value });
+  handleOnChangeInput = (event, key) => {
+    this.setState({ [key]: event.target.value });
   };
 
-  handleSaveClinic = async () => {
+  handleSaveHandbook = async () => {
     const {
       action,
       editId,
       name,
-      address,
       imgBase64,
       descriptionHTML,
       descriptionMarkdown,
     } = this.state;
 
+    // Validate đơn giản
+    if (!name) {
+      toast.warn("Vui lòng nhập tên cẩm nang!");
+      return;
+    }
+
     if (action === "CREATE") {
-      let res = await createNewClinic({
+      const res = await createNewHandbook({
         name,
-        address,
         imgBase64,
         descriptionHTML,
         descriptionMarkdown,
       });
       if (res && res.errCode === 0) {
-        toast.success("Tạo phòng khám thành công!");
+        toast.success("Tạo cẩm nang thành công!");
         this.resetForm();
-        await this.fetchClinics();
-      } else toast.error("Lỗi khi tạo phòng khám!");
+        await this.fetchHandbooks();
+      } else {
+        toast.error(res?.errMessage || "Lỗi khi tạo cẩm nang!");
+      }
       return;
     }
 
     if (action === "EDIT") {
-      let res = await editClinic({
+      const res = await editHandbook({
         id: editId,
         name,
-        address,
-        imgBase64,
+        imgBase64, // nếu không đổi ảnh thì gửi lại ảnh cũ
         descriptionHTML,
         descriptionMarkdown,
       });
       if (res && res.errCode === 0) {
-        toast.success("Cập nhật thành công!");
+        toast.success("Cập nhật cẩm nang thành công!");
         this.resetForm();
-        await this.fetchClinics();
-      } else toast.error("Lỗi khi cập nhật!");
+        await this.fetchHandbooks();
+      } else {
+        toast.error(res?.errMessage || "Lỗi khi cập nhật cẩm nang!");
+      }
     }
   };
 
-  handleEditClinic = (item) => {
+  handleEditHandbook = (item) => {
     this.setState({
       name: item.name,
-      address: item.address,
-      imgBase64: item.image,
+      imgBase64: item.image || "",
       descriptionHTML: item.descriptionHTML || "",
       descriptionMarkdown: item.descriptionMarkdown || "",
       action: "EDIT",
       editId: item.id,
-      highlight: true,
     });
     if (this.fileInputRef.current) this.fileInputRef.current.value = null;
-
     window.scrollTo({ top: 0, behavior: "smooth" });
-
-    setTimeout(() => this.setState({ highlight: false }), 2000);
   };
 
-  handleDeleteClinic = async (item) => {
-    if (!window.confirm(`Xóa phòng khám "${item.name}"?`)) return;
-    let res = await deleteClinic(item.id);
+  handleDeleteHandbook = async (item) => {
+    if (!window.confirm(`Bạn có chắc muốn xóa cẩm nang "${item.name}"?`))
+      return;
+    const res = await deleteHandbook(item.id);
     if (res && res.errCode === 0) {
       toast.success("Xóa thành công!");
-      await this.fetchClinics();
-    } else toast.error("Xóa thất bại!");
+      await this.fetchHandbooks();
+    } else {
+      toast.error(res?.errMessage || "Xóa thất bại!");
+    }
   };
 
   resetForm = () => {
     this.setState({
       name: "",
-      address: "",
       imgBase64: "",
       descriptionHTML: "",
       descriptionMarkdown: "",
@@ -144,35 +151,34 @@ class ManageClinic extends Component {
   };
 
   render() {
-    let { listClinics } = this.state;
+    const { listHandbooks, action, name, imgBase64, descriptionMarkdown } =
+      this.state;
+
     return (
       <div className="manage-specialty-container">
-        <div className="manage-specialty-title">Quản lý phòng khám</div>
+        <div className="manage-specialty-title">Quản lý cẩm nang</div>
+
         <h4>
-          {this.state.action === "CREATE"
-            ? "Thêm thông tin phòng khám"
-            : "Chỉnh sửa thông tin phòng khám"}
+          {action === "CREATE"
+            ? "Thêm thông tin cẩm nang"
+            : "Chỉnh sửa thông tin cẩm nang"}
         </h4>
-        <div
-          className={`add-new-specialty row ${
-            this.state.highlight ? "highlight-edit" : ""
-          }`}
-        >
+        <div className="add-new-specialty row">
           <div className="col-6 form-group">
-            <label>Tên phòng khám</label>
+            <label>Tên cẩm nang</label>
             <input
               className="form-control"
               type="text"
-              value={this.state.name}
-              onChange={(e) => this.handleOnChangeInput(e, "name")}
+              value={name}
+              onChange={(event) => this.handleOnChangeInput(event, "name")}
             />
           </div>
 
           <div className="col-6 form-group">
-            <label>Ảnh phòng khám</label>
+            <label>Ảnh cẩm nang</label>
             <div className="image-upload-row">
               <label htmlFor="specialty-img" className="upload-btn">
-                <i className="fas fa-upload"></i> Chọn ảnh
+                <i className="fas fa-upload" /> Chọn ảnh
               </label>
               <input
                 id="specialty-img"
@@ -183,52 +189,38 @@ class ManageClinic extends Component {
                 style={{ display: "none" }}
               />
 
-              {this.state.imgBase64 ? (
+              {imgBase64 ? (
                 <div
                   className="preview-img"
-                  style={{
-                    backgroundImage: `url(${this.state.imgBase64})`,
-                  }}
-                ></div>
+                  style={{ backgroundImage: `url(${imgBase64})` }}
+                />
               ) : (
                 <div className="preview-img no-image">Chưa có ảnh</div>
               )}
             </div>
           </div>
 
-          <div className="col-6 form-group">
-            <label>Địa chỉ</label>
-            <input
-              className="form-control"
-              type="text"
-              value={this.state.address}
-              onChange={(e) => this.handleOnChangeInput(e, "address")}
-            />
-          </div>
-
           <div className="col-12">
             <MdEditor
-              style={{ height: "300px" }}
+              style={{ height: "400px" }}
               renderHTML={(text) => mdParser.render(text)}
               onChange={this.handleEditorChange}
-              value={this.state.descriptionMarkdown}
+              value={descriptionMarkdown}
             />
           </div>
 
           <div className="col-12 btn-save-wrapper">
             <button
               className={
-                this.state.action === "CREATE"
-                  ? "btn btn-primary "
-                  : "btn btn-warning "
+                action === "CREATE" ? "btn btn-primary" : "btn btn-warning"
               }
-              onClick={this.handleSaveClinic}
+              onClick={this.handleSaveHandbook}
             >
-              {this.state.action === "CREATE" ? "Lưu" : "Cập nhật"}
+              {action === "CREATE" ? "Lưu" : "Cập nhật"}
             </button>
-            {this.state.action === "EDIT" && (
+            {action === "EDIT" && (
               <button
-                className="btn btn-secondary ml-2 btn-cancel"
+                className="btn btn-secondary ml-2 btn-cancer"
                 onClick={this.resetForm}
               >
                 Hủy
@@ -237,31 +229,29 @@ class ManageClinic extends Component {
           </div>
         </div>
 
-        {/* Bảng danh sách */}
-        <div className="clinic-table mt-4">
-          <h4>Danh sách phòng khám</h4>
+        {/* Bảng danh sách cẩm nang */}
+        <div className="specialty-table mt-4">
+          <h4>Danh sách cẩm nang</h4>
           <table id="customers">
             <thead>
               <tr>
                 <th>#</th>
-                <th>Tên phòng khám</th>
-                <th>Địa chỉ</th>
+                <th>Tên cẩm nang</th>
                 <th>Ảnh</th>
                 <th>Hành động</th>
               </tr>
             </thead>
             <tbody>
-              {listClinics && listClinics.length > 0 ? (
-                listClinics.map((item, index) => (
+              {listHandbooks && listHandbooks.length > 0 ? (
+                listHandbooks.map((item, index) => (
                   <tr key={index}>
                     <td>{index + 1}</td>
                     <td>{item.name}</td>
-                    <td>{item.address}</td>
                     <td style={{ textAlign: "center" }}>
                       {item.image ? (
                         <img
                           src={item.image}
-                          alt="clinic"
+                          alt="handbook"
                           style={{
                             width: "60px",
                             height: "60px",
@@ -275,23 +265,23 @@ class ManageClinic extends Component {
                     <td>
                       <button
                         className="btn-edit"
-                        onClick={() => this.handleEditClinic(item)}
+                        onClick={() => this.handleEditHandbook(item)}
                       >
-                        <i className="fas fa-pencil-alt"></i>
+                        <i className="fas fa-pencil-alt" />
                       </button>
                       <button
                         className="btn-delete"
-                        onClick={() => this.handleDeleteClinic(item)}
+                        onClick={() => this.handleDeleteHandbook(item)}
                       >
-                        <i className="fas fa-trash"></i>
+                        <i className="fas fa-trash" />
                       </button>
                     </td>
                   </tr>
                 ))
               ) : (
                 <tr>
-                  <td colSpan="5" className="text-center">
-                    Không có phòng khám nào
+                  <td colSpan="4" className="text-center">
+                    Không có cẩm nang nào
                   </td>
                 </tr>
               )}
@@ -303,4 +293,4 @@ class ManageClinic extends Component {
   }
 }
 
-export default connect()(ManageClinic);
+export default connect()(ManageHandbook);

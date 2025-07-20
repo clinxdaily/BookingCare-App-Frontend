@@ -60,9 +60,18 @@ const postVerifyBookAppointment = (data) => {
 const createNewSpecialty = (data) => {
   return axios.post("/api/create-new-specialty", data);
 };
+const editSpecialty = (data) => {
+  return axios.post("/api/edit-specialty", data);
+};
+export const deleteSpecialty = (id) => {
+  return axios.delete("/api/delete-specialty", {
+    params: { id },
+  });
+};
 const getAllSpecialties = () => {
   return axios.get("/api/get-all-specialty");
 };
+
 const getDetailSpecialtiesById = (data) => {
   return axios.get(
     `/api/get-detail-specialty-by-id?id=${data.id}&location=${data.location}`
@@ -74,6 +83,30 @@ const createNewClinic = (data) => {
 const getAllClinic = () => {
   return axios.get("/api/get-all-clinic");
 };
+const editClinic = (data) => {
+  return axios.post("/api/edit-clinic", data);
+};
+export const deleteClinic = (id) => {
+  return axios.delete("/api/delete-clinic", {
+    params: { id },
+  });
+};
+//
+const createNewHandbook = (data) => {
+  return axios.post("/api/create-new-handbook", data);
+};
+const getAllHandbooks = () => {
+  return axios.get("/api/get-all-handbook");
+};
+const editHandbook = (data) => {
+  return axios.post("/api/edit-handbook", data);
+};
+export const deleteHandbook = (id) => {
+  return axios.delete("/api/delete-handbook", {
+    params: { id },
+  });
+};
+//
 const getDetailClinicById = (data) => {
   return axios.get(`/api/get-detail-clinic-by-id?id=${data.id}`);
 };
@@ -110,4 +143,9 @@ export {
   getDetailClinicById,
   getAllPatientForDoctor,
   postSendRemedy,
+  editSpecialty,
+  editClinic,
+  createNewHandbook,
+  getAllHandbooks,
+  editHandbook,
 };

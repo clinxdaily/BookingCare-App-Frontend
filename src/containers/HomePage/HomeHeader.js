@@ -6,9 +6,9 @@ import { LANGUAGES } from "../../utils";
 import { changeLanguageApp } from "../../store/actions/appActions";
 import {
   FaCalendarCheck,
-  FaVideo,
+  FaUserMd,
   FaHeartbeat,
-  FaPills,
+  FaGift,
   FaQuestionCircle,
 } from "react-icons/fa";
 
@@ -18,14 +18,8 @@ class HomeHeader extends Component {
     this.props.changeLanguageApp(language);
   };
 
-  handleLogin = () => {
-    // Handle login logic here
-    console.log("Login clicked");
-  };
-
-  handleRegister = () => {
-    // Handle register logic here
-    console.log("Register clicked");
+  handleLogoClick = () => {
+    window.location.reload();
   };
 
   render() {
@@ -35,7 +29,7 @@ class HomeHeader extends Component {
         <div className="home-header-container">
           <div className="home-header-content">
             <div className="left-content">
-              <div className="header-logo"></div>
+              <div className="header-logo" onClick={this.handleLogoClick}></div>
             </div>
             <div className="center-content">
               <div className="child-content">
@@ -123,15 +117,6 @@ class HomeHeader extends Component {
                   </span>
                 </div>
               </div>
-
-              <div className="auth-buttons">
-                <button className="login-btn" onClick={this.handleLogin}>
-                  <FormattedMessage
-                    id="home-header.login"
-                    defaultMessage="Đăng nhập"
-                  />
-                </button>
-              </div>
             </div>
           </div>
         </div>
@@ -160,8 +145,8 @@ class HomeHeader extends Component {
               <div className="subtitle-section">
                 <p className="subtitle">
                   <FormattedMessage
-                    id="banner.subtitle"
-                    defaultMessage="Đặt lịch khám nhanh chóng • Tư vấn trực tuyến • Theo dõi sức khỏe"
+                    id="banner.subtitle1"
+                    defaultMessage="Đặt lịch khám nhanh chóng • Gói khám ưu đãi • Theo dõi sức khỏe"
                   />
                 </p>
               </div>
@@ -204,7 +189,7 @@ class HomeHeader extends Component {
                 </div>
                 <div className="action-item">
                   <div className="action-icon">
-                    <FaVideo
+                    <FaUserMd
                       size={24} // Kích thước (px)
                       color="#ffffff" // Màu (ví dụ: blue-500)
                       className="mr-2" // Thêm margin hoặc CSS class
@@ -213,7 +198,7 @@ class HomeHeader extends Component {
                   <div className="action-text">
                     <FormattedMessage
                       id="banner.online-consultation"
-                      defaultMessage="Tư vấn trực tuyến"
+                      defaultMessage="Tra cứu bác sĩ"
                     />
                   </div>
                 </div>
@@ -234,7 +219,7 @@ class HomeHeader extends Component {
                 </div>
                 <div className="action-item">
                   <div className="action-icon">
-                    <FaPills
+                    <FaGift
                       size={24} // Kích thước (px)
                       color="#ffffff" // Màu tím (ví dụ: purple-500)
                       className="mr-2" // Thêm khoảng cách bên phải
@@ -242,8 +227,8 @@ class HomeHeader extends Component {
                   </div>
                   <div className="action-text">
                     <FormattedMessage
-                      id="banner.pharmacy"
-                      defaultMessage="Nhà thuốc"
+                      id="banner.pharmacy1"
+                      defaultMessage="Kết quả khám"
                     />
                   </div>
                 </div>

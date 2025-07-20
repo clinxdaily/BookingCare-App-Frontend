@@ -45,10 +45,10 @@ class AboutSocial extends Component {
 
         <div className="video-wrapper">
           <iframe
-            width="1047"
-            height="438"
-            src="https://www.youtube.com/embed/psZ1g9fMfeo?list=RD30KI5SuECuc"
-            title="SƠN TÙNG M-TP | CHÚNG TA CỦA HIỆN TẠI | OFFICIAL MUSIC VIDEO"
+            width="391"
+            height="695"
+            src="https://www.youtube.com/embed/3GS54sI5LwQ"
+            title="Hướng dẫn đặt lịch khám bệnh trên Medpro nhanh chóng, dễ dàng"
             frameBorder="0"
             allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
             referrerPolicy="strict-origin-when-cross-origin"

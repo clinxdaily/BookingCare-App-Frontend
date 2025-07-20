@@ -266,18 +266,23 @@
 
         .book-appointment-btn {
           width: 100%;
-          padding: 10px 16px;
-          background: #007bff;
+          padding: 12px 16px;
+          background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
           color: white;
           border: none;
-          border-radius: 5px;
-          font-size: 13px;
-          font-weight: 500;
+          border-radius: 20px;
+          font-size: 14px;
+          font-weight: 600;
           cursor: pointer;
           transition: all 0.3s ease;
+          text-transform: uppercase;
+          letter-spacing: 0.5px;
+          flex-shrink: 0;
 
           &:hover {
-            background: #0056b3;
+            background: linear-gradient(135deg, #5a6fd8 0%, #6a4190 100%);
+            transform: translateY(-1px);
+            box-shadow: 0 4px 12px rgba(102, 126, 234, 0.4);
           }
 
           &:active {

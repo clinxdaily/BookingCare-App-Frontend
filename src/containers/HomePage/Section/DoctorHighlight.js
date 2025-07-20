@@ -19,6 +19,7 @@ class DoctorHighlight extends Component {
 
   componentDidUpdate(prevProps, prevState, snapshot) {
     if (prevProps.topDoctors !== this.props.topDoctors) {
+      console.log("Top Doctors Data:", this.props.topDoctors);
       this.setState({
         arrDoctors: this.props.topDoctors.data || [],
       });
@@ -70,39 +71,6 @@ class DoctorHighlight extends Component {
       ],
     };
 
-    const renderStars = (rating) => {
-      const stars = [];
-      const fullStars = Math.floor(rating);
-      const hasHalfStar = rating % 1 !== 0;
-
-      for (let i = 0; i < fullStars; i++) {
-        stars.push(
-          <span key={i} className="star full">
-            ★
-          </span>
-        );
-      }
-
-      if (hasHalfStar) {
-        stars.push(
-          <span key="half" className="star half">
-            ★
-          </span>
-        );
-      }
-
-      const emptyStars = 5 - Math.ceil(rating);
-      for (let i = 0; i < emptyStars; i++) {
-        stars.push(
-          <span key={`empty-${i}`} className="star empty">
-            ★
-          </span>
-        );
-      }
-
-      return stars;
-    };
-
     return (
       <div className="section-doctor-highlight">
         <div className="doctor-highlight-content">
@@ -145,45 +113,23 @@ class DoctorHighlight extends Component {
                     >
                       <img src={imageBase64} alt="doctor" />
                     </div>
+
                     <div className="doctor-info">
                       <h3>{language === LANGUAGES.VI ? nameVi : nameEn}</h3>
+
+                      <p className="doctor-address">
+                        <i className="fas fa-map-marker-alt"></i> {item.address}
+                      </p>
+
+                      <p className="doctor-phone">
+                        <i className="fas fa-phone-alt"></i> {item.phonenumber}
+                      </p>
                       <div className="doctor-specialty"></div>
-                      <div className="doctor-rating"></div>
+
                       <button className="consult-now-btn">
                         <FormattedMessage id="homepage.consult" />
                       </button>
                     </div>
-                    {/* <div className={`doctor-image ${doctor.className}`}>
-                        {doctor.image && <img src={doctor.image} alt={doctor.name} />}
-                      </div>
-                      <div className="doctor-info">
-                        <h3>{doctor.name}</h3>
-                        <div className="doctor-specialty">
-                          <i className="fas fa-stethoscope"></i>
-                          <span>{doctor.specialty}</span>
-                        </div>
-                        <div className="doctor-title">
-                          <i className="fas fa-user-md"></i>
-                          <span>{doctor.title}</span>
-                        </div>
-                        <div className="doctor-rating">
-                          <div className="stars">{renderStars(doctor.rating)}</div>
-                          <span className="rating-info">
-                            {doctor.rating} ({doctor.reviews}{" "}
-                            <FormattedMessage
-                              id="homepage.reviews"
-                              defaultMessage="lượt khám"
-                            />
-                            )
-                          </span>
-                        </div>
-                        <button className="consult-now-btn">
-                          <FormattedMessage
-                            id="homepage.consult-now"
-                            defaultMessage="Tư vấn ngay"
-                          />
-                        </button>
-                      </div> */}
                   </div>
                 );
               })}
