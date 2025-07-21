@@ -21,8 +21,20 @@ class ManageSchedule extends Component {
     };
   }
   componentDidMount() {
-    this.props.fetchAllDoctor();
     this.props.fetchAllScheduleTime();
+    const { userInfo } = this.props;
+    if (userInfo && userInfo.roleId === "R1") {
+      // Admin: load tất cả bác sĩ
+      this.props.fetchAllDoctor();
+    } else if (userInfo && userInfo.roleId === "R2") {
+      // Bác sĩ: chỉ chỉnh lịch cho chính mình
+      this.setState({
+        selectedDoctor: {
+          value: userInfo.id,
+          label: `${userInfo.lastName} ${userInfo.firstName}`,
+        },
+      });
+    }
   }
   componentDidUpdate(prevProps, prevState, snapshot) {
     if (prevProps.allDoctors !== this.props.allDoctors) {
@@ -145,16 +157,18 @@ class ManageSchedule extends Component {
           </div>
           <div className="container">
             <div className="row">
-              <div className="col-6 form-group">
-                <label>
-                  <FormattedMessage id="manage-schedule.choose-doctor" />
-                </label>
-                <Select
-                  value={this.state.selectedDoctor}
-                  onChange={this.handleChangeSelect}
-                  options={this.state.listDoctors}
-                />
-              </div>
+              {this.props.userInfo && this.props.userInfo.roleId === "R1" && (
+                <div className="col-6 form-group">
+                  <label>
+                    <FormattedMessage id="manage-schedule.choose-doctor" />
+                  </label>
+                  <Select
+                    value={this.state.selectedDoctor}
+                    onChange={this.handleChangeSelect}
+                    options={this.state.listDoctors}
+                  />
+                </div>
+              )}
               <div className="col-6 form-group">
                 <label>
                   <FormattedMessage id="manage-schedule.choose-date" />
@@ -209,6 +223,7 @@ const mapStateToProps = (state) => {
     allDoctors: state.admin.allDoctors,
     language: state.app.language,
     allScheduleTimes: state.admin.allScheduleTime,
+    userInfo: state.user.userInfo,
   };
 };
 

@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import "./VerifyEmail.scss";
+import HomeFooter from "../HomePage/HomeFooter";
 import { postVerifyBookAppointment } from "../../services/userService";
 import HomeHeader from "../HomePage/HomeHeader";
 
@@ -118,6 +119,7 @@ class VerifyEmail extends Component {
             </div>
           )}
         </div>
+        <HomeFooter />
       </>
     );
   }

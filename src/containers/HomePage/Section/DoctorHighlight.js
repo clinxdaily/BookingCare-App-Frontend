@@ -19,7 +19,6 @@ class DoctorHighlight extends Component {
 
   componentDidUpdate(prevProps, prevState, snapshot) {
     if (prevProps.topDoctors !== this.props.topDoctors) {
-      console.log("Top Doctors Data:", this.props.topDoctors);
       this.setState({
         arrDoctors: this.props.topDoctors.data || [],
       });
@@ -29,11 +28,9 @@ class DoctorHighlight extends Component {
     this.props.loadTopDoctors();
   }
   handleViewDetailDoctor = (doctor) => {
-    console.log("View detail doctor:", doctor);
     this.props.history.push(`/detail-doctor/${doctor.id}`); // Redirect to the doctor's detail page
   };
   render() {
-    console.log("DoctorHighlight component rendered", this.props.topDoctors);
     let arrDoctors = this.state.arrDoctors;
     let { language } = this.props;
 

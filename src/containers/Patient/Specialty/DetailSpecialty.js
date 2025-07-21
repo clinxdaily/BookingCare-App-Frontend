@@ -4,6 +4,7 @@ import { connect } from "react-redux";
 import * as actions from "../../../store/actions";
 import "./DetailSpecialty.scss";
 import HomeHeader from "../../HomePage/HomeHeader";
+import HomeFooter from "../../HomePage/HomeFooter";
 import DoctorSchedule from "../Doctor/DoctorSchedule";
 import DoctorExtraInfo from "../Doctor/DoctorExtraInfo";
 import ProfileDoctor from "../Doctor/ProfileDoctor";
@@ -19,6 +20,7 @@ class DetailSpecialty extends Component {
     this.state = { arrDoctorId: [], dataDetailDoctor: {}, listProvince: [] };
   }
   async componentDidMount() {
+    window.scrollTo(0, 0);
     if (
       this.props.match &&
       this.props.match.params &&
@@ -147,6 +149,7 @@ class DetailSpecialty extends Component {
               );
             })}
         </div>
+        <HomeFooter />
       </>
     );
   }

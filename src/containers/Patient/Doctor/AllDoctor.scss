@@ -1,0 +1,309 @@
+.all-doctor-container {
+  padding-top: 120px; // Đảm bảo cách header 100px + thêm 20px padding
+  padding-bottom: 40px;
+  background-color: #f8f9fa;
+  min-height: 100vh;
+
+  .all-doctor-title {
+    text-align: center;
+    font-size: 2.5rem;
+    font-weight: 600;
+    color: #2c5aa0;
+    margin-bottom: 50px;
+    position: relative;
+
+    &::after {
+      content: "";
+      position: absolute;
+      bottom: -15px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 80px;
+      height: 3px;
+      background-color: #4a90e2;
+      border-radius: 2px;
+    }
+
+    // Responsive cho mobile
+    @media (max-width: 768px) {
+      font-size: 2rem;
+      margin-bottom: 30px;
+    }
+  }
+
+  .all-doctor-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    gap: 30px;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+
+    // Responsive cho tablet
+    @media (max-width: 992px) {
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 25px;
+    }
+
+    // Responsive cho mobile
+    @media (max-width: 768px) {
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 20px;
+      padding: 0 15px;
+    }
+
+    .doctor-card {
+      background: #ffffff;
+      border-radius: 12px;
+      padding: 25px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+      border: 1px solid #e8ecef;
+      position: relative;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+
+      &:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 12px 24px rgba(74, 144, 226, 0.15);
+        border-color: #4a90e2;
+
+        .doctor-image img {
+          transform: scale(1.05);
+        }
+
+        .doctor-info h3 {
+          color: #2c5aa0;
+        }
+      }
+
+      &:active {
+        transform: translateY(-2px);
+        transition: transform 0.1s ease;
+      }
+
+      .doctor-image {
+        width: 120px;
+        height: 120px;
+        border-radius: 50%;
+        overflow: hidden;
+        margin-bottom: 20px;
+        background-color: #f1f3f4;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border: 3px solid #e8ecef;
+        position: relative;
+
+        img {
+          width: 100%;
+          height: 100%;
+          object-fit: cover;
+          transition: transform 0.3s ease;
+        }
+
+        // Fallback nếu không có ảnh
+        &:empty,
+        img[src=""] {
+          background-color: #e3f2fd;
+
+          &::after {
+            content: "👨‍⚕️";
+            font-size: 3rem;
+            color: #4a90e2;
+          }
+        }
+
+        // Responsive
+        @media (max-width: 768px) {
+          width: 100px;
+          height: 100px;
+          margin-bottom: 15px;
+        }
+      }
+
+      .doctor-info {
+        text-align: center;
+        width: 100%;
+
+        h3 {
+          font-size: 1.3rem;
+          font-weight: 600;
+          color: #333333;
+          margin-bottom: 15px;
+          transition: color 0.3s ease;
+          line-height: 1.4;
+          min-height: 2.6rem;
+          display: -webkit-box;
+          -webkit-line-clamp: 2;
+          -webkit-box-orient: vertical;
+          overflow: hidden;
+          text-overflow: ellipsis;
+
+          // Responsive
+          @media (max-width: 768px) {
+            font-size: 1.2rem;
+            margin-bottom: 12px;
+            min-height: 2.4rem;
+          }
+        }
+
+        p {
+          font-size: 0.95rem;
+          color: #666666;
+          margin-bottom: 8px;
+          line-height: 1.4;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          text-align: center;
+
+          &:last-child {
+            margin-bottom: 0;
+          }
+
+          i {
+            color: #4a90e2;
+            margin-right: 8px;
+            font-size: 0.9rem;
+            min-width: 16px;
+            text-align: center;
+          }
+
+          // Giới hạn độ dài text
+          span {
+            display: -webkit-box;
+            -webkit-line-clamp: 1;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+            text-overflow: ellipsis;
+          }
+
+          // Responsive
+          @media (max-width: 768px) {
+            font-size: 0.9rem;
+          }
+        }
+
+        // Style riêng cho địa chỉ (có thể dài)
+        p:first-of-type {
+          margin-bottom: 10px;
+
+          // Cho phép hiển thị 2 dòng cho địa chỉ
+          display: -webkit-box;
+          -webkit-line-clamp: 2;
+          -webkit-box-orient: vertical;
+          overflow: hidden;
+          text-overflow: ellipsis;
+          text-align: center;
+          line-height: 1.3;
+          height: 2.6rem;
+        }
+
+        // Style cho số điện thoại
+        p:last-of-type {
+          font-weight: 500;
+          color: #4a90e2;
+        }
+      }
+
+      // Responsive cho mobile
+      @media (max-width: 768px) {
+        padding: 20px;
+        border-radius: 10px;
+      }
+    }
+  }
+}
+
+// Animation cho loading
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+// Áp dụng animation cho các item
+.doctor-card {
+  animation: fadeInUp 0.6s ease forwards;
+
+  // Delay animation cho từng item
+  &:nth-child(1) {
+    animation-delay: 0.1s;
+  }
+  &:nth-child(2) {
+    animation-delay: 0.2s;
+  }
+  &:nth-child(3) {
+    animation-delay: 0.3s;
+  }
+  &:nth-child(4) {
+    animation-delay: 0.4s;
+  }
+  &:nth-child(5) {
+    animation-delay: 0.5s;
+  }
+  &:nth-child(6) {
+    animation-delay: 0.6s;
+  }
+  &:nth-child(7) {
+    animation-delay: 0.7s;
+  }
+  &:nth-child(8) {
+    animation-delay: 0.8s;
+  }
+}
+
+// Loading state
+.loading {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 200px;
+
+  .spinner {
+    width: 50px;
+    height: 50px;
+    border: 4px solid #f3f3f3;
+    border-top: 4px solid #4a90e2;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+  }
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+// Empty state
+.no-doctors {
+  grid-column: 1 / -1;
+  text-align: center;
+  font-size: 1.2rem;
+  color: #666666;
+  padding: 60px 20px;
+  background: #ffffff;
+  border-radius: 12px;
+  border: 1px solid #e8ecef;
+
+  &::before {
+    content: "👨‍⚕️";
+    display: block;
+    font-size: 4rem;
+    margin-bottom: 20px;
+    opacity: 0.5;
+  }
+}

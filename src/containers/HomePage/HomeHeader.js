@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { FormattedMessage } from "react-intl";
 import { connect } from "react-redux";
 import "./HomeHeader.scss";
-import { LANGUAGES } from "../../utils";
+import { LANGUAGES, path } from "../../utils";
 import { changeLanguageApp } from "../../store/actions/appActions";
 import {
   FaCalendarCheck,
@@ -11,7 +11,7 @@ import {
   FaGift,
   FaQuestionCircle,
 } from "react-icons/fa";
-
+import { withRouter } from "react-router-dom";
 class HomeHeader extends Component {
   changeLanguage = (language) => {
     //fire redux event
@@ -19,9 +19,12 @@ class HomeHeader extends Component {
   };
 
   handleLogoClick = () => {
-    window.location.reload();
+    this.props.history.push(path.HOMEPAGE);
   };
-
+  navigateTo = (path) => {
+    this.props.history.push(path);
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  };
   render() {
     let language = this.props.language;
     return (
@@ -32,7 +35,10 @@ class HomeHeader extends Component {
               <div className="header-logo" onClick={this.handleLogoClick}></div>
             </div>
             <div className="center-content">
-              <div className="child-content">
+              <div
+                className="child-content"
+                onClick={() => this.navigateTo("/all-specialty")}
+              >
                 <div>
                   <b>
                     <FormattedMessage id="home-header.speciality" />
@@ -42,7 +48,10 @@ class HomeHeader extends Component {
                   <FormattedMessage id="home-header.search-doctor" />
                 </div>
               </div>
-              <div className="child-content">
+              <div
+                className="child-content"
+                onClick={() => this.navigateTo("/all-clinic")}
+              >
                 <div>
                   <b>
                     <FormattedMessage id="home-header.medical-facility" />
@@ -52,7 +61,10 @@ class HomeHeader extends Component {
                   <FormattedMessage id="home-header.select-clinic" />
                 </div>
               </div>
-              <div className="child-content">
+              <div
+                className="child-content"
+                onClick={() => this.navigateTo("/all-doctor")}
+              >
                 <div>
                   <b>
                     <FormattedMessage id="home-header.doctor" />
@@ -62,7 +74,10 @@ class HomeHeader extends Component {
                   <FormattedMessage id="home-header.select-doctor" />
                 </div>
               </div>
-              <div className="child-content">
+              <div
+                className="child-content"
+                onClick={() => this.navigateTo("/all-handbook")}
+              >
                 <div>
                   <b>
                     <FormattedMessage id="home-header.medical-package" />
@@ -255,4 +270,6 @@ const mapDispatchToProps = (dispatch) => {
   };
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(HomeHeader);
+export default withRouter(
+  connect(mapStateToProps, mapDispatchToProps)(HomeHeader)
+);

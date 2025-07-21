@@ -4,6 +4,7 @@ import { connect } from "react-redux";
 import * as actions from "../../../store/actions";
 import "./DetailClinic.scss";
 import HomeHeader from "../../HomePage/HomeHeader";
+import HomeFooter from "../../HomePage/HomeFooter";
 import DoctorSchedule from "../Doctor/DoctorSchedule";
 import DoctorExtraInfo from "../Doctor/DoctorExtraInfo";
 import ProfileDoctor from "../Doctor/ProfileDoctor";
@@ -19,6 +20,7 @@ class DetailClinic extends Component {
     this.state = { arrDoctorId: [], dataDetailClinic: {} };
   }
   async componentDidMount() {
+    window.scrollTo(0, 0);
     if (
       this.props.match &&
       this.props.match.params &&
@@ -26,7 +28,6 @@ class DetailClinic extends Component {
     ) {
       let id = this.props.match.params.id;
       let res = await getDetailClinicById({ id: id });
-      console.log("API res:", res);
       if (res && res.errCode === 0) {
         let data = res.data;
         let arrDoctorId = [];
@@ -92,6 +93,7 @@ class DetailClinic extends Component {
               );
             })}
         </div>
+        <HomeFooter />
       </>
     );
   }

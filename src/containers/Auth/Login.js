@@ -30,27 +30,29 @@ class Login extends Component {
   };
 
   handleLogin = async () => {
-    this.setState({
-      errMessage: "",
-    });
+    this.setState({ errMessage: "" });
     try {
       let data = await handleLoginApi(this.state.username, this.state.password);
       if (data && data.errCode !== 0) {
-        this.setState({
-          errMessage: data.message,
-        });
+        this.setState({ errMessage: data.message });
+        return;
       }
       if (data && data.errCode === 0) {
         this.props.userLoginSuccess(data.user);
-        console.log("login success: ", data);
+
+        const role = data.user.roleId;
+        if (role === "R1") {
+          this.props.navigate("/system/user-manage"); // admin
+        } else if (role === "R2") {
+          this.props.navigate("/doctor/manage-schedule"); // bác sĩ
+        } else {
+          this.props.navigate("/home"); // mặc định
+        }
       }
     } catch (error) {
-      if (error.response && error.response.data) {
-        this.setState({
-          errMessage: error.response.data.message,
-        });
+      if (error.response?.data?.message) {
+        this.setState({ errMessage: error.response.data.message });
       }
-      console.log("error: ", error.message);
     }
   };
 
@@ -161,6 +163,7 @@ class Login extends Component {
 const mapStateToProps = (state) => {
   return {
     language: state.app.language,
+    userInfo: state.user.userInfo,
   };
 };
 

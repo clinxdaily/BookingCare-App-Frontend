@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import "./DetailDoctor.scss";
 import HomeHeader from "../../HomePage/HomeHeader";
+import HomeFooter from "../../HomePage/HomeFooter";
 import { getDetailInFoDoctor } from "../../../services/userService";
 import { LANGUAGES } from "../../../utils";
 import DoctorSchedule from "./DoctorSchedule";
@@ -12,6 +13,7 @@ class DetailDoctor extends Component {
     this.state = { detailDoctor: {}, currentDoctorId: -1 };
   }
   async componentDidMount() {
+    window.scrollTo(0, 0);
     if (
       this.props.match &&
       this.props.match.params &&
@@ -91,6 +93,7 @@ class DetailDoctor extends Component {
               {/* Comments section can be added here */}
             </div>
           </div>
+          <HomeFooter />
         </React.Fragment>
       );
     }

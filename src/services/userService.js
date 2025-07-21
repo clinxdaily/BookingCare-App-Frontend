@@ -106,6 +106,11 @@ export const deleteHandbook = (id) => {
     params: { id },
   });
 };
+
+const getDetailHandbookById = (data) => {
+  return axios.get(`/api/get-detail-handbook-by-id?id=${data.id}`);
+};
+
 //
 const getDetailClinicById = (data) => {
   return axios.get(`/api/get-detail-clinic-by-id?id=${data.id}`);
@@ -148,4 +153,5 @@ export {
   createNewHandbook,
   getAllHandbooks,
   editHandbook,
+  getDetailHandbookById,
 };

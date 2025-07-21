@@ -1,0 +1,286 @@
+.all-handbook-container {
+  padding-top: 120px; // Đảm bảo cách header 100px + thêm 20px padding
+  padding-bottom: 40px;
+  background-color: #f8f9fa;
+  min-height: 100vh;
+
+  .all-handbook-title {
+    text-align: center;
+    font-size: 2.5rem;
+    font-weight: 600;
+    color: #2c5aa0;
+    margin-bottom: 50px;
+    position: relative;
+
+    &::after {
+      content: "";
+      position: absolute;
+      bottom: -15px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 80px;
+      height: 3px;
+      background-color: #4a90e2;
+      border-radius: 2px;
+    }
+
+    // Responsive cho mobile
+    @media (max-width: 768px) {
+      font-size: 2rem;
+      margin-bottom: 30px;
+    }
+  }
+
+  .all-handbook-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 30px;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+
+    // Responsive cho tablet
+    @media (max-width: 992px) {
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 25px;
+    }
+
+    // Responsive cho mobile
+    @media (max-width: 768px) {
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 20px;
+      padding: 0 15px;
+    }
+
+    .handbook-card {
+      background: #ffffff;
+      border-radius: 12px;
+      padding: 0;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+      border: 1px solid #e8ecef;
+      position: relative;
+      overflow: hidden;
+
+      &:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 12px 24px rgba(74, 144, 226, 0.15);
+        border-color: #4a90e2;
+
+        .handbook-image img {
+          transform: scale(1.05);
+        }
+
+        .handbook-info h3 {
+          color: #2c5aa0;
+        }
+      }
+
+      &:active {
+        transform: translateY(-2px);
+        transition: transform 0.1s ease;
+      }
+
+      .handbook-image {
+        width: 100%;
+        height: 200px;
+        overflow: hidden;
+        background-color: #f1f3f4;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        position: relative;
+
+        img {
+          width: 100%;
+          height: 100%;
+          object-fit: contain;
+          transition: transform 0.3s ease;
+        }
+
+        // Fallback nếu không có ảnh hoặc ảnh lỗi
+        &:empty::after,
+        img[src="/assets/default-handbook.png"]::after {
+          content: "📚";
+          font-size: 4rem;
+          color: #4a90e2;
+          position: absolute;
+          top: 50%;
+          left: 50%;
+          transform: translate(-50%, -50%);
+        }
+
+        // Overlay gradient nhẹ
+        &::before {
+          content: "";
+          position: absolute;
+          top: 0;
+          left: 0;
+          right: 0;
+          bottom: 0;
+          background: linear-gradient(
+            to bottom,
+            transparent 0%,
+            rgba(0, 0, 0, 0.05) 100%
+          );
+          z-index: 1;
+        }
+
+        // Responsive
+        @media (max-width: 768px) {
+          height: 180px;
+        }
+      }
+
+      .handbook-info {
+        padding: 20px;
+
+        h3 {
+          font-size: 1.2rem;
+          font-weight: 600;
+          color: #333333;
+          margin: 0;
+          transition: color 0.3s ease;
+          line-height: 1.4;
+          display: -webkit-box;
+          -webkit-line-clamp: 2;
+          -webkit-box-orient: vertical;
+          overflow: hidden;
+          text-overflow: ellipsis;
+          min-height: 3.2rem; // Đảm bảo chiều cao đồng nhất cho 2 dòng
+
+          // Responsive
+          @media (max-width: 768px) {
+            font-size: 1.1rem;
+            min-height: 2.8rem;
+          }
+        }
+
+        // Thêm icon sách nhỏ
+        &::before {
+          content: "📖";
+          font-size: 1rem;
+          margin-right: 8px;
+          opacity: 0.7;
+        }
+
+        // Responsive
+        @media (max-width: 768px) {
+          padding: 16px;
+        }
+      }
+    }
+  }
+}
+
+// Animation cho loading
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+// Áp dụng animation cho các item
+.handbook-card {
+  animation: fadeInUp 0.6s ease forwards;
+
+  // Delay animation cho từng item
+  &:nth-child(1) {
+    animation-delay: 0.1s;
+  }
+  &:nth-child(2) {
+    animation-delay: 0.2s;
+  }
+  &:nth-child(3) {
+    animation-delay: 0.3s;
+  }
+  &:nth-child(4) {
+    animation-delay: 0.4s;
+  }
+  &:nth-child(5) {
+    animation-delay: 0.5s;
+  }
+  &:nth-child(6) {
+    animation-delay: 0.6s;
+  }
+  &:nth-child(7) {
+    animation-delay: 0.7s;
+  }
+  &:nth-child(8) {
+    animation-delay: 0.8s;
+  }
+}
+
+// Loading state
+.loading {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 200px;
+
+  .spinner {
+    width: 50px;
+    height: 50px;
+    border: 4px solid #f3f3f3;
+    border-top: 4px solid #4a90e2;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+  }
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+// Empty state
+.no-handbooks {
+  grid-column: 1 / -1;
+  text-align: center;
+  font-size: 1.2rem;
+  color: #666666;
+  padding: 60px 20px;
+  background: #ffffff;
+  border-radius: 12px;
+  border: 1px solid #e8ecef;
+
+  &::before {
+    content: "📚";
+    display: block;
+    font-size: 4rem;
+    margin-bottom: 20px;
+    opacity: 0.5;
+  }
+}
+
+// Thêm style cho handbook đặc biệt
+.handbook-card.featured {
+  .handbook-image {
+    position: relative;
+
+    &::after {
+      content: "NỔI BẬT";
+      position: absolute;
+      top: 15px;
+      right: -25px;
+      background: linear-gradient(45deg, #4a90e2, #2c5aa0);
+      color: white;
+      font-size: 0.75rem;
+      font-weight: 600;
+      padding: 5px 30px;
+      transform: rotate(45deg);
+      z-index: 2;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+    }
+  }
+}

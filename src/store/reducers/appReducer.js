@@ -36,6 +36,7 @@ const appReducer = (state = initialState, action) => {
         ...state,
         language: action.language,
       };
+
     default:
       return state;
   }

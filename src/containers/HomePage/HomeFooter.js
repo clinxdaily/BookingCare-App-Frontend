@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { FormattedMessage } from "react-intl";
 import { connect } from "react-redux";
+import { withRouter } from "react-router-dom";
 import "./HomeFooter.scss";
 import {
   FaFacebookF,
@@ -30,14 +31,13 @@ class HomeFooter extends Component {
   handleScrollToTop = () => {
     window.scrollTo({ top: 0, behavior: "smooth" });
   };
-
-  handleContactClick = (type) => {
-    console.log(`Contact via ${type} clicked`);
+  navigateTo = (path) => {
+    this.props.history.push(path);
+    window.scrollTo({ top: 0, behavior: "smooth" });
   };
+  handleContactClick = (type) => {};
 
-  handleServiceClick = (service) => {
-    console.log(`Service ${service} clicked`);
-  };
+  handleServiceClick = (service) => {};
 
   render() {
     return (
@@ -114,13 +114,7 @@ class HomeFooter extends Component {
                       defaultMessage="Khám tổng quát"
                     />
                   </li>
-                  <li onClick={() => this.handleServiceClick("pharmacy")}>
-                    <FaPills className="service-icon" />
-                    <FormattedMessage
-                      id="footer.service-pharmacy"
-                      defaultMessage="Nhà thuốc trực tuyến"
-                    />
-                  </li>
+
                   <li onClick={() => this.handleServiceClick("specialist")}>
                     <FaStethoscope className="service-icon" />
                     <FormattedMessage
@@ -139,20 +133,35 @@ class HomeFooter extends Component {
                   />
                 </h3>
                 <ul>
-                  <li>
+                  <li onClick={() => this.navigateTo("/all-specialty")}>
                     <FaUserMd className="link-icon" />
                     <FormattedMessage
                       id="footer.link-doctors"
-                      defaultMessage="Danh sách bác sĩ"
+                      defaultMessage="Danh sách chuyên khoa"
                     />
                   </li>
-                  <li>
+                  <li onClick={() => this.navigateTo("/all-clinic")}>
                     <FaHospital className="link-icon" />
                     <FormattedMessage
                       id="footer.link-hospitals"
                       defaultMessage="Bệnh viện & Phòng khám"
                     />
                   </li>
+                  <li onClick={() => this.navigateTo("/all-doctor")}>
+                    <FaUserMd className="link-icon" />
+                    <FormattedMessage
+                      id="footer.link-doctors"
+                      defaultMessage="Danh sách bác sĩ"
+                    />
+                  </li>
+                  <li onClick={() => this.navigateTo("/all-handbook")}>
+                    <FaUserMd className="link-icon" />
+                    <FormattedMessage
+                      id="footer.link-doctors"
+                      defaultMessage="Danh sách cẩm nang"
+                    />
+                  </li>
+
                   <li>
                     <FaQuestionCircle className="link-icon" />
                     <FormattedMessage
@@ -160,18 +169,7 @@ class HomeFooter extends Component {
                       defaultMessage="Câu hỏi thường gặp"
                     />
                   </li>
-                  <li>
-                    <FormattedMessage
-                      id="footer.link-about"
-                      defaultMessage="Về chúng tôi"
-                    />
-                  </li>
-                  <li>
-                    <FormattedMessage
-                      id="footer.link-careers"
-                      defaultMessage="Tuyển dụng"
-                    />
-                  </li>
+
                   <li>
                     <FormattedMessage
                       id="footer.link-news"
@@ -327,4 +325,6 @@ const mapDispatchToProps = (dispatch) => {
   return {};
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(HomeFooter);
+export default withRouter(
+  connect(mapStateToProps, mapDispatchToProps)(HomeFooter)
+);
