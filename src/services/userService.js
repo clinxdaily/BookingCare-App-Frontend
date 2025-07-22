@@ -120,6 +120,12 @@ const getAllPatientForDoctor = (data) => {
     `/api/get-list-patient-for-doctor?doctorId=${data.doctorId}&date=${data.date}`
   );
 };
+const postDoctorConfirm = (data) => {
+  return axios.post("/api/doctor-confirm", data);
+};
+const postDoctorReject = (data) => {
+  return axios.post("/api/doctor-reject", data);
+};
 const postSendRemedy = (data) => {
   return axios.post("/api/send-remedy", data);
 };
@@ -154,4 +160,6 @@ export {
   getAllHandbooks,
   editHandbook,
   getDetailHandbookById,
+  postDoctorConfirm,
+  postDoctorReject,
 };
