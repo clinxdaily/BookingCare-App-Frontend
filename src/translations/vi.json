@@ -30,7 +30,7 @@
       "manage-doctor": "Quản lý bác sĩ",
       "manage-admin": "Quản lý quản trị viên",
       "crud": " Quản lý người dùng",
-      "crud-redux": " Quản lý người dùng - Redux",
+      "crud-redux": " Quản lý người dùng",
       "manage-clinic": "Quản lý phòng khám",
       "clinic": "Phòng khám",
       "specialty": "Chuyên khoa",
@@ -41,7 +41,8 @@
     "doctor": {
       "manage-schedule": "Quản lý lịch khám",
       "manage-patient": "Quản lý bệnh nhân",
-      "manage-prescription": "Quản lý đơn thuốc"
+      "manage-history": "Quản lý lịch sử khám",
+      "manage-revenue": "Quản lý doanh thu"
     }
   },
   "manage-user": {

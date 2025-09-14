@@ -5,8 +5,7 @@ import DatePicker from "../../../components/Input/DatePicker";
 import {
   getAllPatientForDoctor,
   postSendRemedy,
-  postDoctorConfirm,
-  postDoctorReject,
+  cancelAppointment,
 } from "../../../services/userService";
 import moment from "moment";
 import RemedyModal from "./RemedyModal";
@@ -49,82 +48,38 @@ class ManagePatient extends Component {
     });
   };
 
-  // Bác sĩ xác nhận
-  handleConfirm = async (item) => {
-    this.setState({ isShowLoading: true });
-    try {
-      let res = await postDoctorConfirm({
-        doctorId: item.doctorId,
-        patientId: item.patientId,
-        timeType: item.timeType,
-        email: item.patientData.email,
-        patientName: item.patientData.firstName,
-        doctorName: item.doctorName || "Bác sĩ",
-        time: item.timeTypeDataPatient?.valueVi || "",
-        language: this.props.language,
-      });
-
-      if (res && res.errCode === 0) {
-        toast.success(`Đã xác nhận bệnh nhân ${item.patientData.firstName}`);
-        await this.getDataPatient();
-      } else {
-        toast.error("Xác nhận thất bại");
-      }
-    } catch (e) {
-      toast.error("Lỗi kết nối máy chủ");
-      console.error(e);
-    } finally {
-      this.setState({ isShowLoading: false });
-    }
-  };
-
-  // Bác sĩ từ chối
-  handleReject = async (item) => {
-    let reason = prompt("Nhập lý do từ chối:");
-    if (!reason) return;
-
-    this.setState({ isShowLoading: true });
-    try {
-      let res = await postDoctorReject({
-        doctorId: item.doctorId,
-        patientId: item.patientId,
-        timeType: item.timeType,
-        reason,
-        email: item.patientData.email,
-        patientName: item.patientData.firstName,
-        doctorName: item.doctorName || "Bác sĩ",
-        time: item.timeTypeDataPatient?.valueVi || "",
-        language: this.props.language,
-      });
-
-      if (res && res.errCode === 0) {
-        toast.error(`Đã từ chối bệnh nhân ${item.patientData.firstName}`);
-        await this.getDataPatient();
-      } else {
-        toast.error("Từ chối thất bại");
-      }
-    } catch (e) {
-      toast.error("Lỗi kết nối máy chủ");
-      console.error(e);
-    } finally {
-      this.setState({ isShowLoading: false });
-    }
-  };
-
-  // Gửi hóa đơn
   sendRemedy = async (dataFromModal) => {
     let { dataModal } = this.state;
     this.setState({ isShowLoading: true });
 
-    let res = await postSendRemedy({
+    let payload = {
       email: dataFromModal.email,
-      imgBase64: dataFromModal.imgBase64,
       doctorId: dataModal.doctorId,
       patientId: dataModal.patientId,
       timeType: dataModal.timeType,
       language: this.props.language,
       patientName: dataModal.patientName,
-    });
+      type: dataFromModal.type, // "image" hoặc "manual"
+    };
+
+    // Nếu là gửi bằng ảnh
+    if (dataFromModal.type === "image") {
+      payload.imgBase64List = dataFromModal.imgBase64List;
+    }
+
+    // Nếu là gửi bằng nhập tay
+    if (dataFromModal.type === "manual") {
+      payload.medicines = dataFromModal.medicines.map((med) => ({
+        name: med.name,
+        quantity: med.quantity,
+        unit: med.unit, // 👈 THÊM unit ở đây
+        time: med.time,
+      }));
+      payload.initialDiagnosis = dataFromModal.initialDiagnosis;
+      payload.conclusion = dataFromModal.conclusion;
+    }
+
+    let res = await postSendRemedy(payload);
 
     if (res && res.errCode === 0) {
       toast.success("Gửi hóa đơn thành công!");
@@ -133,6 +88,7 @@ class ManagePatient extends Component {
     } else {
       toast.error("Gửi hóa đơn thất bại!");
     }
+
     this.setState({ isShowLoading: false });
   };
 
@@ -150,48 +106,65 @@ class ManagePatient extends Component {
   renderStatus = (statusId) => {
     switch (statusId) {
       case "S2":
-        return "Chờ bác sĩ xác nhận";
-      case "S5":
-        return "Đã xác nhận";
-      case "S3":
-        return "Đã gửi hóa đơn";
-      case "S4":
-        return "Đã hủy";
+        return "Chờ khám";
       default:
         return "Không xác định";
+    }
+  };
+
+  handleCancelAppointment = async (item) => {
+    if (
+      !item ||
+      !item.patientId ||
+      !item.doctorId ||
+      !item.timeType ||
+      !item.date
+    ) {
+      toast.error("Thiếu thông tin để hủy lịch");
+      return;
+    }
+
+    const confirm = window.confirm(
+      "Bạn có chắc chắn muốn hủy lịch hẹn này không?"
+    );
+    if (!confirm) return;
+
+    const res = await cancelAppointment({
+      doctorId: item.doctorId,
+      patientId: item.patientId,
+      timeType: item.timeType,
+      date: item.date,
+      reason: "Bác sĩ hủy lịch",
+    });
+
+    if (res && res.errCode === 0) {
+      toast.success("Hủy lịch thành công");
+      await this.getDataPatient();
+    } else {
+      toast.error(res.errMessage || "Hủy lịch thất bại");
     }
   };
 
   renderActionButtons = (item) => {
     if (item.statusId === "S2") {
       return (
-        <>
+        <div className="action-buttons">
           <button
-            className="btn btn-success"
-            onClick={() => this.handleConfirm(item)}
+            className="btn btn-primary me-2"
+            onClick={() => this.handleOpenRemedy(item)}
           >
-            Đồng ý
+            Gửi hóa đơn
           </button>
           <button
-            className="btn btn-danger mx-2"
-            onClick={() => this.handleReject(item)}
+            className="btn btn-danger"
+            onClick={() => this.handleCancelAppointment(item)}
           >
-            Từ chối
+            Hủy lịch
           </button>
-        </>
+        </div>
       );
     }
-    if (item.statusId === "S5") {
-      return (
-        <button
-          className="btn btn-primary"
-          onClick={() => this.handleOpenRemedy(item)}
-        >
-          Gửi hóa đơn
-        </button>
-      );
-    }
-    return null; // S3, S4 thì không hiển thị
+    return null;
   };
 
   render() {
@@ -223,7 +196,9 @@ class ManagePatient extends Component {
                       <th>Họ tên</th>
                       <th>Giới tính</th>
                       <th>Địa chỉ</th>
+                      <th>Số điện thoại</th>
                       <th>Thời gian khám</th>
+                      <th>Lý do khám</th>
                       <th>Trạng thái</th>
                       <th>Hành động</th>
                     </tr>
@@ -234,14 +209,16 @@ class ManagePatient extends Component {
                           <td>{item.patientData?.firstName || ""}</td>
                           <td>{item.patientData?.genderData?.valueVi || ""}</td>
                           <td>{item.patientData?.address || ""}</td>
+                          <td>{item.patientData?.phonenumber || ""}</td>
                           <td>{item.timeTypeDataPatient?.valueVi || ""}</td>
+                          <td>{item.reason || ""}</td>
                           <td>{this.renderStatus(item.statusId)}</td>
                           <td>{this.renderActionButtons(item)}</td>
                         </tr>
                       ))
                     ) : (
                       <tr>
-                        <td colSpan="7">Chưa có bệnh nhân nào.</td>
+                        <td colSpan="9">Chưa có bệnh nhân nào.</td>
                       </tr>
                     )}
                   </tbody>
@@ -250,10 +227,11 @@ class ManagePatient extends Component {
             </div>
           </div>
           <RemedyModal
-            isOpenModal={isOpenRemedyModal}
-            dataModal={dataModal}
-            closeRemedyModal={() => this.setState({ isOpenRemedyModal: false })}
+            isOpen={isOpenRemedyModal}
+            toggleFromParent={() => this.setState({ isOpenRemedyModal: false })}
+            dataRemedy={dataModal}
             sendRemedy={this.sendRemedy}
+            isReadOnly={false}
           />
         </LoadingOverlay>
       </React.Fragment>

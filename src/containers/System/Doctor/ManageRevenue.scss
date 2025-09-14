@@ -1,0 +1,161 @@
+$primary: #3498db;
+$secondary: #2ecc71;
+$danger: #e74c3c;
+$warning: #f39c12;
+$radius: 6px;
+$shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+
+.manage-revenue-container {
+  padding: 20px;
+  background-color: #f8f9fa;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  min-height: 100vh;
+
+  .revenue-header {
+    font-size: 26px;
+    font-weight: 600;
+    text-align: center;
+    margin-bottom: 30px;
+    color: #333;
+    position: relative;
+
+    &::after {
+      content: "";
+      width: 80px;
+      height: 3px;
+      background: $primary;
+      position: absolute;
+      bottom: -10px;
+      left: 50%;
+      transform: translateX(-50%);
+      border-radius: 2px;
+    }
+  }
+
+  .revenue-content {
+    background: #fff;
+    padding: 20px;
+    border-radius: $radius;
+    box-shadow: $shadow;
+
+    .filter-controls {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 15px;
+      margin-bottom: 25px;
+      align-items: center;
+
+      label {
+        font-weight: 500;
+        margin-right: 5px;
+      }
+
+      .form-control {
+        padding: 6px 12px;
+        border-radius: $radius;
+        border: 1px solid #ccc;
+        background-color: #fff;
+        font-size: 14px;
+      }
+
+      .date-picker {
+        width: 200px;
+      }
+    }
+
+    .error-message {
+      color: #fff;
+      background-color: $danger;
+      padding: 12px;
+      border-radius: $radius;
+      margin-bottom: 20px;
+      font-weight: 500;
+    }
+
+    .loading-container {
+      text-align: center;
+      padding: 40px 0;
+
+      .spinner {
+        width: 40px;
+        height: 40px;
+        margin: 0 auto 10px;
+        border: 4px solid $primary;
+        border-top: 4px solid transparent;
+        border-radius: 50%;
+        animation: spin 1s linear infinite;
+      }
+
+      p {
+        font-size: 16px;
+        color: #666;
+      }
+
+      @keyframes spin {
+        to {
+          transform: rotate(360deg);
+        }
+      }
+    }
+
+    .revenue-stats {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 20px;
+      justify-content: space-between;
+
+      .stat-card {
+        flex: 1 1 30%;
+        background: #fefefe;
+        border-radius: $radius;
+        padding: 20px;
+        box-shadow: $shadow;
+        display: flex;
+        align-items: center;
+        gap: 15px;
+        transition: transform 0.2s;
+
+        &:hover {
+          transform: translateY(-3px);
+        }
+
+        &.appointments {
+          border-left: 5px solid $primary;
+        }
+
+        &.revenue {
+          border-left: 5px solid $secondary;
+        }
+
+        &.price-per {
+          border-left: 5px solid $warning;
+        }
+
+        .stat-icon {
+          font-size: 30px;
+          color: $primary;
+          min-width: 40px;
+
+          i {
+            display: block;
+          }
+        }
+
+        .stat-content {
+          h3 {
+            margin: 0;
+            font-size: 20px;
+            font-weight: 600;
+            color: #333;
+          }
+
+          p {
+            margin: 4px 0 0;
+            color: #777;
+            font-size: 14px;
+          }
+        }
+      }
+    }
+  }
+}

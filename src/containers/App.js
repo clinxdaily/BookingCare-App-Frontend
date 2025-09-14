@@ -70,7 +70,7 @@ class App extends Component {
                 <Route path={"/all-doctor/"} component={AllDoctor} />
                 <Route path={"/all-handbook/"} component={AllHandbook} />
                 <Route path={path.HOMEPAGE} component={HomePage} />
-                DETAIL_SPECIALTY
+
                 <Route path={path.DETAIL_DOCTOR} component={DetailDoctor} />
                 <Route
                   path={path.DETAIL_SPECIALTY}
@@ -84,19 +84,6 @@ class App extends Component {
                 />
               </Switch>
             </span>
-
-            {/* <ToastContainer
-              className="toast-container"
-              toastClassName="toast-item"
-              bodyClassName="toast-item-body"
-              autoClose={false}
-              hideProgressBar={true}
-              pauseOnHover={false}
-              pauseOnFocusLoss={true}
-              closeOnClick={false}
-              draggable={false}
-              closeButton={<CustomToastCloseButton />}
-            /> */}
             <ToastContainer
               position="top-right"
               autoClose={3000}

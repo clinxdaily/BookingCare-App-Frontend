@@ -21,12 +21,13 @@ class BookingModal extends Component {
       phoneNumber: "",
       email: "",
       address: "",
+      cccd: "", // ✅ Thêm CCCD
       reason: "",
       birthday: "",
       selectedGender: "",
       doctorId: "",
-      genders: [],
       timeType: "",
+      genders: [],
       isBooking: false,
     };
   }
@@ -50,7 +51,6 @@ class BookingModal extends Component {
   };
 
   async componentDidUpdate(prevProps) {
-    // reload gender options khi đổi ngôn ngữ hoặc load lần đầu
     if (
       this.props.genderRedux !== prevProps.genderRedux ||
       this.props.language !== prevProps.language
@@ -60,7 +60,6 @@ class BookingModal extends Component {
       });
     }
 
-    // khi dataTime đổi (user chọn slot khác)
     if (this.props.dataTime !== prevProps.dataTime) {
       if (this.props.dataTime && !_.isEmpty(this.props.dataTime)) {
         this.setState({
@@ -83,7 +82,6 @@ class BookingModal extends Component {
     this.setState({ selectedGender: selectedOption });
   };
 
-  // ----- Helpers -----
   buildTimeBooking = (dataTime) => {
     let { language } = this.props;
     if (dataTime && !_.isEmpty(dataTime)) {
@@ -113,13 +111,13 @@ class BookingModal extends Component {
     return "";
   };
 
-  // ----- Validate trước khi submit -----
   validateForm = () => {
     const {
       fullName,
       phoneNumber,
       email,
       address,
+      cccd,
       reason,
       birthday,
       selectedGender,
@@ -129,6 +127,7 @@ class BookingModal extends Component {
     if (!phoneNumber.trim()) return "Vui lòng nhập số điện thoại.";
     if (!email.trim()) return "Vui lòng nhập email.";
     if (!address.trim()) return "Vui lòng nhập địa chỉ.";
+    if (!cccd.trim()) return "Vui lòng nhập số CCCD.";
     if (!reason.trim()) return "Vui lòng nhập lý do/triệu chứng.";
     if (!birthday) return "Vui lòng chọn ngày sinh.";
     if (!selectedGender || !selectedGender.value)
@@ -136,7 +135,6 @@ class BookingModal extends Component {
     return null;
   };
 
-  // ----- Submit booking -----
   handleConfirmBooking = async () => {
     const errorMsg = this.validateForm();
     if (errorMsg) {
@@ -150,6 +148,7 @@ class BookingModal extends Component {
       phoneNumber,
       email,
       address,
+      cccd,
       reason,
       birthday,
       selectedGender,
@@ -173,6 +172,7 @@ class BookingModal extends Component {
         phoneNumber,
         email,
         address,
+        cccd, // ✅ Gửi CCCD
         reason,
         date: dataTime.date,
         birthday: date,
@@ -186,12 +186,12 @@ class BookingModal extends Component {
 
       if (res && res.errCode === 0) {
         toast.success("Đặt lịch thành công! Vui lòng kiểm tra email.");
-        // reset form
         this.setState({
           fullName: "",
           phoneNumber: "",
           email: "",
           address: "",
+          cccd: "", // ✅ Reset CCCD
           reason: "",
           birthday: "",
           selectedGender: "",
@@ -286,6 +286,15 @@ class BookingModal extends Component {
                       className="form-control"
                       value={this.state.address}
                       onChange={(e) => this.handleOnchangInput(e, "address")}
+                    />
+                  </div>
+                  <div className="col-6 form-group">
+                    <label>Số CCCD</label>
+                    <input
+                      disabled={isBooking}
+                      className="form-control"
+                      value={this.state.cccd}
+                      onChange={(e) => this.handleOnchangInput(e, "cccd")}
                     />
                   </div>
                   <div className="col-12 form-group">

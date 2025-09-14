@@ -4,10 +4,10 @@ export const adminMenu = [
     //giúp chia menu thành các nhóm theo phân quyền của người dùng
     name: "menu.admin.manage-user",
     menus: [
-      {
-        name: "menu.admin.crud",
-        link: "/system/user-manage",
-      },
+      // {
+      //   name: "menu.admin.crud",
+      //   link: "/system/user-manage",
+      // },
 
       {
         name: "menu.admin.crud-redux",
@@ -74,16 +74,20 @@ export const doctorMenu = [
     menus: [
       // quản lý lich kham
       {
-        //giúp chia menu thành các nhóm theo phân quyền của người dùng
-
         name: "menu.doctor.manage-schedule",
         link: "/doctor/manage-schedule",
       },
       {
-        //giúp chia menu thành các nhóm theo phân quyền của người dùng
-
         name: "menu.doctor.manage-patient",
         link: "/doctor/manage-patient",
+      },
+      {
+        name: "menu.doctor.manage-history",
+        link: "/doctor/manage-history",
+      },
+      {
+        name: "menu.doctor.manage-revenue",
+        link: "/doctor/manage-revenue",
       },
     ],
   },

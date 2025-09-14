@@ -45,6 +45,7 @@ class TableManageUser extends Component {
   handleEditUser = (userId) => {
     this.props.handleEditUserFromParent(userId);
   };
+
   render() {
     let arrUSers = this.state.usersRedux;
     return (

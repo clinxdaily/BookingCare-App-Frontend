@@ -30,7 +30,7 @@
       "manage-doctor": "Doctor Management",
       "manage-admin": "Admin Management",
       "crud": "Basic User Management",
-      "crud-redux": "Advanced User Management ",
+      "crud-redux": "User Management ",
       "manage-clinic": "Clinic Management",
       "clinic": "Clinic",
       "specialty": "Specialty",
@@ -41,7 +41,8 @@
     "doctor": {
       "manage-schedule": "Manage Schedule",
       "manage-patient": "Manage Patients",
-      "manage-prescription": "Manage Prescriptions"
+      "manage-history": "Manage History",
+      "manage-revenue": "Manage Revenue"
     }
   },
   "manage-user": {

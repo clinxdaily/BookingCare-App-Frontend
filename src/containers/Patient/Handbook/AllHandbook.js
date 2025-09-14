@@ -4,6 +4,7 @@ import "./AllHandbook.scss";
 import HomeHeader from "../../HomePage/HomeHeader";
 import HomeFooter from "../../HomePage/HomeFooter";
 import { getAllHandbooks } from "../../../services/userService";
+import { withRouter } from "react-router";
 
 class AllHandbook extends Component {
   constructor(props) {
@@ -22,6 +23,12 @@ class AllHandbook extends Component {
     }
   }
 
+  handleViewDetailHandbook = (item) => {
+    if (this.props.history) {
+      this.props.history.push(`/detail-handbook/${item.id}`);
+    }
+  };
+
   render() {
     const { arrHandbooks } = this.state;
 
@@ -31,8 +38,7 @@ class AllHandbook extends Component {
         <div className="all-handbook-container">
           <div className="all-handbook-title">Danh sách tất cả cẩm nang</div>
           <div className="all-handbook-list">
-            {arrHandbooks &&
-              arrHandbooks.length > 0 &&
+            {arrHandbooks && arrHandbooks.length > 0 ? (
               arrHandbooks.map((item, index) => {
                 let imageSrc = "/assets/default-handbook.png";
                 if (item.image) {
@@ -40,7 +46,11 @@ class AllHandbook extends Component {
                 }
 
                 return (
-                  <div key={index} className="handbook-card">
+                  <div
+                    key={index}
+                    className="handbook-card"
+                    onClick={() => this.handleViewDetailHandbook(item)}
+                  >
                     <div className="handbook-image">
                       <img src={imageSrc} alt="handbook" />
                     </div>
@@ -49,7 +59,10 @@ class AllHandbook extends Component {
                     </div>
                   </div>
                 );
-              })}
+              })
+            ) : (
+              <div className="no-data">Không có dữ liệu cẩm nang</div>
+            )}
           </div>
         </div>
         <HomeFooter />
@@ -58,4 +71,4 @@ class AllHandbook extends Component {
   }
 }
 
-export default connect(null)(AllHandbook);
+export default withRouter(connect()(AllHandbook));

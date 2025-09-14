@@ -45,6 +45,14 @@ const getScheduleDoctorByDate = (doctorId, date) => {
     `/api/get-schedule-doctor_by_date?doctorId=${doctorId}&date=${date}`
   );
 };
+export const deleteScheduleByDoctor = (doctorId, date, timeType) => {
+  return axios.post("/api/delete-schedule-doctor_by_id", {
+    doctorId,
+    date,
+    timeType,
+  });
+};
+
 const getExtraInfoDoctorById = (doctorId) => {
   return axios.get(`/api/get-extra-info-doctor_by_id?doctorId=${doctorId}`);
 };
@@ -60,6 +68,16 @@ const postVerifyBookAppointment = (data) => {
 const createNewSpecialty = (data) => {
   return axios.post("/api/create-new-specialty", data);
 };
+const getRevenue = (doctorId, date, filterType) => {
+  return axios.get("/api/get-revenue", {
+    params: {
+      doctorId,
+      date,
+      filterType,
+    },
+  });
+};
+
 const editSpecialty = (data) => {
   return axios.post("/api/edit-specialty", data);
 };
@@ -68,6 +86,14 @@ export const deleteSpecialty = (id) => {
     params: { id },
   });
 };
+const getHistoryAppointment = (doctorId) => {
+  return axios.get(`/api/get-history-appointment`, {
+    params: {
+      doctorId: doctorId,
+    },
+  });
+};
+
 const getAllSpecialties = () => {
   return axios.get("/api/get-all-specialty");
 };
@@ -120,14 +146,19 @@ const getAllPatientForDoctor = (data) => {
     `/api/get-list-patient-for-doctor?doctorId=${data.doctorId}&date=${data.date}`
   );
 };
-const postDoctorConfirm = (data) => {
-  return axios.post("/api/doctor-confirm", data);
-};
-const postDoctorReject = (data) => {
-  return axios.post("/api/doctor-reject", data);
-};
+
 const postSendRemedy = (data) => {
   return axios.post("/api/send-remedy", data);
+};
+const getRemedyByBooking = (data) => {
+  return axios.post("/api/get-remedy-by-booking", data);
+};
+
+const cancelAppointment = (data) => {
+  return axios.post("/api/cancel-appointment", data);
+};
+const deleteHistoryAppointment = (data) => {
+  return axios.post("/api/delete-history-appointment", data);
 };
 export {
   handleLoginApi,
@@ -160,6 +191,9 @@ export {
   getAllHandbooks,
   editHandbook,
   getDetailHandbookById,
-  postDoctorConfirm,
-  postDoctorReject,
+  cancelAppointment,
+  getHistoryAppointment,
+  deleteHistoryAppointment,
+  getRevenue,
+  getRemedyByBooking,
 };
