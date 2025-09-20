@@ -2,8 +2,6 @@
   "home-header": {
     "speciality": "Specialty",
     "search-doctor": "Search for doctors by specialty",
-    "medical-facility": "Medical facility",
-    "select-clinic": "Select a clinic",
     "doctor": "Doctor",
     "select-doctor": "Select a top-rated doctor",
     "medical-package": "Handbook",
@@ -22,7 +20,10 @@
     "book-appointment": "Book an appointment",
     "online-consultation": "Online consultation",
     "health-checkup": "General health check-up",
-    "pharmacy": "Pharmacy"
+    "pharmacy": "Pharmacy",
+    "subtitle1": "Quick appointment booking • Health checkup packages • Health monitoring",
+    "search-placeholder1": "Search doctors, specialties, hospitals...",
+    "pharmacy1": "Examination Results"
   },
   "menu": {
     "admin": {
@@ -31,8 +32,6 @@
       "manage-admin": "Admin Management",
       "crud": "Basic User Management",
       "crud-redux": "User Management ",
-      "manage-clinic": "Clinic Management",
-      "clinic": "Clinic",
       "specialty": "Specialty",
       "manage-specialty": "Specialty Management",
       "handbook": "Handbook",
@@ -66,6 +65,15 @@
     "more-info": "More info",
     "consult": "Consult now"
   },
+  "health-guide": {
+    "title": "Health Guide",
+    "description": "Useful information about health and medical care.",
+    "more-info": "More info"
+  },
+  "about-social": {
+    "title": "WHAT MEDIA SAYS ABOUT HEALTHCARE",
+    "description": "The benefits of HealthCare's quick examination have been widely recognized."
+  },
   "manage-schedule": {
     "title": "Manage Appointment Schedule",
     "add-schedule": "Add Schedule",
@@ -83,7 +91,6 @@
     "notice": "The doctor has no available appointments today. Please select another date."
   },
   "doctor-extra": {
-    "address": "Clinic Address",
     "price": "Price:",
     "more": " View Details",
     "payment": "Payment Method: ",
@@ -122,8 +129,6 @@
     "select-price": "Select Price",
     "select-payment": "Select Payment Method",
     "select-province": "Select Province",
-    "clinic-name": "Clinic Name",
-    "clinic-address": "Clinic Address",
     "note": "Note",
     "intro": "Introduction",
     "detail-intro": "Detailed Introduction",
@@ -133,9 +138,148 @@
       "select-doctor": "Select a doctor...",
       "select-price": "Select a price...",
       "select-specialty": "Select a specialty...",
-      "select-clinic": "Select a clinic...",
       "select-payment": "Select a payment method...",
       "select-province": "Select a province..."
     }
+  },
+  "common": {
+    "confirm": "Confirm",
+    "close": "Close",
+    "accept": "Accept",
+    "cancel": "Cancel",
+    "save": "Save",
+    "edit": "Edit",
+    "delete": "Delete",
+    "add": "Add",
+    "search": "Search",
+    "loading": "Loading...",
+    "success": "Success",
+    "error": "Error",
+    "warning": "Warning",
+    "info": "Information"
+  },
+  "footer": {
+    "company-description": "Leading healthcare platform, connecting you with professional doctors and the best healthcare services.",
+    "cert-award": "Medical Award 2024",
+    "cert-security": "ISO 27001 Security",
+    "cert-quality": "Quality Certification",
+    "services-title": "Services",
+    "service-booking": "Book Appointment",
+    "service-consultation": "Online Consultation",
+    "service-checkup": "General Check-up",
+    "service-specialist": "Specialist Doctors",
+    "quick-links-title": "Quick Links",
+    "link-doctors": "Specialty List",
+    "link-hospitals": "Doctor List",
+    "link-handbooks": "Handbook List",
+    "link-faq": "FAQ",
+    "link-news": "Medical News",
+    "contact-title": "Contact",
+    "contact-hotline": "24/7 Hotline",
+    "contact-address": "Address",
+    "address-value": "61, Ta Quang Buu Street, Ward 4, District 8, Ho Chi Minh City",
+    "contact-hours": "Working Hours",
+    "hours-value": "24/7 - All Days",
+    "social-title": "Follow Us",
+    "copyright": "© 2024 Healthcare Platform. All rights reserved.",
+    "link-privacy": "Privacy Policy",
+    "link-terms": "Terms of Use",
+    "link-cookies": "Cookie Policy",
+    "back-to-top": "Back to Top"
+  },
+  "doctor": {
+    "remedy": {
+      "title": "Prescription Details",
+      "send-title": "Send Prescription",
+      "medicine-name": "Medicine Name",
+      "quantity": "Quantity",
+      "time": "Time to Take",
+      "close": "Close",
+      "cancel": "Cancel",
+      "units": {
+        "pill": "pill",
+        "strip": "strip",
+        "box": "box",
+        "tube": "tube",
+        "bottle": "bottle",
+        "pack": "pack",
+        "ml": "ml",
+        "mg": "mg"
+      }
+    },
+    "patient": {
+      "send-success": "Invoice sent successfully!",
+      "send-error": "Failed to send invoice!",
+      "status-waiting": "Waiting for examination",
+      "status-unknown": "Unknown",
+      "cancel-error": "Missing information to cancel appointment",
+      "cancel-confirm": "Are you sure you want to cancel this appointment?",
+      "cancel-reason": "Doctor cancelled appointment",
+      "cancel-success": "Appointment cancelled successfully",
+      "cancel-failed": "Failed to cancel appointment",
+      "sending-email": "Sending email to patient..."
+    },
+    "history": {
+      "status-examined": "Examined",
+      "status-cancelled": "Cancelled",
+      "status-unknown": "Unknown",
+      "remedy-not-found": "Prescription not found!",
+      "remedy-load-error": "Error loading prescription!",
+      "no-data": "No data"
+    },
+    "revenue": {
+      "unknown-error": "Unknown error occurred",
+      "load-error": "Unable to load revenue data.",
+      "load-error-toast": "Unable to load revenue data. Please try again."
+    },
+    "schedule": {
+      "delete-success": "Schedule deleted successfully",
+      "delete-failed": "Failed to delete schedule",
+      "add-success": "Schedule added successfully",
+      "add-failed": "Failed to add schedule",
+      "general-error": "An error occurred!",
+      "invalid-date": "Please select a valid date",
+      "invalid-doctor": "Please select a valid doctor",
+      "no-time-selected": "Please select at least 1 time slot",
+      "save-success": "Schedule saved successfully!",
+      "save-failed": "Failed to save schedule!",
+      "processing": "Processing..."
+    }
+  },
+  "handbook": {
+    "load-error": "Unable to load handbook list!",
+    "name-required": "Please enter handbook name!",
+    "create-success": "Handbook created successfully!",
+    "create-error": "Error creating handbook!",
+    "update-success": "Handbook updated successfully!",
+    "update-error": "Error updating handbook!",
+    "delete-success": "Deleted successfully!",
+    "delete-error": "Delete failed!",
+    "add-title": "Add Handbook Information",
+    "edit-title": "Edit Handbook Information",
+    "save": "Save",
+    "update": "Update"
+  },
+  "specialty": {
+    "create-success": "Specialty created successfully!",
+    "create-error": "Error creating specialty!",
+    "update-success": "Specialty updated successfully!",
+    "update-error": "Error updating specialty!",
+    "delete-success": "Deleted successfully!",
+    "delete-error": "Delete failed!",
+    "add-title": "Add Specialty Information",
+    "edit-title": "Edit Specialty Information",
+    "save": "Save",
+    "update": "Update"
+  },
+  "validation": {
+    "email-required": "Email cannot be empty.",
+    "email-invalid": "Invalid email format.",
+    "password-required": "Password cannot be empty.",
+    "firstname-required": "First name cannot be empty.",
+    "lastname-required": "Last name cannot be empty.",
+    "address-required": "Address cannot be empty.",
+    "phone-required": "Phone number cannot be empty.",
+    "phone-invalid": "Phone number must be 9-12 digits."
   }
 }

@@ -20,9 +20,7 @@ import Doctor from "../routes/Doctor.js";
 import { CustomToastCloseButton } from "../components/CustomToast";
 import VerifyEmail from "./Patient/VerifyEmail.js";
 import DetailSpecialty from "./Patient/Specialty/DetailSpecialty.js";
-import DetailClinic from "./Patient/Clinic/DetailClinic.js";
 import DetailHandbook from "./Patient/Handbook/DetailHandbook.js";
-import AllClinic from "./Patient/Clinic/AllClinic.js";
 import AllSpecialty from "./Patient/Specialty/AllSpecialty.js";
 import AllDoctor from "./Patient/Doctor/AllDoctor.js";
 import AllHandbook from "./Patient/Handbook/AllHandbook.js";
@@ -65,7 +63,6 @@ class App extends Component {
                   path={"/doctor/"}
                   component={userIsAuthenticated(Doctor)}
                 />
-                <Route path={"/all-clinic/"} component={AllClinic} />
                 <Route path={"/all-specialty/"} component={AllSpecialty} />
                 <Route path={"/all-doctor/"} component={AllDoctor} />
                 <Route path={"/all-handbook/"} component={AllHandbook} />
@@ -76,7 +73,6 @@ class App extends Component {
                   path={path.DETAIL_SPECIALTY}
                   component={DetailSpecialty}
                 />
-                <Route path={path.DETAIL_CLINIC} component={DetailClinic} />
                 <Route path={path.DETAIL_HANDBOOK} component={DetailHandbook} />
                 <Route
                   path={path.VERIFY_EMAIL_BOOKING}

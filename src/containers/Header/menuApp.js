@@ -37,16 +37,6 @@ export const adminMenu = [
       },
     ],
   },
-  // quản lý phòng khám
-  {
-    name: "menu.admin.clinic",
-    menus: [
-      {
-        name: "menu.admin.manage-clinic",
-        link: "/system/manage-clinic",
-      },
-    ],
-  },
   // quản lý chuyên khoa
   {
     name: "menu.admin.specialty",

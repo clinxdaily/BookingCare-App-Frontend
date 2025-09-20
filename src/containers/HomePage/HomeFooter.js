@@ -140,13 +140,6 @@ class HomeFooter extends Component {
                       defaultMessage="Danh sách chuyên khoa"
                     />
                   </li>
-                  <li onClick={() => this.navigateTo("/all-clinic")}>
-                    <FaHospital className="link-icon" />
-                    <FormattedMessage
-                      id="footer.link-hospitals"
-                      defaultMessage="Bệnh viện & Phòng khám"
-                    />
-                  </li>
                   <li onClick={() => this.navigateTo("/all-doctor")}>
                     <FaUserMd className="link-icon" />
                     <FormattedMessage

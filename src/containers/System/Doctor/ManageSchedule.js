@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import "./ManageSchedule.scss";
-import { FormattedMessage } from "react-intl";
+import { FormattedMessage, injectIntl } from "react-intl";
 import Select from "react-select";
 import * as actions from "../../../store/actions";
 import { LANGUAGES } from "../../../utils";
@@ -109,10 +109,10 @@ class ManageSchedule extends Component {
                 item.keyMap
               );
               if (res && res.errCode === 0) {
-                toast.success("Xoá lịch thành công");
+                toast.success(this.props.intl.formatMessage({ id: "doctor.schedule.delete-success" }));
                 return { ...item, isSelected: false, isExisting: false };
               } else {
-                toast.error("Xoá lịch thất bại");
+                toast.error(this.props.intl.formatMessage({ id: "doctor.schedule.delete-failed" }));
                 return item;
               }
             } else {
@@ -128,10 +128,10 @@ class ManageSchedule extends Component {
                 formattedDate: selectedDateTimestamp,
               });
               if (res && res.errCode === 0) {
-                toast.success("Thêm lịch thành công");
+                toast.success(this.props.intl.formatMessage({ id: "doctor.schedule.add-success" }));
                 return { ...item, isSelected: true, isExisting: true };
               } else {
-                toast.error("Thêm lịch thất bại");
+                toast.error(this.props.intl.formatMessage({ id: "doctor.schedule.add-failed" }));
                 return item;
               }
             }
@@ -142,7 +142,7 @@ class ManageSchedule extends Component {
       this.setState({ allScheduleTimes: updatedTimes });
     } catch (error) {
       console.error(error);
-      toast.error("Đã có lỗi xảy ra!");
+      toast.error(this.props.intl.formatMessage({ id: "doctor.schedule.general-error" }));
     } finally {
       this.setState({ isLoading: false });
     }
@@ -151,11 +151,11 @@ class ManageSchedule extends Component {
   handleSaveSchedule = async () => {
     let { selectedDoctor, selectedDate, allScheduleTimes } = this.state;
     if (!selectedDate) {
-      toast.error("Vui lòng chọn ngày hợp lệ");
+      toast.error(this.props.intl.formatMessage({ id: "doctor.schedule.invalid-date" }));
       return;
     }
     if (!selectedDoctor || !selectedDoctor.value) {
-      toast.error("Vui lòng chọn bác sĩ hợp lệ");
+      toast.error(this.props.intl.formatMessage({ id: "doctor.schedule.invalid-doctor" }));
       return;
     }
 
@@ -166,7 +166,7 @@ class ManageSchedule extends Component {
     let result = [];
     let selectedTimes = allScheduleTimes.filter((item) => item.isSelected);
     if (!selectedTimes || selectedTimes.length === 0) {
-      toast.error("Vui lòng chọn ít nhất 1 khung giờ");
+      toast.error(this.props.intl.formatMessage({ id: "doctor.schedule.no-time-selected" }));
       return;
     }
 
@@ -186,13 +186,13 @@ class ManageSchedule extends Component {
         formattedDate: formattedDate,
       });
       if (res && res.errCode === 0) {
-        toast.success("Lưu lịch thành công!");
+        toast.success(this.props.intl.formatMessage({ id: "doctor.schedule.save-success" }));
       } else {
-        toast.error("Lưu lịch thất bại!");
+        toast.error(this.props.intl.formatMessage({ id: "doctor.schedule.save-failed" }));
       }
     } catch (error) {
       console.error(error);
-      toast.error("Đã có lỗi xảy ra!");
+      toast.error(this.props.intl.formatMessage({ id: "doctor.schedule.general-error" }));
     } finally {
       this.setState({ isLoading: false });
     }
@@ -319,4 +319,4 @@ const mapDispatchToProps = (dispatch) => {
   };
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(ManageSchedule);
+export default connect(mapStateToProps, mapDispatchToProps)(injectIntl(ManageSchedule));

@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { FormattedMessage } from "react-intl";
+import { FormattedMessage, injectIntl } from "react-intl";
 import { connect } from "react-redux";
 import Lightbox from "react-image-lightbox";
 import "react-image-lightbox/style.css";
@@ -91,15 +91,15 @@ class UserRedux extends Component {
   validate = () => {
     const { email, password, firstName, lastName, address, phonenumber } =
       this.state;
-    if (!email.trim()) return "Email không được để trống.";
-    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) return "Email không hợp lệ.";
-    if (!password.trim()) return "Mật khẩu không được để trống.";
-    if (!firstName.trim()) return "Họ không được để trống.";
-    if (!lastName.trim()) return "Tên không được để trống.";
-    if (!address.trim()) return "Địa chỉ không được để trống.";
-    if (!phonenumber.trim()) return "Số điện thoại không được để trống.";
+    if (!email.trim()) return this.props.intl.formatMessage({ id: "validation.email-required" });
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) return this.props.intl.formatMessage({ id: "validation.email-invalid" });
+    if (!password.trim()) return this.props.intl.formatMessage({ id: "validation.password-required" });
+    if (!firstName.trim()) return this.props.intl.formatMessage({ id: "validation.firstname-required" });
+    if (!lastName.trim()) return this.props.intl.formatMessage({ id: "validation.lastname-required" });
+    if (!address.trim()) return this.props.intl.formatMessage({ id: "validation.address-required" });
+    if (!phonenumber.trim()) return this.props.intl.formatMessage({ id: "validation.phone-required" });
     if (!/^\d{9,12}$/.test(phonenumber))
-      return "Số điện thoại phải là số 9–12 ký tự.";
+      return this.props.intl.formatMessage({ id: "validation.phone-invalid" });
     return "";
   };
 
@@ -406,4 +406,4 @@ const mapDispatchToProps = (dispatch) => ({
   editUserRedux: (data) => dispatch(actions.editUser(data)),
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(UserRedux);
+export default connect(mapStateToProps, mapDispatchToProps)(injectIntl(UserRedux));

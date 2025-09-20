@@ -50,19 +50,6 @@ class HomeHeader extends Component {
               </div>
               <div
                 className="child-content"
-                onClick={() => this.navigateTo("/all-clinic")}
-              >
-                <div>
-                  <b>
-                    <FormattedMessage id="home-header.medical-facility" />
-                  </b>
-                </div>
-                <div className="subs-tittle">
-                  <FormattedMessage id="home-header.select-clinic" />
-                </div>
-              </div>
-              <div
-                className="child-content"
                 onClick={() => this.navigateTo("/all-doctor")}
               >
                 <div>

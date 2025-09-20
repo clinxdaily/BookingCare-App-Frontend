@@ -2,8 +2,6 @@
   "home-header": {
     "speciality": "Chuyên khoa",
     "search-doctor": "Tìm bác sĩ theo chuyên khoa",
-    "medical-facility": "Cơ sở y tế",
-    "select-clinic": "Chọn phòng khám",
     "doctor": "Bác sĩ",
     "select-doctor": "Chọn bác sĩ giỏi",
     "medical-package": "Cẩm nang",
@@ -22,7 +20,10 @@
     "book-appointment": "Đặt lịch khám",
     "online-consultation": "Tư vấn trực tuyến",
     "health-checkup": "Khám tổng quát",
-    "pharmacy": "Nhà thuốc"
+    "pharmacy": "Nhà thuốc",
+    "subtitle1": "Đặt lịch khám nhanh chóng • Gói khám ưu đãi • Theo dõi sức khỏe",
+    "search-placeholder1": "Tìm bác sĩ, chuyên khoa, bệnh viện...",
+    "pharmacy1": "Kết quả khám"
   },
   "menu": {
     "admin": {
@@ -31,8 +32,6 @@
       "manage-admin": "Quản lý quản trị viên",
       "crud": " Quản lý người dùng",
       "crud-redux": " Quản lý người dùng",
-      "manage-clinic": "Quản lý phòng khám",
-      "clinic": "Phòng khám",
       "specialty": "Chuyên khoa",
       "manage-specialty": "Quản lý chuyên khoa",
       "handbook": "Cẩm nang",
@@ -66,6 +65,15 @@
     "more-info": "Xem thêm ",
     "consult": "Đặt lịch ngay"
   },
+  "health-guide": {
+    "title": "Cẩm nang",
+    "description": "Thông tin hữu ích về sức khỏe và chăm sóc y tế.",
+    "more-info": "Xem thêm"
+  },
+  "about-social": {
+    "title": "TRUYỀN THÔNG NÓI GÌ VỀ HEALTHCARE",
+    "description": "Những lợi ích khám nhanh của HealthCare đã được ghi nhận rộng rãi."
+  },
   "manage-schedule": {
     "title": "Quản lý lịch khám",
     "add-schedule": "Thêm lịch khám",
@@ -83,7 +91,6 @@
     "notice": "Bác sĩ không có lịch khám trong ngày hôm nay. Vui lòng chọn ngày khác"
   },
   "doctor-extra": {
-    "address": "Địa chỉ phòng khám",
     "price": "Giá khám:",
     "more": "Xem chi tiết",
     "payment": "Phương thức thanh toán:",
@@ -122,8 +129,6 @@
     "select-price": "Chọn giá",
     "select-payment": "Chọn phương thức thanh toán",
     "select-province": "Chọn tỉnh thành",
-    "clinic-name": "Tên phòng khám",
-    "clinic-address": "Địa chỉ phòng khám",
     "note": "Ghi chú",
     "intro": "Thông tin giới thiệu",
     "detail-intro": "Thông tin giới thiệu chi tiết",
@@ -133,9 +138,148 @@
       "select-doctor": "Chọn bác sĩ...",
       "select-price": "Chọn giá...",
       "select-specialty": "Chọn chuyên khoa...",
-      "select-clinic": "Chọn phòng khám...",
       "select-payment": "Chọn phương thức thanh toán...",
       "select-province": "Chọn tỉnh thành..."
     }
+  },
+  "common": {
+    "confirm": "Xác nhận",
+    "close": "Đóng",
+    "accept": "Chấp nhận",
+    "cancel": "Hủy",
+    "save": "Lưu",
+    "edit": "Chỉnh sửa",
+    "delete": "Xóa",
+    "add": "Thêm",
+    "search": "Tìm kiếm",
+    "loading": "Đang tải...",
+    "success": "Thành công",
+    "error": "Lỗi",
+    "warning": "Cảnh báo",
+    "info": "Thông tin"
+  },
+  "footer": {
+    "company-description": "Nền tảng y tế hàng đầu, kết nối bạn với các bác sĩ chuyên nghiệp và dịch vụ chăm sóc sức khỏe tốt nhất.",
+    "cert-award": "Giải thưởng Y tế 2024",
+    "cert-security": "Bảo mật ISO 27001",
+    "cert-quality": "Chứng nhận Chất lượng",
+    "services-title": "Dịch vụ",
+    "service-booking": "Đặt lịch khám",
+    "service-consultation": "Tư vấn trực tuyến",
+    "service-checkup": "Khám tổng quát",
+    "service-specialist": "Bác sĩ chuyên khoa",
+    "quick-links-title": "Liên kết nhanh",
+    "link-doctors": "Danh sách chuyên khoa",
+    "link-hospitals": "Danh sách bác sĩ",
+    "link-handbooks": "Danh sách cẩm nang",
+    "link-faq": "Câu hỏi thường gặp",
+    "link-news": "Tin tức y tế",
+    "contact-title": "Liên hệ",
+    "contact-hotline": "Hotline 24/7",
+    "contact-address": "Địa chỉ",
+    "address-value": "61, Đường 783 Tạ Quang Bửu, Phường 4, Quận 8, TP.HCM",
+    "contact-hours": "Giờ làm việc",
+    "hours-value": "24/7 - Tất cả các ngày",
+    "social-title": "Theo dõi chúng tôi",
+    "copyright": "© 2024 Healthcare Platform. Tất cả quyền được bảo lưu.",
+    "link-privacy": "Chính sách bảo mật",
+    "link-terms": "Điều khoản sử dụng",
+    "link-cookies": "Chính sách Cookies",
+    "back-to-top": "Về đầu trang"
+  },
+  "doctor": {
+    "remedy": {
+      "title": "Chi tiết đơn thuốc",
+      "send-title": "Gửi đơn thuốc",
+      "medicine-name": "Tên thuốc",
+      "quantity": "Số lượng",
+      "time": "Thời gian uống",
+      "close": "Đóng",
+      "cancel": "Hủy",
+      "units": {
+        "pill": "viên",
+        "strip": "vỉ",
+        "box": "hộp",
+        "tube": "ống",
+        "bottle": "lọ",
+        "pack": "gói",
+        "ml": "ml",
+        "mg": "mg"
+      }
+    },
+    "patient": {
+      "send-success": "Gửi hóa đơn thành công!",
+      "send-error": "Gửi hóa đơn thất bại!",
+      "status-waiting": "Chờ khám",
+      "status-unknown": "Không xác định",
+      "cancel-error": "Thiếu thông tin để hủy lịch",
+      "cancel-confirm": "Bạn có chắc chắn muốn hủy lịch hẹn này không?",
+      "cancel-reason": "Bác sĩ hủy lịch",
+      "cancel-success": "Hủy lịch thành công",
+      "cancel-failed": "Hủy lịch thất bại",
+      "sending-email": "Đang gửi email cho bệnh nhân..."
+    },
+    "history": {
+      "status-examined": "Đã khám",
+      "status-cancelled": "Đã hủy",
+      "status-unknown": "Không xác định",
+      "remedy-not-found": "Không tìm thấy đơn thuốc!",
+      "remedy-load-error": "Lỗi khi tải đơn thuốc!",
+      "no-data": "Không có"
+    },
+    "revenue": {
+      "unknown-error": "Đã xảy ra lỗi không xác định",
+      "load-error": "Không thể tải dữ liệu doanh thu.",
+      "load-error-toast": "Không thể tải dữ liệu doanh thu. Vui lòng thử lại."
+    },
+    "schedule": {
+      "delete-success": "Xoá lịch thành công",
+      "delete-failed": "Xoá lịch thất bại",
+      "add-success": "Thêm lịch thành công",
+      "add-failed": "Thêm lịch thất bại",
+      "general-error": "Đã có lỗi xảy ra!",
+      "invalid-date": "Vui lòng chọn ngày hợp lệ",
+      "invalid-doctor": "Vui lòng chọn bác sĩ hợp lệ",
+      "no-time-selected": "Vui lòng chọn ít nhất 1 khung giờ",
+      "save-success": "Lưu lịch thành công!",
+      "save-failed": "Lưu lịch thất bại!",
+      "processing": "Đang xử lý..."
+    }
+  },
+  "handbook": {
+    "load-error": "Không lấy được danh sách cẩm nang!",
+    "name-required": "Vui lòng nhập tên cẩm nang!",
+    "create-success": "Tạo cẩm nang thành công!",
+    "create-error": "Lỗi khi tạo cẩm nang!",
+    "update-success": "Cập nhật cẩm nang thành công!",
+    "update-error": "Lỗi khi cập nhật cẩm nang!",
+    "delete-success": "Xóa thành công!",
+    "delete-error": "Xóa thất bại!",
+    "add-title": "Thêm thông tin cẩm nang",
+    "edit-title": "Chỉnh sửa thông tin cẩm nang",
+    "save": "Lưu",
+    "update": "Cập nhật"
+  },
+  "specialty": {
+    "create-success": "Tạo chuyên khoa thành công!",
+    "create-error": "Lỗi khi tạo chuyên khoa!",
+    "update-success": "Cập nhật chuyên khoa thành công!",
+    "update-error": "Lỗi khi cập nhật chuyên khoa!",
+    "delete-success": "Xóa thành công!",
+    "delete-error": "Xóa thất bại!",
+    "add-title": "Thêm thông tin chuyên khoa",
+    "edit-title": "Chỉnh sửa thông tin chuyên khoa",
+    "save": "Lưu",
+    "update": "Cập nhật"
+  },
+  "validation": {
+    "email-required": "Email không được để trống.",
+    "email-invalid": "Email không hợp lệ.",
+    "password-required": "Mật khẩu không được để trống.",
+    "firstname-required": "Họ không được để trống.",
+    "lastname-required": "Tên không được để trống.",
+    "address-required": "Địa chỉ không được để trống.",
+    "phone-required": "Số điện thoại không được để trống.",
+    "phone-invalid": "Số điện thoại phải là số 9–12 ký tự."
   }
 }

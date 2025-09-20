@@ -45,18 +45,6 @@ class DoctorExtraInfo extends Component {
         <React.Fragment>
           <div className="doctor-extra-info-container">
             <div className="content-up">
-              <div className="text-address">
-                <i className="fas fa-map-marker-alt"></i>{" "}
-                <FormattedMessage id="doctor-extra.address" />
-              </div>
-              <div className="name-clinic">
-                {extraInfo && extraInfo.nameClinic ? extraInfo.nameClinic : ""}
-              </div>
-              <div className="detail-address">
-                {extraInfo && extraInfo.addressClinic
-                  ? extraInfo.addressClinic
-                  : ""}
-              </div>
             </div>
             <hr className="line-between" />
             <div className="content-down">

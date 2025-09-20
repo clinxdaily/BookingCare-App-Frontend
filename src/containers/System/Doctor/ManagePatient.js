@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
+import { injectIntl } from "react-intl";
 import "./ManagePatient.scss";
 import DatePicker from "../../../components/Input/DatePicker";
 import {
@@ -82,11 +83,11 @@ class ManagePatient extends Component {
     let res = await postSendRemedy(payload);
 
     if (res && res.errCode === 0) {
-      toast.success("Gửi hóa đơn thành công!");
+      toast.success(this.props.intl.formatMessage({ id: "doctor.patient.send-success" }));
       this.setState({ isOpenRemedyModal: false, dataModal: {} });
       await this.getDataPatient();
     } else {
-      toast.error("Gửi hóa đơn thất bại!");
+      toast.error(this.props.intl.formatMessage({ id: "doctor.patient.send-error" }));
     }
 
     this.setState({ isShowLoading: false });
@@ -106,9 +107,9 @@ class ManagePatient extends Component {
   renderStatus = (statusId) => {
     switch (statusId) {
       case "S2":
-        return "Chờ khám";
+        return this.props.intl.formatMessage({ id: "doctor.patient.status-waiting" });
       default:
-        return "Không xác định";
+        return this.props.intl.formatMessage({ id: "doctor.patient.status-unknown" });
     }
   };
 
@@ -120,12 +121,12 @@ class ManagePatient extends Component {
       !item.timeType ||
       !item.date
     ) {
-      toast.error("Thiếu thông tin để hủy lịch");
+      toast.error(this.props.intl.formatMessage({ id: "doctor.patient.cancel-error" }));
       return;
     }
 
     const confirm = window.confirm(
-      "Bạn có chắc chắn muốn hủy lịch hẹn này không?"
+      this.props.intl.formatMessage({ id: "doctor.patient.cancel-confirm" })
     );
     if (!confirm) return;
 
@@ -134,14 +135,14 @@ class ManagePatient extends Component {
       patientId: item.patientId,
       timeType: item.timeType,
       date: item.date,
-      reason: "Bác sĩ hủy lịch",
+      reason: this.props.intl.formatMessage({ id: "doctor.patient.cancel-reason" }),
     });
 
     if (res && res.errCode === 0) {
-      toast.success("Hủy lịch thành công");
+      toast.success(this.props.intl.formatMessage({ id: "doctor.patient.cancel-success" }));
       await this.getDataPatient();
     } else {
-      toast.error(res.errMessage || "Hủy lịch thất bại");
+      toast.error(res.errMessage || this.props.intl.formatMessage({ id: "doctor.patient.cancel-failed" }));
     }
   };
 
@@ -175,7 +176,7 @@ class ManagePatient extends Component {
         <LoadingOverlay
           active={this.state.isShowLoading}
           spinner
-          text="Đang gửi email cho bệnh nhân..."
+          text={this.props.intl.formatMessage({ id: "doctor.patient.sending-email" })}
         >
           <div className="manage-patient-container">
             <div className="manage-patient-title">Quản lý bệnh nhân</div>
@@ -244,4 +245,4 @@ const mapStateToProps = (state) => ({
   user: state.user.userInfo,
 });
 
-export default connect(mapStateToProps)(ManagePatient);
+export default connect(mapStateToProps)(injectIntl(ManagePatient));
